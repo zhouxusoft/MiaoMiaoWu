@@ -1,0 +1,4 @@
+<view>
+	<loading show="{{loading}}"></loading>
+	<!-- 其他页面内容 -->
+</view>
