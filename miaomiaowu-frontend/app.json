@@ -7,7 +7,7 @@
 	"window": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "妙妙屋",
-		"navigationBarBackgroundColor": "#ffffff"
+		"navigationBarBackgroundColor": "#F8F8F8"
 	},
 	"style": "v2",
 	"componentFramework": "glass-easel",
