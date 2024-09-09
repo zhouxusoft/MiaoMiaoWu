@@ -1,0 +1,6 @@
+<scroll-view class="scrollarea" scroll-y type="list">
+	<view class="userinfo">
+		<image src="/images/userbackground.png" mode="" class="userbackgroundimage1"/>
+		<image src="/images/noise.png" mode="" class="userbackgroundimage2"/>
+	</view>
+</scroll-view>

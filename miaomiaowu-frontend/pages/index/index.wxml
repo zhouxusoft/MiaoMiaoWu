@@ -20,10 +20,21 @@
 	<view class="userdiaryinfo">
 		<view class="userdiarytitle">
 			<text class="userdiarytitletext">笔记便签</text>
+			<image src="/images/next-ui.png" mode="" class="gotodiary"/>
 		</view>
 		<view class="userdiaryline"></view>
 		<view class="userdiaryinfobox">
-		
+			<text class="hasnoinfo">暂未添加</text>
+		</view>
+	</view>
+	<view class="userwatchinfo">
+		<view class="userwatchtitle">
+			<text class="userwatchtitletext">追剧日历</text>
+			<image src="/images/next-ui.png" mode="" class="gotowatch"/>
+		</view>
+		<view class="userwatchline"></view>
+		<view class="userwatchinfobox">
+			<text class="hasnoinfo">暂未添加</text>
 		</view>
 	</view>
 </scroll-view>

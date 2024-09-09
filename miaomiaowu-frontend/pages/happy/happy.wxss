@@ -1,0 +1,18 @@
+page {
+	display: flex;
+	flex-direction: column;
+	background-color: #F2F2F2;
+}
+
+.scrollarea {
+	flex: 1;
+	overflow: hidden;
+}
+
+.scrollarea::-webkit-scrollbar {
+	display: none;
+}
+
+.borderbox {
+	margin-top: 16px;
+}
