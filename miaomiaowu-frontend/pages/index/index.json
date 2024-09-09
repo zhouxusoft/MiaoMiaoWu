@@ -1,7 +1,5 @@
 {
-	"usingComponents": {
-		"t-icon": "tdesign-miniprogram/icon/icon"
-	},
+	"usingComponents": {},
 	"navigationBarBackgroundColor": "#FAFAFA",
 	"navigationBarTextStyle": "black",
 	"navigationBarTitleText": "主页"

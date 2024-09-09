@@ -1,0 +1,4 @@
+<!--pages/chicken/chicken.wxml-->
+<view class="container">
+	<text>小黑子你干嘛</text>
+</view>

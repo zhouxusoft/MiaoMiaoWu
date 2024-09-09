@@ -12,7 +12,9 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad(options) {
-
+		wx.showLoading({
+			title: '加载中...',
+		})
 	},
 
 	/**
@@ -26,7 +28,7 @@ Page({
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow() {
-
+		wx.hideLoading()
 	},
 
 	/**
@@ -62,5 +64,32 @@ Page({
 	 */
 	onShareAppMessage() {
 
+	},
+
+	/**
+	 * 用户点击跳转到 watch 页面
+	 */
+	goToWatch: function () {
+		wx.navigateTo({
+			url: '/pages/watch/watch'
+		});
+	},
+
+	/**
+	 * 用户点击跳转到 diary 页面
+	 */
+	goToDiary: function () {
+		wx.navigateTo({
+			url: '/pages/diary/diary',
+		})
+	},
+
+	/**
+	 * 用户点击跳转到 chicken 页面
+	 */
+	goToChicken: function () {
+		wx.navigateTo({
+			url: '/pages/chicken/chicken',
+		})
 	}
 })

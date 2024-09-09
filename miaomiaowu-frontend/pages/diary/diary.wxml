@@ -1,0 +1,4 @@
+<!--pages/diary/diary.wxml-->
+<view class="container">
+	<text>还没写</text>
+</view>

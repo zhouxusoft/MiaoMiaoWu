@@ -4,7 +4,9 @@
     "pages/happy/happy",
     "pages/about/about",
     "pages/logs/logs",
-    "pages/watch/watch"
+    "pages/watch/watch",
+    "pages/diary/diary",
+    "pages/chicken/chicken"
   ],
   "window": {
     "navigationBarTextStyle": "black",
