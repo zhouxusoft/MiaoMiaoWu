@@ -1,19 +1,10 @@
 /* pages/watch/watch.wxss */
-page {
-	display: flex;
-	flex-direction: column;
-}
-
-.scrollarea {
-	flex: 1;
-	overflow: hidden;
-}
 
 .custom-tabs {
 	margin-bottom: 32rpx;
 }
 
 .custom-panel {
-	height: 1000px;
+	height: 120px;
 	color: var(--td-text-color-primary);
 }
