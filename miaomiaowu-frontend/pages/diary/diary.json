@@ -1,6 +1,10 @@
 {
-	"usingComponents": {},
+	"usingComponents": {
+		"t-navbar": "tdesign-miniprogram/navbar/navbar",
+		"t-icon": "tdesign-miniprogram/icon/icon"
+	},
 	"navigationBarBackgroundColor": "#FFFFFF",
 	"navigationBarTextStyle": "black",
-	"navigationBarTitleText": "笔记便签"
+	"navigationBarTitleText": "笔记便签",
+	"styleIsolation": "apply-shared"
 }

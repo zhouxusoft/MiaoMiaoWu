@@ -62,5 +62,15 @@ Page({
    */
   onShareAppMessage() {
 
-  }
+  },
+
+  onBack() {
+	wx.navigateBack();
+  },
+
+  onGoHome() {
+	wx.reLaunch({
+	  url: '/pages/index/index',
+	});
+  },
 })

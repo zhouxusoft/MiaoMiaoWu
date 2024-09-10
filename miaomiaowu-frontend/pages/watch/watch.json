@@ -1,5 +1,10 @@
 {
-	"usingComponents": {},
+	"usingComponents": {
+		"t-tabs": "tdesign-miniprogram/tabs/tabs",
+		"t-tab-panel": "tdesign-miniprogram/tab-panel/tab-panel",
+		"t-sticky": "tdesign-miniprogram/sticky/sticky"
+	},
+	"styleIsolation": "apply-shared",
 	"navigationBarBackgroundColor": "#FFFFFF",
 	"navigationBarTextStyle": "black",
 	"navigationBarTitleText": "我的追剧"

@@ -5,7 +5,7 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
-
+		tabPanelstyle: 'display:flex;justify-content:center;align-items:center;',
 	},
 
 	/**
@@ -64,5 +64,24 @@ Page({
 	 */
 	onShareAppMessage() {
 
-	}
+	},
+
+	onTabsChange(event) {
+		console.log(`Change tab, tab-panel value is ${event.detail.value}.`);
+	},
+
+	onTabsClick(event) {
+		console.log(`Click tab, tab-panel value is ${event.detail.value}.`);
+	},
+
+	onChange(e) {
+		console.log(e.detail.value);
+	},
+
+	properties: {
+		navbarHeight: {
+			type: Number,
+			value: 0,
+		},
+	},
 })
