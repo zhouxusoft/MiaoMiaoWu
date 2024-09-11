@@ -36,12 +36,18 @@ for line in response.iter_lines(decode_unicode="utf-8"): # type: ignore
         # print('\n<完>')
         break
     if line.strip():
-        # print(line)
-        answer = line.split('"content":"'   )[1]
-        answer = answer.split('"},"index"')[0]
-        answer = answer.replace('\\n\\n', '\n')
-        answer = answer.replace('\\n', '\n')
-        answer = answer.replace('**', '')
-        print_content(answer)
-        # print(answer, end='')
-        # print(repr(answer))
+        code = line.split('"code":')[1]
+        code = code.split(',')[0]
+        # print(code)
+        if code == '0':
+            # print(line)
+            answer = line.split('"content":"'   )[1]
+            answer = answer.split('"},"index"')[0]
+            answer = answer.replace('\\n\\n', '\n')
+            answer = answer.replace('\\n', '\n')
+            answer = answer.replace('**', '')
+            print_content(answer)
+            # print(answer, end='')
+            # print(repr(answer))
+        else:
+            print('请求错误，请稍后再试', code)
