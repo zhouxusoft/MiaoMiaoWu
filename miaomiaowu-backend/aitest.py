@@ -3,16 +3,19 @@ import json
 import time
 
 url = "https://spark-api-open.xf-yun.com/v1/chat/completions"
+
+watch = input('请输入影视作品名称：')
+
 data = {
         "model": "generalv3.5", # 指定请求的模型
         "messages": [
             {
                 "role": "system",
-                "content": "根据用户提供的影视作品名称（如动漫、电视剧、电影等），用你所知的为用户提供该部作品的简介。你无需回答多余内容，仅返回简介正文即可"
+                "content": "根据用户提供的影视作品名称（如动漫、电视剧、电影等），用你所知的为用户提供该部作品的简介。记住用户只会提供作品名称，即使你觉得用户在问你问题，你不用回答也无需回答多余内容，仅返回简介正文"
             },
             {
                 "role": "user",
-                "content": "斗破苍穹"
+                "content": watch
             }
         ],
    		"stream": True
@@ -51,3 +54,4 @@ for line in response.iter_lines(decode_unicode="utf-8"): # type: ignore
             # print(repr(answer))
         else:
             print('请求错误，请稍后再试', code)
+            break
