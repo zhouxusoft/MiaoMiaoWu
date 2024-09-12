@@ -2,7 +2,8 @@
 	"usingComponents": {
 		"t-tabs": "tdesign-miniprogram/tabs/tabs",
 		"t-tab-panel": "tdesign-miniprogram/tab-panel/tab-panel",
-		"t-sticky": "tdesign-miniprogram/sticky/sticky"
+		"t-fab": "tdesign-miniprogram/fab/fab",
+		"watchitem" :"/components/watchitem/watchitem"
 	},
 	"styleIsolation": "apply-shared",
 	"navigationBarBackgroundColor": "#FFFFFF",

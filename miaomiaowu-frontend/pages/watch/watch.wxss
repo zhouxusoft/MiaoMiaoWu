@@ -1,10 +1,10 @@
 /* pages/watch/watch.wxss */
-
 .custom-tabs {
+	height: 100vh;
 	margin-bottom: 32rpx;
 }
 
 .custom-panel {
-	height: 120px;
+	min-height: 120px;
 	color: var(--td-text-color-primary);
 }

@@ -3,7 +3,7 @@
 		<t-cell-group theme="card">
 			<t-cell title="笔记便签" bind:tap="goToDiary" leftIcon="address-book" hover arrow />
 			<t-cell title="追剧管理" bind:tap="goToWatch" leftIcon="movie-clapper" hover arrow />
-			<t-cell title="真爱粉测试鸡" bind:tap="goToChicken"leftIcon="flip-smiling-face" hover arrow />
+			<t-cell title="真爱粉测试" bind:tap="goToChicken" leftIcon="flip-smiling-face" hover arrow />
 		</t-cell-group>
 	</view>
 </scroll-view>

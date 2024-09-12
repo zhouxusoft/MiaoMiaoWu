@@ -1,0 +1,10 @@
+<!--components/watchitem/watchitem.wxml-->
+<view class="watchbox">
+	<view class="watchimgbox">
+		<image src="/images/dp.jpg" class="watchimg" mode=""/>
+	</view>
+	<view class="watchinfobox">
+		<view class="watchname">{{watchitemname}}</view>
+	</view>
+</view>
+<view class="nextline"></view>

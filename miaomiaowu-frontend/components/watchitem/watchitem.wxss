@@ -1,0 +1,36 @@
+/* components/watchitem/watchitem.wxss */
+.watchbox {
+	display: block;
+	height: 360rpx;
+	width: 750rpx;
+	display: flex;
+	justify-content: center;
+}
+
+.watchimgbox {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 240rpx;
+	height: 320rpx;
+}
+
+.watchimg {
+	width: 200rpx;
+	height: 280rpx;
+}
+
+.watchinfobox {
+	flex: 1;
+}
+
+.watchname {
+	height: 60rpx;
+	padding: 18rpx 0rpx;
+	font-size: 36rpx;
+}
+
+.nextline {
+	height: 8rpx;
+	background-color: #F2F2F2;
+}
