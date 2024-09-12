@@ -29,7 +29,7 @@
 	</view>
 	<view class="userwatchinfo">
 		<view class="userwatchtitle">
-			<text class="userwatchtitletext">追剧日历</text>
+			<text class="userwatchtitletext">追番日历</text>
 			<image src="/images/next-ui.png" mode="" class="gotowatch"/>
 		</view>
 		<view class="userwatchline"></view>
