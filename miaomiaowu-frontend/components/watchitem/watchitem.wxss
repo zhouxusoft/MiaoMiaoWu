@@ -1,10 +1,15 @@
 /* components/watchitem/watchitem.wxss */
 .watchbox {
 	display: block;
-	height: 360rpx;
+	height: 365rpx;
 	width: 750rpx;
 	display: flex;
 	justify-content: center;
+	border: 1px solid #F2F2F2;
+}
+
+.watchimgboxborder {
+	max-width: 240rpx;
 }
 
 .watchimgbox {
@@ -13,6 +18,13 @@
 	align-items: center;
 	width: 240rpx;
 	height: 320rpx;
+}
+
+.watchratebox {
+	width: 240rpx;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .watchimg {
@@ -24,13 +36,80 @@
 	flex: 1;
 }
 
+.watchinfobox0 {
+	display: flex;
+}
+
+.watchtagbox {
+	padding: 18rpx 20rpx 8rpx;
+}
+
 .watchname {
 	height: 60rpx;
-	padding: 18rpx 0rpx;
+	padding: 18rpx 0 8rpx;
 	font-size: 36rpx;
+	white-space: nowrap;
+	max-width: 350rpx;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .nextline {
 	height: 8rpx;
 	background-color: #F2F2F2;
+}
+
+.watchinfobox1 {
+	display: flex;
+	color: #444444;
+}
+
+.watchmade {
+	width: 220rpx;
+}
+
+.watchupdateto {
+	color: #444444;
+}
+
+.watchwatchto {
+	margin: 8rpx 0;
+	color: #444444;
+}
+
+.custom-color {
+	--td-rate-selected-color: #f96102;
+	--td-rate-unselected-color: #bbbbbb;
+}
+
+.demo-rate {
+	background-color: var(--bg-color-demo);
+	color: var(--td-text-color-primary);
+	height: 96rpx;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 32rpx;
+	margin-top: 32rpx;
+	margin-bottom: 32rpx;
+}
+
+.demo-rate__title {
+	width: 200rpx;
+}
+
+.demo-rate__transparent {
+	background-color: transparent;
+	padding-left: 32rpx;
+	border: 0;
+}
+
+.watchsummary {
+	margin: 8rpx 0;
+	padding-right: 40rpx;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 3; /* 限制显示的行数 */
+	overflow: hidden;
+	color: #444444;
 }

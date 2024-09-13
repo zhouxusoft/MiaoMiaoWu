@@ -1,10 +1,28 @@
 <!--components/watchitem/watchitem.wxml-->
 <view class="watchbox">
-	<view class="watchimgbox">
-		<image src="/images/dp.jpg" class="watchimg" mode=""/>
+	<view class="watchimgboxborder">
+		<view class="watchimgbox">
+			<image src="/images/dp.jpg" class="watchimg" mode="" />
+		</view>
+		<view class="watchratebox">
+			<t-rate default-value="{{4.5}}" allowHalf color="#0052d9d9" gap="{{4}}" size="{{16}}" disabled />
+		</view>
 	</view>
 	<view class="watchinfobox">
-		<view class="watchname">{{watchitemname}}</view>
+		<view class="watchinfobox0">
+			<view class="watchname">{{watchitemname}}</view>
+			<view class="watchtagbox">
+				<t-tag class="margin-16" variant="light-outline" theme="primary">18集未看</t-tag>
+			</view>
+		</view>
+
+		<view class="watchinfobox1">
+			<view class="watchmade">{{watchitemmade}}</view>
+			<view class="watchwatchmode">{{watchwatchmode}}</view>
+		</view>
+		<view class="watchwatchto">观看至：第 {{watchwatchto}} 集</view>
+		<view class="watchupdateto">更新至：第 {{watchupdateto}} 集</view>
+		<view class="watchsummary">简介：{{watchsummary}}</view>
 	</view>
 </view>
 <view class="nextline"></view>
