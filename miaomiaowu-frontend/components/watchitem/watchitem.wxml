@@ -20,8 +20,14 @@
 			<view class="watchmade">{{watchitemmade}}</view>
 			<view class="watchwatchmode">{{watchwatchmode}}</view>
 		</view>
-		<view class="watchwatchto">观看至：第 {{watchwatchto}} 集</view>
-		<view class="watchupdateto">更新至：第 {{watchupdateto}} 集</view>
+		<view class="watchwatchto">观看至：第<view style="width: 8rpx;"></view>
+			<t-tag class="margin-16" variant="outline" theme="warning">{{watchwatchto}}</t-tag>
+			<view style="width: 8rpx;"></view>集
+		</view>
+		<view class="watchupdateto">更新至：第<view style="width: 8rpx;"></view>
+			<t-tag class="margin-16" variant="outline" theme="success">{{watchupdateto}}</t-tag>
+			<view style="width: 8rpx;"></view>集
+		</view>
 		<view class="watchsummary">简介：{{watchsummary}}</view>
 	</view>
 </view>

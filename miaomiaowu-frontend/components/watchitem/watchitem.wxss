@@ -41,12 +41,12 @@
 }
 
 .watchtagbox {
-	padding: 18rpx 20rpx 8rpx;
+	padding: 18rpx 20rpx 0;
 }
 
 .watchname {
 	height: 60rpx;
-	padding: 18rpx 0 8rpx;
+	padding: 18rpx 0 0;
 	font-size: 36rpx;
 	white-space: nowrap;
 	max-width: 350rpx;
@@ -65,16 +65,20 @@
 }
 
 .watchmade {
-	width: 220rpx;
+	width: 200rpx;
 }
 
 .watchupdateto {
 	color: #444444;
+	display: flex;
+	align-items: center;
 }
 
 .watchwatchto {
 	margin: 8rpx 0;
 	color: #444444;
+	display: flex;
+	align-items: center;
 }
 
 .custom-color {
