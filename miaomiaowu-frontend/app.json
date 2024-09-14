@@ -6,7 +6,8 @@
     "pages/logs/logs",
     "pages/watch/watch",
     "pages/diary/diary",
-    "pages/chicken/chicken"
+    "pages/chicken/chicken",
+    "pages/watchitem/watchitem"
   ],
   "window": {
     "navigationBarTextStyle": "black",

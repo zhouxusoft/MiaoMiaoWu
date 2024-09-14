@@ -1,5 +1,5 @@
 <!--components/watchitem/watchitem.wxml-->
-<view class="watchbox">
+<view class="watchbox" bind:tap="gowatchitem">
 	<view class="watchimgboxborder">
 		<view class="watchimgbox">
 			<image src="/images/dp.jpg" class="watchimg" mode="" />
@@ -12,7 +12,7 @@
 		<view class="watchinfobox0">
 			<view class="watchname">{{watchitemname}}</view>
 			<view class="watchtagbox">
-				<t-tag class="margin-16" variant="light-outline" theme="primary">18集未看</t-tag>
+				<t-tag class="margin-16" variant="light-outline" theme="primary" wx:if="{{watchupdateto - watchwatchto > 0}}">{{watchupdateto - watchwatchto}}集未看</t-tag>
 			</view>
 		</view>
 
@@ -21,7 +21,7 @@
 			<view class="watchwatchmode">{{watchwatchmode}}</view>
 		</view>
 		<view class="watchwatchto">观看至：第<view style="width: 8rpx;"></view>
-			<t-tag class="margin-16" variant="outline" theme="warning">{{watchwatchto}}</t-tag>
+			<t-tag class="margin-16" variant="outline" theme="warning" >{{watchwatchto}}</t-tag>
 			<view style="width: 8rpx;"></view>集
 		</view>
 		<view class="watchupdateto">更新至：第<view style="width: 8rpx;"></view>

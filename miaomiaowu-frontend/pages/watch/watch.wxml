@@ -1,4 +1,5 @@
 <!--pages/watch/watch.wxml-->
+<view id="topbox"></view>
 <t-tabs defaultValue="{{0}}" bind:change="onTabsChange" bind:click="onTabsClick" t-class="custom-tabs" t-class-content="custom-panel">
 	<t-tab-panel label="正在追" value="0" style="{{tabPanelstyle}}">
 		<view>

@@ -5,6 +5,10 @@ Component({
 	 * 组件的属性列表
 	 */
 	properties: {
+		watchid: {
+			type: String,
+			value: 1
+		},
 		watchitemname: {
 			type: String,
 			value: '斗破苍穹年番斗破苍穹年番'
@@ -42,6 +46,10 @@ Component({
 	 * 组件的方法列表
 	 */
 	methods: {
-
+		gowatchitem: function () {
+			wx.navigateTo({
+			  url: '/pages/watchitem/watchitem?watchid=' + this.properties.watchid,
+			})
+		}
 	}
 })
