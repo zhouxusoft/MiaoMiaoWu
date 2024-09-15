@@ -1,0 +1,15 @@
+/* pages/addwatch/addwatch.wxss */
+.borderbox {
+	padding: 32rpx;
+}
+
+.btngroup {
+	margin: 16rpx 0;
+	display: flex;
+	gap: 16rpx;
+}
+
+.btngroup button {
+	margin: 0;
+}
+

@@ -1,2 +1,13 @@
 <!--pages/watchitem/watchitem.wxml-->
-<text>pages/watchitem/watchitem.wxml</text>
+<wxs module="_">
+	module.exports.getText = function (value, curr) {
+		if (value > curr) return '已完成步骤'; if (value == curr)
+			return '当前步骤'; return '未完成步骤';
+	}
+</wxs>
+<t-steps layout="vertical" current="{{first}}" bind:change="onFirstChange">
+	<t-step-item title="{{_.getText(first, index)}}" content="可自定义此处内容" />
+	<t-step-item title="{{_.getText(first, index)}}" content="可自定义此处内容" />
+	<t-step-item title="{{_.getText(first, index)}}" content="可自定义此处内容" status="default" />
+	<t-step-item title="{{_.getText(first, index)}}" content="可自定义此处内容" />
+</t-steps>

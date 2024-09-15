@@ -1,0 +1,11 @@
+{
+	"usingComponents": {
+		"t-steps": "tdesign-miniprogram/steps/steps",
+		"t-step-item": "tdesign-miniprogram/step-item/step-item",
+		"t-input": "tdesign-miniprogram/input/input",
+		"t-upload": "tdesign-miniprogram/upload/upload",
+		"t-button": "tdesign-miniprogram/button/button",
+		"t-loading": "tdesign-miniprogram/loading/loading"
+	},
+	"navigationBarTitleText": "添加追番"
+}

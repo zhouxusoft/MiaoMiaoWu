@@ -5,7 +5,7 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
-
+		first: 1
 	},
 
 	/**
@@ -14,7 +14,7 @@ Page({
 	onLoad(options) {
 		let watchid = options.watchid
 		console.log(watchid)
-		
+
 		wx.setNavigationBarTitle({
 			title: '斗破苍穹年番'
 		})
@@ -67,5 +67,9 @@ Page({
 	 */
 	onShareAppMessage() {
 
-	}
+	},
+
+	onFirstChange(e) {
+		this.setData({ first: e.detail.current });
+	},
 })

@@ -1,0 +1,29 @@
+<!--pages/addwatch/addwatch.wxml-->
+<view class="borderbox">
+	<t-steps layout="vertical" readonly>
+		<t-step-item title="输入番剧名称" status="process" id="inputname">
+			<view slot="content">
+				<t-input prefixIcon="component-breadcrumb" confirm-type="done" bind:blur="finishNameInput" value="{{nameinput}}"></t-input>
+			</view>
+		</t-step-item>
+		<t-step-item title="选择番剧封面" status="process" id="inputimg">
+			<view slot="content">
+				<view class="wrapper">
+					<t-upload mediaType="{{['image']}}" max="{{1}}" files="{{fileList}}" bind:add="handleAdd" bind:remove="handleRemove">
+					</t-upload>
+				</view>
+				<view class="btngroup">
+					<t-button theme="light" size="small">使用默认</t-button>
+					<t-button theme="light" size="small">网络获取</t-button>
+					<t-button theme="light" size="small">AI 生成</t-button>
+				</view>
+			</view>
+		</t-step-item>
+		<t-step-item title="完善番剧信息" status="process">
+			<view slot="content">
+				<view>自定义的视图内容 - 第{{index + 1}}项</view>
+				<view>其他自定义内容</view>
+			</view>
+		</t-step-item>
+	</t-steps>
+</view>

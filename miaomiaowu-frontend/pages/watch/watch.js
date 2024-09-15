@@ -138,6 +138,12 @@ Page({
 		}
 	},
 
+	addWatch() {
+		wx.navigateTo({
+			url: '/pages/addwatch/addwatch',
+		})
+	},
+
 	properties: {
 		navbarHeight: {
 			type: Number,
