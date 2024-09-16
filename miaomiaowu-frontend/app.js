@@ -17,3 +17,10 @@ App({
     userInfo: null
   }
 })
+
+// wx.request({
+//   url: 'https://www.baidu.com',
+//   enableChunked: true
+// }).onChunkReceived(chunk => {
+// 	console.log(new TextDecoder().decode(chunk.data))
+// })

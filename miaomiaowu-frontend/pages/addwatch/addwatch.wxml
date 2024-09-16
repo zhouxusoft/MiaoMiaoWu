@@ -21,8 +21,23 @@
 		</t-step-item>
 		<t-step-item title="完善番剧信息" status="process">
 			<view slot="content">
-				<view>自定义的视图内容 - 第{{index + 1}}项</view>
-				<view>其他自定义内容</view>
+				<view class="textarea-example">
+					<text class="textarea-example__label">番剧简介</text>
+					<t-textarea t-class="external-class" placeholder="请输入简介" bordered autosize="true" maxlength="100" disableDefaultPadding="{{true}}" indicator style="{{style}}" />
+				</view>
+				<view class="btngroup">
+					<t-button theme="light" size="small">网络获取</t-button>
+					<t-button theme="light" size="small">AI 生成</t-button>
+				</view>
+				<view class="textarea-example">
+					<text class="textarea-example__label">制作公司</text>
+					<t-textarea t-class="external-class" placeholder="请输入公司名称" bordered disableDefaultPadding="{{true}}" indicator style="{{madenamestyle}}" />
+				</view>
+			</view>
+		</t-step-item>
+		<t-step-item title="完善番剧信息" status="process">
+			<view slot="content">
+				
 			</view>
 		</t-step-item>
 	</t-steps>

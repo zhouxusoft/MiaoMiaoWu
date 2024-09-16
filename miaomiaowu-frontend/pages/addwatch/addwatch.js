@@ -7,7 +7,9 @@ Page({
 	data: {
 		fileList: [],
 		nameinput: '',
-		skylineRender: true
+		skylineRender: true,
+		style: 'min-height: 248rpx',
+		madenamestyle: 'height: 96rpx'
 	},
 
 	/**
