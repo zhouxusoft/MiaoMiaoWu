@@ -30,3 +30,16 @@
 	line-height: 40rpx;
 	padding-bottom: 16rpx;
 }
+
+.custom-tabs {
+	margin-bottom: 32rpx;
+}
+
+.custom-panel {
+	min-height: 120rpx;
+	color: var(--td-text-color-primary);
+}
+
+.updatebox {
+	padding: 32rpx;
+}

@@ -6,7 +6,11 @@
 		"t-upload": "tdesign-miniprogram/upload/upload",
 		"t-button": "tdesign-miniprogram/button/button",
 		"t-loading": "tdesign-miniprogram/loading/loading",
-		"t-textarea": "tdesign-miniprogram/textarea/textarea"
+		"t-textarea": "tdesign-miniprogram/textarea/textarea",
+		"t-tabs": "tdesign-miniprogram/tabs/tabs",
+		"t-tab-panel": "tdesign-miniprogram/tab-panel/tab-panel",
+		"t-stepper": "tdesign-miniprogram/stepper/stepper",
+		"t-tag": "tdesign-miniprogram/tag/tag"
 	},
 	"navigationBarTitleText": "添加追番"
 }

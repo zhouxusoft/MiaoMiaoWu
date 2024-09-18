@@ -9,7 +9,8 @@ Page({
 		nameinput: '',
 		skylineRender: true,
 		style: 'min-height: 248rpx',
-		madenamestyle: 'height: 96rpx'
+		madenamestyle: 'height: 96rpx',
+		value1: [0, 1],
 	},
 
 	/**
@@ -71,7 +72,7 @@ Page({
 	finishNameInput(e) {
 		console.log(e.detail.value)
 		this.data.nameinput = e.detail.value
-		
+
 	},
 
 	handleAdd(e) {
@@ -121,5 +122,13 @@ Page({
 		this.setData({
 			fileList,
 		});
+	},
+
+	onTabsChange(event) {
+		console.log(`Change tab, tab-panel value is ${event.detail.value}.`);
+	},
+
+	onTabsClick(event) {
+		console.log(`Click tab, tab-panel value is ${event.detail.value}.`);
 	},
 })
