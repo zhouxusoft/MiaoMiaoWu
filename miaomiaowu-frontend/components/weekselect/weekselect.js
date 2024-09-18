@@ -11,15 +11,40 @@ Component({
 	 * 组件的初始数据
 	 */
 	data: {
-		value1: [0, 1],
+		checked: [false, false, false, false, false, false, false]
 	},
 
 	/**
 	 * 组件的方法列表
 	 */
 	methods: {
-		onChange1(e) {
-			this.setData({ value1: e.detail.value });
+		checkWeekMon(e) {
+			this.data.checked[0] = e.detail.checked
+			console.log(this.data.checked)
 		},
+		checkWeekTue(e) {
+			this.data.checked[1] = e.detail.checked
+			console.log(this.data.checked)
+		},
+		checkWeekWed(e) {
+			this.data.checked[2] = e.detail.checked
+			console.log(this.data.checked)
+		},
+		checkWeekThu(e) {
+			this.data.checked[3] = e.detail.checked
+			console.log(this.data.checked)
+		},
+		checkWeekFir(e) {
+			this.data.checked[4] = e.detail.checked
+			console.log(this.data.checked)
+		},
+		checkWeekSat(e) {
+			this.data.checked[5] = e.detail.checked
+			console.log(this.data.checked)
+		},
+		checkWeekSun(e) {
+			this.data.checked[6] = e.detail.checked
+			console.log(this.data.checked)
+		}
 	}
 })

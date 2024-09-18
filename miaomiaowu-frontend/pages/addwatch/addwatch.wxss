@@ -44,6 +44,10 @@
 	padding: 32rpx;
 }
 
+.updateweekbox {
+	padding: 32rpx;
+}
+
 .rateitem {
 	margin: 32rpx 0;
 }

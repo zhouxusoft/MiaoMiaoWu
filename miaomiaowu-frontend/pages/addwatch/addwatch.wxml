@@ -46,16 +46,21 @@
 							</view>
 						</view>
 					</t-tab-panel>
-					<t-tab-panel label="连载中" value="1" style="{{tabPanelstyle}}">
+					<t-tab-panel label="连载中" value="1">
 						<view class="updatebox">
 							<view style="display: flex; align-items: center;">
 								<text style="margin: 16rpx;">更新至</text>
 								<t-stepper defaultValue="0" max="9999" size="medium" theme="outline" />
 							</view>
-							<weekselect></weekselect>
+						</view>
+						<view class="updateweekbox">
+							<text style="margin: 16rpx;">更新时间</text>
+							<view style="margin: 16rpx;">
+								<weekselect></weekselect>
+							</view>
 						</view>
 					</t-tab-panel>
-					<t-tab-panel label="未更新" value="2" style="{{tabPanelstyle}}">
+					<t-tab-panel label="未更新" value="2">
 						<view class="updatebox">
 							<view style="display: flex; align-items: center;">
 								<text style="margin: 16rpx;">更新至</text>

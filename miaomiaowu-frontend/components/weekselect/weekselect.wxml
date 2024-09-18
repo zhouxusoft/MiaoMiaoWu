@@ -1,7 +1,10 @@
 <!--components/weekselect/weekselect.wxml-->
-<t-checkbox-group t-class="horizontal-box" value="{{value1}}" bind:change="onChange1">
-	<view wx:for="{{3}}" wx:key="index" class="card {{_.contain(value1, index) ? 'card--active' : ''}}">
-		<t-icon wx:if="{{_.contain(value1, index)}}" name="check" t-class="card__icon" ariaHidden="{{true}}" />
-		<t-checkbox value="{{index}}" label="多选" icon="none" borderless />
-	</view>
-</t-checkbox-group>
+<view class="weekbox">
+	<t-check-tag class="margin-16" size="large" variant="dark" content="一" bind:change="checkWeekMon" />
+	<t-check-tag class="margin-16" size="large" variant="dark" content="二" bind:change="checkWeekTue" />
+	<t-check-tag class="margin-16" size="large" variant="dark" content="三" bind:change="checkWeekWed" />
+	<t-check-tag class="margin-16" size="large" variant="dark" content="四" bind:change="checkWeekThu" />
+	<t-check-tag class="margin-16" size="large" variant="dark" content="五" bind:change="checkWeekFir" />
+	<t-check-tag class="margin-16" size="large" variant="dark" content="六" bind:change="checkWeekSat" />
+	<t-check-tag class="margin-16" size="large" variant="dark" content="日" bind:change="checkWeekSun" />
+</view>
