@@ -8,9 +8,7 @@ Page({
 		fileList: [],
 		nameinput: '',
 		skylineRender: true,
-		style: 'min-height: 248rpx',
-		madenamestyle: 'height: 96rpx',
-		value1: [0, 1],
+		ratevalue: 0,
 	},
 
 	/**
@@ -69,12 +67,20 @@ Page({
 
 	},
 
+	/**
+	 * 完成番剧名称输入
+	 * @param {*} e 
+	 */
 	finishNameInput(e) {
 		console.log(e.detail.value)
 		this.data.nameinput = e.detail.value
 
 	},
 
+	/**
+	 * 点击 + 上传图片
+	 * @param {*} e 
+	 */
 	handleAdd(e) {
 		const { fileList } = this.data;
 		const { files } = e.detail;
@@ -88,6 +94,10 @@ Page({
 		// files.forEach(file => this.uploadFile(file))
 	},
 
+	/**
+	 * 图片上传方法
+	 * @param {*} file 
+	 */
 	onUpload(file) {
 		const { fileList } = this.data;
 
@@ -114,6 +124,10 @@ Page({
 		});
 	},
 
+	/**
+	 * 单击图片右上角 X 删除图片
+	 * @param {*} e 
+	 */
 	handleRemove(e) {
 		const { index } = e.detail;
 		const { fileList } = this.data;
@@ -124,11 +138,23 @@ Page({
 		});
 	},
 
+	/**
+	 * 更新类型信息修改
+	 * @param {*} event 
+	 */
 	onTabsChange(event) {
-		console.log(`Change tab, tab-panel value is ${event.detail.value}.`);
+		console.log(`Change tab, tab-panel value is ${event.detail.value}.`)
 	},
 
-	onTabsClick(event) {
-		console.log(`Click tab, tab-panel value is ${event.detail.value}.`);
+	/**
+	 * 用户改变评分
+	 * @param {*} e 
+	 */
+	onRateChange(e) {
+		const { value } = e.detail
+		this.setData({
+			ratevalue: value
+		})
+		console.log(this.data.ratevalue)
 	},
 })

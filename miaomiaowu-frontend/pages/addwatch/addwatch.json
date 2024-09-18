@@ -10,7 +10,9 @@
 		"t-tabs": "tdesign-miniprogram/tabs/tabs",
 		"t-tab-panel": "tdesign-miniprogram/tab-panel/tab-panel",
 		"t-stepper": "tdesign-miniprogram/stepper/stepper",
-		"t-tag": "tdesign-miniprogram/tag/tag"
+		"t-tag": "tdesign-miniprogram/tag/tag",
+		"t-rate": "tdesign-miniprogram/rate/rate",
+		"weekselect": "/components/weekselect/weekselect"
 	},
 	"navigationBarTitleText": "添加追番"
 }

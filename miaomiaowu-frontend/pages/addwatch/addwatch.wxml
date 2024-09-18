@@ -23,7 +23,7 @@
 			<view slot="content">
 				<view class="textarea-example">
 					<text class="textarea-example__label">番剧简介</text>
-					<t-textarea t-class="external-class" placeholder="请输入简介" bordered autosize="true" maxlength="100" disableDefaultPadding="{{true}}" indicator style="{{style}}" />
+					<t-textarea t-class="external-class" placeholder="请输入简介" bordered autosize="true" maxlength="100" disableDefaultPadding="{{true}}" indicator style="min-height: 248rpx" />
 				</view>
 				<view class="btngroup">
 					<t-button theme="light" size="small">网络获取</t-button>
@@ -31,13 +31,13 @@
 				</view>
 				<view class="textarea-example">
 					<text class="textarea-example__label">制作公司</text>
-					<t-textarea t-class="external-class" placeholder="请输入公司名称" bordered disableDefaultPadding="{{true}}" indicator style="{{madenamestyle}}" />
+					<t-textarea t-class="external-class" placeholder="请输入公司名称" bordered disableDefaultPadding="{{true}}" indicator autosize="true" />
 				</view>
 			</view>
 		</t-step-item>
 		<t-step-item title="完善更新信息" status="process">
 			<view slot="content">
-				<t-tabs defaultValue="{{0}}" bind:change="onTabsChange" bind:click="onTabsClick" t-class="custom-tabs" t-class-content="custom-panel">
+				<t-tabs defaultValue="{{0}}" bind:change="onTabsChange" t-class="custom-tabs" t-class-content="custom-panel">
 					<t-tab-panel label="已完结" value="0">
 						<view class="updatebox">
 							<view style="display: flex; align-items: center;">
@@ -52,14 +52,30 @@
 								<text style="margin: 16rpx;">更新至</text>
 								<t-stepper defaultValue="0" max="9999" size="medium" theme="outline" />
 							</view>
-							
+							<weekselect></weekselect>
 						</view>
 					</t-tab-panel>
-					<t-tab-panel label="未更新" value="2" style="{{tabPanelstyle}}">选项三内容</t-tab-panel>
+					<t-tab-panel label="未更新" value="2" style="{{tabPanelstyle}}">
+						<view class="updatebox">
+							<view style="display: flex; align-items: center;">
+								<text style="margin: 16rpx;">更新至</text>
+								<t-stepper defaultValue="0" max="9999" size="medium" theme="outline" />
+							</view>
+						</view>
+					</t-tab-panel>
 				</t-tabs>
 			</view>
 		</t-step-item>
 		<t-step-item title="喜爱度" status="process">
+			<view slot="content">
+				<t-rate default-value="{{0}}" allowHalf class="rateitem" bind:change="onRateChange" />
+				<t-textarea t-class="external-class" placeholder="备注" bordered autosize="true" maxlength="100" disableDefaultPadding="{{true}}" indicator style="margin-bottom: 16rpx;" />
+			</view>
+		</t-step-item>
+		<t-step-item title="" status="finish">
+			<view slot="content">
+				<t-button theme="primary" size="large" block>确认添加</t-button>
+			</view>
 		</t-step-item>
 	</t-steps>
 </view>
