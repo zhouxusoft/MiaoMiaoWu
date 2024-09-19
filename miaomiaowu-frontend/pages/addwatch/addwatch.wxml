@@ -33,6 +33,12 @@
 					<text class="textarea-example__label">制作公司</text>
 					<t-textarea t-class="external-class" placeholder="请输入公司名称" bordered disableDefaultPadding="{{true}}" indicator autosize="true" />
 				</view>
+				<view class="watchplatformbox">
+					<text>播放平台</text>
+					<view class="platformselectbox">
+						<platformselect></platformselect>
+					</view>
+				</view>
 			</view>
 		</t-step-item>
 		<t-step-item title="完善更新信息" status="process">

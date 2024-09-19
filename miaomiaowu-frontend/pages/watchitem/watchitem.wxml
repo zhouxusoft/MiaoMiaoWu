@@ -13,6 +13,6 @@
 	<t-cell-group theme="card">
 		<t-cell title="制作公司：幻维数码" leftIcon="ruler" hover arrow />
 		<t-cell title="更新状态：连载中" leftIcon="internet" hover arrow />
-		<t-cell title="单行标题" leftIcon="lock-on" hover arrow />
+		<t-cell title="播放平台：腾讯视频" leftIcon="control-platform" hover arrow />
 	</t-cell-group>
 </view>

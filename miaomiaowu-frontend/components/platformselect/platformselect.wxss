@@ -1,0 +1,16 @@
+/* components/platformselect/platformselect.wxss */
+.platformbox {
+	display: flex;
+	gap: 16rpx;
+	flex-wrap: wrap;
+}
+
+.watchicon {
+	width: 20px;
+	height: 20px;
+}
+
+.watchiconbox {
+	display: flex;
+	align-items: center;
+}

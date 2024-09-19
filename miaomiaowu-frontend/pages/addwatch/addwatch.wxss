@@ -51,3 +51,11 @@
 .rateitem {
 	margin: 32rpx 0;
 }
+
+.watchplatformbox {
+	margin: 32rpx 0;
+}
+
+.platformselectbox {
+	padding: 16rpx 0;
+}

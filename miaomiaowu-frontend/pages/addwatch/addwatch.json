@@ -12,7 +12,8 @@
 		"t-stepper": "tdesign-miniprogram/stepper/stepper",
 		"t-tag": "tdesign-miniprogram/tag/tag",
 		"t-rate": "tdesign-miniprogram/rate/rate",
-		"weekselect": "/components/weekselect/weekselect"
+		"weekselect": "/components/weekselect/weekselect",
+		"platformselect": "/components/platformselect/platformselect"
 	},
 	"navigationBarTitleText": "添加追番"
 }
