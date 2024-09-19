@@ -1,6 +1,6 @@
 /* pages/watchitem/watchitem.wxss */
 .watchinfoborder {
-	padding: 32rpx;
+	padding: 16rpx;
 	display: flex;
 }
 
@@ -24,4 +24,14 @@
 	background-color: #F2F2F2;
 	height: 100vh;
 	padding: 24rpx 0;
+}
+
+.correctbox {
+	margin-left: auto;
+	width: fit-content;
+	display: flex;
+	align-items: center;
+	padding: 0 16rpx 16rpx 0;
+	color: #666666;
+	font-size: 14px;
 }
