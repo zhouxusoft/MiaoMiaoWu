@@ -1,10 +1,10 @@
 <!--components/weekselect/weekselect.wxml-->
 <view class="weekbox">
-	<t-check-tag class="margin-16" size="large" variant="dark" content="一" bind:change="checkWeekMon" />
-	<t-check-tag class="margin-16" size="large" variant="dark" content="二" bind:change="checkWeekTue" />
-	<t-check-tag class="margin-16" size="large" variant="dark" content="三" bind:change="checkWeekWed" />
-	<t-check-tag class="margin-16" size="large" variant="dark" content="四" bind:change="checkWeekThu" />
-	<t-check-tag class="margin-16" size="large" variant="dark" content="五" bind:change="checkWeekFir" />
-	<t-check-tag class="margin-16" size="large" variant="dark" content="六" bind:change="checkWeekSat" />
-	<t-check-tag class="margin-16" size="large" variant="dark" content="日" bind:change="checkWeekSun" />
+	<t-check-tag class="margin-16" size="large" variant="outline" content="一" bind:change="checkWeekMon" />
+	<t-check-tag class="margin-16" size="large" variant="outline" content="二" bind:change="checkWeekTue" />
+	<t-check-tag class="margin-16" size="large" variant="outline" content="三" bind:change="checkWeekWed" />
+	<t-check-tag class="margin-16" size="large" variant="outline" content="四" bind:change="checkWeekThu" />
+	<t-check-tag class="margin-16" size="large" variant="outline" content="五" bind:change="checkWeekFir" />
+	<t-check-tag class="margin-16" size="large" variant="outline" content="六" bind:change="checkWeekSat" />
+	<t-check-tag class="margin-16" size="large" variant="outline" content="日" bind:change="checkWeekSun" />
 </view>

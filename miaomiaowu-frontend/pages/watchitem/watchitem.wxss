@@ -23,5 +23,5 @@
 .watchaboutinfobox {
 	background-color: #F2F2F2;
 	height: 100vh;
-	padding: 32rpx 0;
+	padding: 24rpx 0;
 }

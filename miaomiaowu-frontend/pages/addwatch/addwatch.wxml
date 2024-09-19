@@ -68,7 +68,7 @@
 							</view>
 						</view>
 						<view class="updateweekbox">
-							<text style="margin: 16rpx;">更新时间</text>
+							<text style="margin: 16rpx;">更新时间(每周)</text>
 							<view style="margin: 16rpx;">
 								<weekselect></weekselect>
 							</view>

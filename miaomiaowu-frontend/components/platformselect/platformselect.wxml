@@ -2,7 +2,7 @@
 <view class="platformbox">
 	<t-check-tag class="margin-16" size="large" variant="outline" content="腾讯视频" bind:change="selectTencent">
 		<view class="watchiconbox" slot="icon">
-			<image src="/images/腾讯视频.png" mode="" class="watchicon" />
+			<image src="/images/tencentvideo.png" mode="" class="watchicon" />
 		</view>
 	</t-check-tag>
 	<t-check-tag class="margin-16" size="large" variant="outline" content="哔哩哔哩" bind:change="selectBilibili">
@@ -17,12 +17,12 @@
 	</t-check-tag>
 	<t-check-tag class="margin-16" size="large" variant="outline" content="优酷视频" bind:change="selectYouku">
 		<view class="watchiconbox" slot="icon">
-			<image src="/images/优酷.png" mode="" class="watchicon" />
+			<image src="/images/youku.png" mode="" class="watchicon" />
 		</view>
 	</t-check-tag>
 	<t-check-tag class="margin-16" size="large" variant="outline" content="其它" bind:change="selectOther">
 		<view class="watchiconbox" slot="icon">
-			<image src="/images/视频.png" mode="" class="watchicon" />
+			<image src="/images/otherwatch.png" mode="" class="watchicon" />
 		</view>
 	</t-check-tag>
 </view>

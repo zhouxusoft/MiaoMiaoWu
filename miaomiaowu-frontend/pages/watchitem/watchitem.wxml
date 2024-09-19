@@ -4,8 +4,7 @@
 	<view class="watchinfobox">
 		<view class="watchname">斗破苍穹年番</view>
 		<view class="watchsub">
-			<view>简介：</view>
-			<view style="text-indent: 2em">三年之约后，萧炎终于在迦南学院见到了薰儿，此后他广交挚友并成立磐门；为继续提升实力以三上云岚宗为父复仇，他以身犯险深入天焚炼气塔吞噬陨落心炎三年之约后，萧炎终于在迦南学院见到了薰儿，此后他广交挚友并成</view>
+			<view style="text-indent: 2em;">三年之约后，萧炎终于在迦南学院见到了薰儿，此后他广交挚友并成立磐门；为继续提升实力以三上云岚宗为父复仇，他以身犯险深入天焚炼气塔吞噬陨落心炎……</view>
 		</view>
 	</view>
 </view>
@@ -14,5 +13,10 @@
 		<t-cell title="制作公司：幻维数码" leftIcon="ruler" hover arrow />
 		<t-cell title="更新状态：连载中" leftIcon="internet" hover arrow />
 		<t-cell title="播放平台：腾讯视频" leftIcon="control-platform" hover arrow />
+	</t-cell-group>
+	<view class="whitebox" style="height: 24rpx;"></view>
+	<t-cell-group theme="card">
+		<t-cell title="更新至：110 集" leftIcon="api" />
+		<t-cell title="观看至：102 集" leftIcon="look-around" />
 	</t-cell-group>
 </view>
