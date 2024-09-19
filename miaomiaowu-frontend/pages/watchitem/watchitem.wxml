@@ -16,8 +16,8 @@
 </view>
 <view class="watchaboutinfobox">
 	<t-cell-group theme="card">
-		<t-cell title="制作公司：幻维数码" leftIcon="ruler" hover arrow />
-		<t-cell title="更新状态：连载中" leftIcon="internet" hover arrow />
+		<t-cell title="制作公司：{{madeInputValue}}" leftIcon="ruler" hover arrow bind:tap="onMadeInput" />
+		<t-cell title="更新状态：{{updateMode}}" leftIcon="internet" hover arrow bind:tap="onUpdateModePicker" />
 		<t-cell title="播放平台：腾讯视频" leftIcon="control-platform" hover arrow />
 	</t-cell-group>
 	<view class="whitebox" style="height: 24rpx;"></view>
@@ -26,3 +26,24 @@
 		<t-cell title="观看至：102 集" leftIcon="look-around" />
 	</t-cell-group>
 </view>
+
+<t-picker visible="{{updateModeVisible}}" value="{{updateModeValue}}" title="更新状态" cancelBtn="取消" confirmBtn="确认" usingCustomNavbar bindchange="onPickerChange" bindpick="onColumnChange" bindcancel="onPickerCancel">
+	<t-picker-item options="{{updateModes}}">
+		<block wx:for="{{updateModes}}" wx:key="index" wx:for-item="option"></block>
+	</t-picker-item>
+</t-picker>
+
+<t-popup visible="{{madeInputVisible}}" bind:visible-change="onMadeInputVisibleChange" placement="bottom">
+	<view class="block">
+		<view class="header">
+			<view class="btn btn--cancel" aria-role="button" bind:tap="closeMadeInput">取消</view>
+			<view class="title">制作公司</view>
+			<view class="btn btn--confirm" aria-role="button" bind:tap="yesMadeInput">确定</view>
+		</view>
+		<view>
+			<t-input placeholder="请输入制作公司名称" align="center" maxcharacter="30" value="{{madeInputValue}}" bind:change="changeMadeInput" bind:enter="yesMadeInput" style="border: 2rpx solid #888888; border-radius: 12rpx; margin: 32rpx 64rpx;" />
+		</view>
+	</view>
+</t-popup>
+
+<t-toast id="t-toast" />

@@ -20,7 +20,7 @@
 	<view class="userdiaryinfo">
 		<view class="userdiarytitle">
 			<text class="userdiarytitletext">笔记便签</text>
-			<image src="/images/next-ui.png" mode="" class="gotodiary"/>
+			<image src="/images/next-ui.png" mode="" class="gotodiary" />
 		</view>
 		<view class="userdiaryline"></view>
 		<view class="userdiaryinfobox">
@@ -30,7 +30,7 @@
 	<view class="userwatchinfo">
 		<view class="userwatchtitle">
 			<text class="userwatchtitletext">追番日历</text>
-			<image src="/images/next-ui.png" mode="" class="gotowatch"/>
+			<image src="/images/next-ui.png" mode="" class="gotowatch" bind:click="go" />
 		</view>
 		<view class="userwatchline"></view>
 		<view class="userwatchinfobox">
