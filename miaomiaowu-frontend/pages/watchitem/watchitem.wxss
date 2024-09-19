@@ -1,1 +1,27 @@
 /* pages/watchitem/watchitem.wxss */
+.watchinfoborder {
+	padding: 32rpx;
+	display: flex;
+}
+
+.watchimg {
+	width: 240rpx;
+	min-width: 240rpx;
+	margin-right: 16rpx;
+	border: 1px solid #E8E8E8;
+}
+
+.watchname {
+	font-size: 20px;
+	margin-bottom: 8rpx;
+}
+
+.watchsub {
+	color: #333333;
+}
+
+.watchaboutinfobox {
+	background-color: #F2F2F2;
+	height: 100vh;
+	padding: 32rpx 0;
+}

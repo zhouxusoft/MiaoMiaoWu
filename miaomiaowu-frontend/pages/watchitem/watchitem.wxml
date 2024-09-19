@@ -1,13 +1,18 @@
 <!--pages/watchitem/watchitem.wxml-->
-<wxs module="_">
-	module.exports.getText = function (value, curr) {
-		if (value > curr) return '已完成步骤'; if (value == curr)
-			return '当前步骤'; return '未完成步骤';
-	}
-</wxs>
-<t-steps layout="vertical" current="{{first}}" bind:change="onFirstChange">
-	<t-step-item title="{{_.getText(first, index)}}" content="可自定义此处内容" />
-	<t-step-item title="{{_.getText(first, index)}}" content="可自定义此处内容" />
-	<t-step-item title="{{_.getText(first, index)}}" content="可自定义此处内容" status="default" />
-	<t-step-item title="{{_.getText(first, index)}}" content="可自定义此处内容" />
-</t-steps>
+<view class="watchinfoborder">
+	<image src="/images/dp.jpg" mode="widthFix" class="watchimg" />
+	<view class="watchinfobox">
+		<view class="watchname">斗破苍穹年番</view>
+		<view class="watchsub">
+			<view>简介：</view>
+			<view style="text-indent: 2em">三年之约后，萧炎终于在迦南学院见到了薰儿，此后他广交挚友并成立磐门；为继续提升实力以三上云岚宗为父复仇，他以身犯险深入天焚炼气塔吞噬陨落心炎三年之约后，萧炎终于在迦南学院见到了薰儿，此后他广交挚友并成</view>
+		</view>
+	</view>
+</view>
+<view class="watchaboutinfobox">
+	<t-cell-group theme="card">
+		<t-cell title="制作公司：幻维数码" leftIcon="ruler" hover arrow />
+		<t-cell title="更新状态：连载中" leftIcon="internet" hover arrow />
+		<t-cell title="单行标题" leftIcon="lock-on" hover arrow />
+	</t-cell-group>
+</view>

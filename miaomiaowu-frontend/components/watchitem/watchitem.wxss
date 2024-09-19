@@ -18,6 +18,7 @@
 	align-items: center;
 	width: 240rpx;
 	height: 320rpx;
+	overflow: hidden;
 }
 
 .watchratebox {
@@ -30,6 +31,7 @@
 .watchimg {
 	width: 200rpx;
 	height: 280rpx;
+	border: 1px solid #E8E8E8;
 }
 
 .watchinfobox {
