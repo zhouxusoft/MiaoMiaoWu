@@ -1,26 +1,26 @@
 <!--components/platformselect/platformselect.wxml-->
 <view class="platformbox">
-	<t-check-tag class="margin-16" size="large" variant="outline" content="腾讯视频" bind:change="selectTencent">
+	<t-check-tag class="margin-16" size="large" variant="outline" content="腾讯视频" bind:change="selectTencent" checked="{{checked[0]}}">
 		<view class="watchiconbox" slot="icon">
 			<image src="/images/tencentvideo.png" mode="" class="watchicon" />
 		</view>
 	</t-check-tag>
-	<t-check-tag class="margin-16" size="large" variant="outline" content="哔哩哔哩" bind:change="selectBilibili">
+	<t-check-tag class="margin-16" size="large" variant="outline" content="哔哩哔哩" bind:change="selectBilibili" checked="{{checked[1]}}">
 		<view class="watchiconbox" slot="icon">
 			<image src="/images/bilibili.png" mode="" class="watchicon" />
 		</view>
 	</t-check-tag>
-	<t-check-tag class="margin-16" size="large" variant="outline" content="爱奇艺" bind:change="selectIqiyi">
+	<t-check-tag class="margin-16" size="large" variant="outline" content="爱奇艺" bind:change="selectIqiyi" checked="{{checked[2]}}">
 		<view class="watchiconbox" slot="icon">
 			<image src="/images/aiqiyi.png" mode="" class="watchicon" />
 		</view>
 	</t-check-tag>
-	<t-check-tag class="margin-16" size="large" variant="outline" content="优酷视频" bind:change="selectYouku">
+	<t-check-tag class="margin-16" size="large" variant="outline" content="优酷视频" bind:change="selectYouku" checked="{{checked[3]}}">
 		<view class="watchiconbox" slot="icon">
 			<image src="/images/youku.png" mode="" class="watchicon" />
 		</view>
 	</t-check-tag>
-	<t-check-tag class="margin-16" size="large" variant="outline" content="其它" bind:change="selectOther">
+	<t-check-tag class="margin-16" size="large" variant="outline" content="其它" bind:change="selectOther" checked="{{checked[4]}}">
 		<view class="watchiconbox" slot="icon">
 			<image src="/images/otherwatch.png" mode="" class="watchicon" />
 		</view>

@@ -2,7 +2,6 @@
 import { Toast } from 'tdesign-miniprogram'
 
 Page({
-
 	/**
 	 * 页面的初始数据
 	 */
@@ -14,7 +13,10 @@ Page({
 			{ label: '未更新', value: '未更新' }
 		],
 		madeInputValue: '幻维数码',
-		yesMadeInputValue: '幻维数码'
+		yesMadeInputValue: '幻维数码',
+		platformValueText: ['腾讯视频'],
+		platformValue: [true, false, false, false, false],
+		platformList: ['腾讯视频', '哔哩哔哩', '爱奇艺', '优酷视频', '其它']
 	},
 
 	/**
@@ -167,7 +169,7 @@ Page({
 			context: this,
 			selector: '#t-toast',
 			message: '名称长度限制为30字符，中文占2字符',
-		});
+		})
 	},
 
 
@@ -194,5 +196,69 @@ Page({
 		}
 		// console.log(length)
 		return length >= maxlength
+	},
+
+	/**
+	 * 显示播放平台弹出窗口
+	 */
+	onPlatform() {
+		// 获取 platformselect 组件实例
+		const platformselect = this.selectComponent('#platformselect')
+		if (platformselect) {
+			// 调用 platformselect 组件方法,设置显示状态
+			platformselect.valueChangePlatform(this.data.platformValue)
+		}
+		this.setData({
+			platformVisible: true
+		})
+	},
+
+	/**
+	 * 改变播放平台弹出窗口的显示状态，点击遮罩层关闭窗口
+	 * @param {*} e 
+	 */
+	onPlatformVisibleChange(e) {
+		this.setData({
+			platformVisible: e.detail.visible,
+		})
+	},
+
+	/**
+	 * 取消修改播放平台信息
+	 */
+	closePlatform() {
+		this.setData({
+			platformVisible: false
+		})
+	},
+
+	/**
+	 * 确认修改播放平台信息
+	 */
+	yesPlatform() {
+		// 更新播放平台显示
+		this.updatePlatformValueText(this.data.platformValue)
+		this.setData({
+			platformVisible: false
+		})
+	},
+
+	/**
+	 * 根据数据更新显示平台
+	 * @param {boolean[5]} platformValue - 是否在对应平台播放
+	 */
+	updatePlatformValueText(platformValue) {
+		// 暂时存储播放平台列表信息
+		let platformValueTemp = []
+		// 更新暂存列表
+		for (let i = 0; i < platformValue.length; i++) {
+			if (platformValue[i]) {
+				platformValueTemp.push(this.data.platformList[i])
+			}
+		}
+		// 更新播放平台信息
+		this.setData({
+			platformValueText: platformValueTemp
+		})
 	}
 })

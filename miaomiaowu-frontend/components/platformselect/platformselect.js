@@ -20,28 +20,57 @@ Component({
 	 */
 	methods: {
 		selectTencent(e) {
-			this.data.checked[0] = e.detail.checked
+			const updatedProperty = `checked[0]`
+			this.setData({
+				[updatedProperty]: e.detail.checked
+			})
 			console.log(this.data.checked)
 		},
 
 		selectBilibili(e) {
-			this.data.checked[1] = e.detail.checked
+			const updatedProperty = `checked[1]`
+			this.setData({
+				[updatedProperty]: e.detail.checked
+			})
 			console.log(this.data.checked)
 		},
 
 		selectIqiyi(e) {
-			this.data.checked[2] = e.detail.checked
+			const updatedProperty = `checked[2]`
+			this.setData({
+				[updatedProperty]: e.detail.checked
+			})
 			console.log(this.data.checked)
 		},
 
 		selectYouku(e) {
-			this.data.checked[3] = e.detail.checked
+			const updatedProperty = `checked[3]`
+			this.setData({
+				[updatedProperty]: e.detail.checked
+			})
 			console.log(this.data.checked)
 		},
 
 		selectOther(e) {
-			this.data.checked[4] = e.detail.checked
+			const updatedProperty = `checked[4]`
+			this.setData({
+				[updatedProperty]: e.detail.checked
+			})
 			console.log(this.data.checked)
-		}
+		},
+
+		/**
+		 * 通过值修改选中状态
+		 * @param {boolean[5]} value 
+		 */
+		valueChangePlatform(value) {
+			if (Array.isArray(value) && value.length === 5 && value.every(item => typeof item === 'boolean')) {
+				this.setData({
+					checked: value
+				})
+			} else {
+				console.error('Invalid input: value must be an array of five booleans')
+			}
+		},
 	}
 })

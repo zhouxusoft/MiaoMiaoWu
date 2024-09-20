@@ -80,3 +80,11 @@
 .btn--confirm {
 	color: #0052d9;
 }
+
+.platformborder {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 600rpx;
+	margin: 64rpx auto;
+}
