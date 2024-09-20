@@ -22,8 +22,28 @@
 	</t-cell-group>
 	<view class="whitebox" style="height: 24rpx;"></view>
 	<t-cell-group theme="card">
-		<t-cell title="更新至：110 集" leftIcon="api" />
-		<t-cell title="观看至：102 集" leftIcon="look-around" />
+		<t-cell leftIcon="api">
+			<view slot="title" class="updatestepperborder">
+				<text>更新至：</text>
+				<t-stepper value="{{updateToNum}}" size="large" theme="outline" style="margin-right: 16rpx;" max="9999" bind:change="changeUpdateToNum" />
+				<text>集</text>
+			</view>
+			<view slot="right-icon" wx:if="{{updateHaveChanged}}" style="display: flex; align-items: center;">
+				<t-button wx:if="{{true}}" theme="light" content="确认更改" size="extra-small"></t-button>
+				<t-loading wx:else theme="spinner" size="40rpx" />
+			</view>
+		</t-cell>
+		<t-cell leftIcon="look-around">
+			<view slot="title" class="updatestepperborder">
+				<text>观看至：</text>
+				<t-stepper value="{{watchToNum}}" size="large" theme="outline" style="margin-right: 16rpx;" max="9999" bind:change="changeWatchToNum" />
+				<text>集</text>
+			</view>
+			<view slot="right-icon" wx:if="{{watchHaveChanged}}" style="display: flex; align-items: center;">
+				<t-button wx:if="{{false}}" theme="light" content="确认更改" size="extra-small"></t-button>
+				<t-loading wx:else theme="spinner" size="40rpx" />
+			</view>
+		</t-cell>
 	</t-cell-group>
 </view>
 

@@ -88,3 +88,8 @@
 	width: 600rpx;
 	margin: 64rpx auto;
 }
+
+.updatestepperborder {
+	display: flex;
+	align-items: center;
+}

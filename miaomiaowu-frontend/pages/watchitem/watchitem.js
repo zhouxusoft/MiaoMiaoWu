@@ -16,7 +16,13 @@ Page({
 		yesMadeInputValue: '幻维数码',
 		platformValueText: ['腾讯视频'],
 		platformValue: [true, false, false, false, false],
-		platformList: ['腾讯视频', '哔哩哔哩', '爱奇艺', '优酷视频', '其它']
+		platformList: ['腾讯视频', '哔哩哔哩', '爱奇艺', '优酷视频', '其它'],
+		updateToNum: 110,
+		updateToNumTemp: 110,
+		watchToNum: 102,
+		watchToNumTemp: 102,
+		updateHaveChanged: false,
+		watchHaveChanged: false
 	},
 
 	/**
@@ -24,7 +30,7 @@ Page({
 	 */
 	onLoad(options) {
 		let watchid = options.watchid
-		console.log(watchid)
+		// console.log(watchid)
 
 		wx.setNavigationBarTitle({
 			title: '斗破苍穹年番'
@@ -162,6 +168,7 @@ Page({
 	},
 
 	/**
+	 * Toast
 	 * 公司名称长度超限提示
 	 */
 	showMaxText() {
@@ -259,6 +266,68 @@ Page({
 		// 更新播放平台信息
 		this.setData({
 			platformValueText: platformValueTemp
+		})
+	},
+
+	/**
+	 * 修改更新集数
+	 * @param {*} e 
+	 */
+	changeUpdateToNum(e) {
+		this.setData({
+			updateToNum: e.detail.value
+		})
+		// 判断更新集数是否有过更改
+		if (this.data.updateToNum != this.data.updateToNumTemp) {
+			this.setData({
+				updateHaveChanged: true
+			})
+		} else {
+			this.setData({
+				updateHaveChanged: false
+			})
+		}
+		// console.log(this.data.updateToNum)
+		// 判断合理性
+		if (this.data.updateToNum < this.data.watchToNum) {
+			this.warnWatchandUpdate()
+		}
+	},
+
+	/**
+	 * 修改观看集数
+	 * @param {*} e 
+	 */
+	changeWatchToNum(e) {
+		this.setData({
+			watchToNum: e.detail.value
+		})
+		// 判断观看集数是否有过更改
+		if (this.data.watchToNum != this.data.watchToNumTemp) {
+			this.setData({
+				watchHaveChanged: true
+			})
+		} else {
+			this.setData({
+				watchHaveChanged: false
+			})
+		}
+		// console.log(this.data.watchToNum)
+		// 判断集数合理性
+		if (this.data.updateToNum < this.data.watchToNum) {
+			this.warnWatchandUpdate()
+		}
+	},
+
+	/**
+	 * Toast
+	 * 观看集数大于更新集数时提示不合理
+	 */
+	warnWatchandUpdate() {
+		Toast({
+			context: this,
+			selector: '#t-toast',
+			message: '这合理吗',
 		})
 	}
 })

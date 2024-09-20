@@ -11,6 +11,8 @@
 		"t-picker-item": "tdesign-miniprogram/picker-item/picker-item",
 		"t-popup": "tdesign-miniprogram/popup/popup",
 		"t-input": "tdesign-miniprogram/input/input",
-		"t-toast": "tdesign-miniprogram/toast/toast"
+		"t-toast": "tdesign-miniprogram/toast/toast",
+		"t-stepper": "tdesign-miniprogram/stepper/stepper",
+		"t-loading": "tdesign-miniprogram/loading/loading"
 	}
 }
