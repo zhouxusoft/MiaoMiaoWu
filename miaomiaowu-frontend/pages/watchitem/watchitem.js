@@ -26,7 +26,14 @@ Page({
 		watchHaveChanged: false,
 		weekSelectValue: [false, false, false, false, false, false, true],
 		weekSelectValueTemp: [false, false, false, false, false, false, true],
-		isWeekSelectChange: false
+		isWeekSelectChange: false,
+		rateValue: 4.5,
+		ratevalueTemp: 4.5,
+		userText: '这是一部很优秀的动漫，我很喜欢',
+		userTextTemp: '这是一部很优秀的动漫，我很喜欢',
+		isRateChange: false,
+		isUserTextChange: false,
+		isRateandUserTextChange: false
 	},
 
 	/**
@@ -113,10 +120,10 @@ Page({
 			updateModeVisible: false,
 			updateMode: value[0],
 		})
-		// const weekselect = this.selectComponent('#weekselect')
-		// if (weekselect) {
-			// weekselect.valueChangeWeekSelect(this.data.weekSelectValue)
-		// }
+		const weekselect = this.selectComponent('#weekselect')
+		if (weekselect) {
+		weekselect.valueChangeWeekSelect(this.data.weekSelectValue)
+		}
 	},
 
 	/**
@@ -365,6 +372,56 @@ Page({
 		} else {
 			this.setData({
 				isWeekSelectChange: false
+			})
+		}
+	},
+
+	/**
+	 * 用户改变评分
+	 * @param {*} e 
+	 */
+	onRateChange(e) {
+		const { value } = e.detail
+		this.setData({
+			rateValue: value
+		})
+		console.log(this.data.rateValue)
+		if (this.data.rateValue != this.data.ratevalueTemp) {
+			this.data.isRateChange = true
+		} else {
+			this.data.isRateChange = false
+		}
+		this.rateAndUserTextChange()
+	},
+
+	/**
+	 * 用户改变备注
+	 * @param {*} e 
+	 */
+	onUserTextChange(e) {
+		const { value } = e.detail
+		this.data.userText = value
+		console.log(this.data.userText)
+		console.log(this.data.userTextTemp)
+		if (this.data.userText != this.data.userTextTemp) {
+			this.data.isUserTextChange = true
+		} else {
+			this.data.isUserTextChange = false
+		}
+		this.rateAndUserTextChange()
+	},
+
+	/**
+	 * 改变评分或者备注中的任何一个，显示确认修改按钮
+	 */
+	rateAndUserTextChange() {
+		if (this.data.isUserTextChange || this.data.isRateChange) {
+			this.setData({
+				isRateandUserTextChange: true
+			})
+		} else {
+			this.setData({
+				isRateandUserTextChange: false
 			})
 		}
 	}
