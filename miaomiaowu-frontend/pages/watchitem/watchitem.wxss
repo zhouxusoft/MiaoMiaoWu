@@ -22,7 +22,6 @@
 
 .watchaboutinfobox {
 	background-color: #F2F2F2;
-	height: 100vh;
 	padding: 24rpx 0;
 }
 
@@ -92,4 +91,21 @@
 .updatestepperborder {
 	display: flex;
 	align-items: center;
+}
+
+.updateweekbox {
+	background-color: #FFFFFF;
+	min-height: 120rpx;
+	border-radius: 18rpx;
+	margin: 0 32rpx;
+	padding: 32rpx;
+}
+
+.updateweektitle {
+	font-size: 32rpx;
+}
+
+.weekselectbox {
+	margin: 32rpx auto 16rpx;
+	width: fit-content;
 }

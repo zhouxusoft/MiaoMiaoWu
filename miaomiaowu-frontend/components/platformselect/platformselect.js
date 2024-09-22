@@ -19,12 +19,14 @@ Component({
 	 * 组件的方法列表
 	 */
 	methods: {
-		selectTencent(e) {
-			const updatedProperty = `checked[0]`
+		selectPlatform(e) {
+			const index = e.currentTarget.dataset.index
+			const updatedProperty = `checked[${index}]`
 			this.setData({
 				[updatedProperty]: e.detail.checked
 			})
-			console.log(this.data.checked)
+			// console.log(this.data.checked)
+			this.triggerEvent('checkChange', this.data.checked)
 		},
 
 		selectBilibili(e) {
@@ -66,10 +68,11 @@ Component({
 		valueChangePlatform(value) {
 			if (Array.isArray(value) && value.length === 5 && value.every(item => typeof item === 'boolean')) {
 				this.setData({
-					checked: value
+					// 浅拷贝
+					checked: [...value]
 				})
 			} else {
-				console.error('Invalid input: value must be an array of five booleans')
+				console.error('Value must be an array of five booleans')
 			}
 		},
 	}

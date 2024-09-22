@@ -45,6 +45,21 @@
 			</view>
 		</t-cell>
 	</t-cell-group>
+	<view wx:if="{{updateMode == '连载中'}}">
+		<view class="whitebox" style="height: 24rpx;"></view>
+		<view class="updateweekbox">
+			<view style="display: flex; align-items: center; justify-content: space-between; height: 42rpx;">
+				<view class="updateweektitle">更新时间(每周)</view>
+				<view wx:if="{{isWeekSelectChange}}">
+					<t-button wx:if="{{true}}" theme="light" content="确认更改" size="extra-small"></t-button>
+					<t-loading wx:else theme="spinner" size="40rpx" />
+				</view>
+			</view>
+			<view class="weekselectbox">
+				<weekselect id="weekselect" bind:checkChange="checkChange"></weekselect>
+			</view>
+		</view>
+	</view>
 </view>
 
 <t-picker visible="{{updateModeVisible}}" value="{{updateModeValue}}" title="更新状态" cancelBtn="取消" confirmBtn="确认" usingCustomNavbar bindchange="onPickerChange" bindpick="onColumnChange" bindcancel="onPickerCancel">
@@ -74,7 +89,7 @@
 			<view class="btn btn--confirm" aria-role="button" bind:tap="yesPlatform">确定</view>
 		</view>
 		<view class="platformborder">
-			<platformselect id="platformselect"></platformselect>
+			<platformselect id="platformselect" bind:checkChange="platformChange"></platformselect>
 		</view>
 	</view>
 </t-popup>

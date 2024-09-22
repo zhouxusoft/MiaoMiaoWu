@@ -1,10 +1,10 @@
 <!--components/weekselect/weekselect.wxml-->
 <view class="weekbox">
-	<t-check-tag class="margin-16" size="large" variant="outline" content="一" bind:change="checkWeekMon" />
-	<t-check-tag class="margin-16" size="large" variant="outline" content="二" bind:change="checkWeekTue" />
-	<t-check-tag class="margin-16" size="large" variant="outline" content="三" bind:change="checkWeekWed" />
-	<t-check-tag class="margin-16" size="large" variant="outline" content="四" bind:change="checkWeekThu" />
-	<t-check-tag class="margin-16" size="large" variant="outline" content="五" bind:change="checkWeekFir" />
-	<t-check-tag class="margin-16" size="large" variant="outline" content="六" bind:change="checkWeekSat" />
-	<t-check-tag class="margin-16" size="large" variant="outline" content="日" bind:change="checkWeekSun" />
+	<t-check-tag class="margin-16" size="large" variant="outline" content="一" data-index="0" bind:change="checkWeek" checked="{{checked[0]}}" />
+	<t-check-tag class="margin-16" size="large" variant="outline" content="二" data-index="1" bind:change="checkWeek" checked="{{checked[1]}}" />
+	<t-check-tag class="margin-16" size="large" variant="outline" content="三" data-index="2" bind:change="checkWeek" checked="{{checked[2]}}" />
+	<t-check-tag class="margin-16" size="large" variant="outline" content="四" data-index="3" bind:change="checkWeek" checked="{{checked[3]}}" />
+	<t-check-tag class="margin-16" size="large" variant="outline" content="五" data-index="4" bind:change="checkWeek" checked="{{checked[4]}}" />
+	<t-check-tag class="margin-16" size="large" variant="outline" content="六" data-index="5" bind:change="checkWeek" checked="{{checked[5]}}" />
+	<t-check-tag class="margin-16" size="large" variant="outline" content="日" data-index="6" bind:change="checkWeek" checked="{{checked[6]}}" />
 </view>

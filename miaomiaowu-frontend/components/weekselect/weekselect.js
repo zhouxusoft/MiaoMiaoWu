@@ -5,6 +5,7 @@ Component({
 	 * 组件的属性列表
 	 */
 	properties: {
+
 	},
 
 	/**
@@ -18,33 +19,29 @@ Component({
 	 * 组件的方法列表
 	 */
 	methods: {
-		checkWeekMon(e) {
-			this.data.checked[0] = e.detail.checked
-			console.log(this.data.checked)
+		checkWeek(e) {
+			const index = e.currentTarget.dataset.index
+			const checktemp = `checked[${index}]`
+			this.setData({
+				[checktemp]: e.detail.checked
+			})
+			this.triggerEvent('checkChange', this.data.checked)
+			// console.log(this.data.checked)
 		},
-		checkWeekTue(e) {
-			this.data.checked[1] = e.detail.checked
-			console.log(this.data.checked)
-		},
-		checkWeekWed(e) {
-			this.data.checked[2] = e.detail.checked
-			console.log(this.data.checked)
-		},
-		checkWeekThu(e) {
-			this.data.checked[3] = e.detail.checked
-			console.log(this.data.checked)
-		},
-		checkWeekFir(e) {
-			this.data.checked[4] = e.detail.checked
-			console.log(this.data.checked)
-		},
-		checkWeekSat(e) {
-			this.data.checked[5] = e.detail.checked
-			console.log(this.data.checked)
-		},
-		checkWeekSun(e) {
-			this.data.checked[6] = e.detail.checked
-			console.log(this.data.checked)
+
+		/**
+		 * 通过值修改星期选择选项状态
+		 * @param {boolean[7]} value - 星期选择
+		 */
+		valueChangeWeekSelect(value) {
+			if (Array.isArray(value) && value.length === 7 && value.every(item => typeof item === 'boolean')) {
+				this.setData({
+					// 浅拷贝
+					checked: [...value]
+				})
+			} else {
+				console.error('Value must be an array of 7 booleans')
+			}
 		}
 	}
 })

@@ -16,13 +16,17 @@ Page({
 		yesMadeInputValue: '幻维数码',
 		platformValueText: ['腾讯视频'],
 		platformValue: [true, false, false, false, false],
+		platformValueTemp: [true, false, false, false, false],
 		platformList: ['腾讯视频', '哔哩哔哩', '爱奇艺', '优酷视频', '其它'],
 		updateToNum: 110,
 		updateToNumTemp: 110,
 		watchToNum: 102,
 		watchToNumTemp: 102,
 		updateHaveChanged: false,
-		watchHaveChanged: false
+		watchHaveChanged: false,
+		weekSelectValue: [false, false, false, false, false, false, true],
+		weekSelectValueTemp: [false, false, false, false, false, false, true],
+		isWeekSelectChange: false
 	},
 
 	/**
@@ -35,6 +39,11 @@ Page({
 		wx.setNavigationBarTitle({
 			title: '斗破苍穹年番'
 		})
+
+		const weekselect = this.selectComponent('#weekselect')
+		if (weekselect) {
+			weekselect.valueChangeWeekSelect(this.data.weekSelectValue)
+		}
 	},
 
 	/**
@@ -99,11 +108,15 @@ Page({
 	 */
 	onPickerChange(e) {
 		const { value } = e.detail
-		console.log('picker change:', e.detail)
+		console.log('picker change:', value[0])
 		this.setData({
 			updateModeVisible: false,
-			updateMode: value,
+			updateMode: value[0],
 		})
+		// const weekselect = this.selectComponent('#weekselect')
+		// if (weekselect) {
+			// weekselect.valueChangeWeekSelect(this.data.weekSelectValue)
+		// }
 	},
 
 	/**
@@ -250,6 +263,14 @@ Page({
 	},
 
 	/**
+	 * 更改播放平台信息时触发
+	 * @param {*} e 
+	 */
+	platformChange(e) {
+		this.data.platformValue = e.detail
+	},
+
+	/**
 	 * 根据数据更新显示平台
 	 * @param {boolean[5]} platformValue - 是否在对应平台播放
 	 */
@@ -328,5 +349,23 @@ Page({
 			selector: '#t-toast',
 			message: '这合理吗',
 		})
+	},
+
+	/**
+	 * 更改更新时间时触发
+	 * @param {*} e 
+	 */
+	checkChange(e) {
+		// console.log(e.detail)
+		this.data.weekSelectValue = e.detail
+		if (JSON.stringify(this.data.weekSelectValueTemp) != JSON.stringify(this.data.weekSelectValue)) {
+			this.setData({
+				isWeekSelectChange: true
+			})
+		} else {
+			this.setData({
+				isWeekSelectChange: false
+			})
+		}
 	}
 })

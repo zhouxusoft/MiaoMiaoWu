@@ -13,6 +13,7 @@
 		"t-input": "tdesign-miniprogram/input/input",
 		"t-toast": "tdesign-miniprogram/toast/toast",
 		"t-stepper": "tdesign-miniprogram/stepper/stepper",
-		"t-loading": "tdesign-miniprogram/loading/loading"
+		"t-loading": "tdesign-miniprogram/loading/loading",
+		"weekselect": "/components/weekselect/weekselect"
 	}
 }
