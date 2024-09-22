@@ -110,11 +110,6 @@
 	width: fit-content;
 }
 
-.external-class {
-	padding-top: 18rpx !important;
-	padding-bottom: 18rpx !important;
-}
-
 .deletebtnbox {
 	margin: 0 32rpx;
 }
