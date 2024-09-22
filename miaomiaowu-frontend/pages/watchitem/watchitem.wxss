@@ -113,3 +113,7 @@
 .deletebtnbox {
 	margin: 0 32rpx;
 }
+
+.t-textarea__wrapper-inner {
+	font-size: 30rpx !important;
+}
