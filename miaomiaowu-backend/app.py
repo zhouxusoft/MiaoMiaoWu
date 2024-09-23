@@ -48,32 +48,38 @@ def before_request():
 
 @app.route('/login', methods=['POST'])
 def login():
+    # 获取小程序端，用于请求用户信息的 code
     data = request.get_json()
     code = data['code']
     if not data:
         return jsonify({'success': False, 'message': '登录失败, Missing code'})
 
+    # 小程序信息
     app_id = APP_ID
     app_secret = APP_SECRET
 
+    # 向微信请求用户信息
     url = f'https://api.weixin.qq.com/sns/jscode2session?appid={app_id}&secret={app_secret}&js_code={code}&grant_type=authorization_code'
     
     response = requests.get(url)
     userdata = response.json()
+    # 判断信息是否包含 openid 和 session_key
     if 'openid' in userdata and 'session_key' in userdata:
         openid = userdata['openid']
         session_key = userdata['session_key']
         
+        # 向数据库请求用户信息，若不存在则新建用户信息
         user_info = find_or_create_user(openid, session_key)
 
-        print(user_info)
+        # print(user_info)
 
         return jsonify({'success': True, 'userInfo': user_info, 'accessToken': ''})
     else:
         return jsonify({'success': False, 'message': '登录失败, Error userinfo'})
 
-
+# 查询用户，没有查到就创建新的用户
 def find_or_create_user(openid, session_key):
+    # 查询用户的id、昵称、头像链接
     sql = "SELECT `id`, `nickname`, `avatar` FROM `users` WHERE openid = %s"
     val = (openid,)
     lock.acquire()
@@ -83,8 +89,12 @@ def find_or_create_user(openid, session_key):
     finally:
         lock.release()
 
+    # 获取当前时间，用于刷新用户的最近登录时间
     latest_login_time = datetime.now()
+
+    # 判断用户是否存在于数据库，若没有，则新建用户
     if result:
+        # 更新用户的 session_key 和 最近登录时间
         sql = "UPDATE users SET `session_key` = %s, `latest_login_time` = %s WHERE openid = %s"
         val = (session_key, latest_login_time, openid)
         lock.acquire()
@@ -94,6 +104,7 @@ def find_or_create_user(openid, session_key):
         finally:
             lock.release()
     else:
+        # 创建新的用户
         sql = "INSERT INTO `users` (`openid`, `session_key`, `latest_login_time`) VALUES (%s, %s, %s)"
         val = (openid, session_key, latest_login_time)
         lock.acquire()
@@ -102,7 +113,7 @@ def find_or_create_user(openid, session_key):
             db.commit()
         finally:
             lock.release()
-
+        # 创建完成后查询该用户
         sql = "SELECT `id`, `nickname`, `avatar` FROM `users` WHERE openid = %s"
         val = (openid,)
         lock.acquire()
@@ -111,7 +122,7 @@ def find_or_create_user(openid, session_key):
             result = dbcursor.fetchone()
         finally:
             lock.release()
-
+    # 返回用户信息
     return result
 
 if __name__ == '__main__':
