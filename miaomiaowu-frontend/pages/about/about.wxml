@@ -2,8 +2,17 @@
 	<view class="userinfo">
 		<image src="/images/userbackground.png" mode="" class="userbackgroundimage1"/>
 		<image src="/images/noise.png" mode="" class="userbackgroundimage2"/>
-	</view>
-	<view>
-		<image src="https://p.ananas.chaoxing.com/star3/origin/96a32ba09f2db948af525a870d0beafe.jpg" mode=""/>
+		<view class="userinfobox">
+			<view class="useravatarbox">
+				<image src="/images/cutedurk.png" mode="widthFix" class="useravatar"/>
+			</view>
+			<view class="userinfoborder">
+				<view class="username">Hi~, {{nickname}}</view>
+				<view>
+					<view class="userlevel">Lv.8</view>
+					<view class="userscore">初级小黑子</view>
+				</view>
+			</view>
+		</view>
 	</view>
 </scroll-view>

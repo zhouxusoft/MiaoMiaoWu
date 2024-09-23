@@ -1,5 +1,7 @@
 {
-	"usingComponents": {},
+	"usingComponents": {
+		"t-dialog": "tdesign-miniprogram/dialog/dialog"
+	},
 	"navigationBarBackgroundColor": "#FAFAFA",
 	"navigationBarTextStyle": "black",
 	"navigationBarTitleText": "主页"

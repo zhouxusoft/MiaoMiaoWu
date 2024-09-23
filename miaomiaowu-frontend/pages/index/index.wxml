@@ -1,15 +1,15 @@
 <!--index.wxml-->
 <scroll-view class="scrollarea" scroll-y type="list">
-	<view class="topuserinfo">
+	<view class="topuserinfo" data-key="showConfirm" bind:tap="showDialog">
 		<view class="usericonbox">
-			<image src="/images/cutedurk.png" mode="aspectFill" class="usericon"/>
+			<image src="{{user_avatar}}" mode="aspectFill" class="usericon"/>
 		</view>
 		<view class="userinfobox">
 			<view class="usernamebox">
 				<text>Hi~，</text>
-				<text class="username">晒月光的小猫</text>
+				<text class="username">{{nickname}}</text>
 			</view>
-			<view class="userlevelbox">
+			<view class="userlevelbox" wx:if="{{isLogin}}">
 				<text>Lv.</text>
 				<text class="userlevel">8</text>
 			</view>
@@ -38,3 +38,12 @@
 		</view>
 	</view>
 </scroll-view>
+
+<t-dialog
+  visible="{{showConfirm}}"
+  title="当前未登录"
+  confirm-btn="{{ confirmBtn }}"
+  cancel-btn="取消"
+  bind:confirm="yesDialog"
+  bind:cancel="closeDialog"
+/>
