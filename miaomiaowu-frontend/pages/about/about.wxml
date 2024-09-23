@@ -3,4 +3,7 @@
 		<image src="/images/userbackground.png" mode="" class="userbackgroundimage1"/>
 		<image src="/images/noise.png" mode="" class="userbackgroundimage2"/>
 	</view>
+	<view>
+		<image src="https://p.ananas.chaoxing.com/star3/origin/96a32ba09f2db948af525a870d0beafe.jpg" mode=""/>
+	</view>
 </scroll-view>
