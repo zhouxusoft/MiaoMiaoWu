@@ -142,7 +142,7 @@ def check_session():
         # 向前端返回当前的登录状态
         if check['success']:
             user_info = get_user_info(check['user_id'])
-            return jsonify({'success': True, 'message': '当前已登陆', 'userInfo': user_info})
+            return jsonify({'success': True, 'message': '当前已登录', 'userInfo': user_info})
         else:
             return jsonify({'success': False, 'message': '当前未登录'})
     else:
@@ -233,7 +233,7 @@ def checkCookie(token):
     if len(result) > 0:
         current_time = datetime.now()
         if isTimeOut(result[0][1], current_time):
-            return ({'success': False, 'message': '登陆过期'})
+            return ({'success': False, 'message': '登录过期'})
         return  ({'success': True, 'message': '已登录', 'user_id': result[0][0]})
     else:
         return ({'success': False, 'message': '未登录'})
