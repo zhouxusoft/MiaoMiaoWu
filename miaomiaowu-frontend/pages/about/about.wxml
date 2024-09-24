@@ -4,15 +4,31 @@
 		<image src="/images/noise.png" mode="" class="userbackgroundimage2"/>
 		<view class="userinfobox">
 			<view class="useravatarbox">
-				<image src="/images/cutedurk.png" mode="widthFix" class="useravatar"/>
+				<image src="{{user_avatar}}" mode="widthFix" class="useravatar"/>
 			</view>
 			<view class="userinfoborder">
 				<view class="username">Hi~, {{nickname}}</view>
-				<view>
+				<view wx:if="{{isLogin}}">
 					<view class="userlevel">Lv.8</view>
 					<view class="userscore">初级小黑子</view>
 				</view>
 			</view>
 		</view>
 	</view>
+	<view style="margin: 8px;">
+		<t-button theme="primary" size="medium" block bind:tap="login" wx:if="{{!isLogin}}">点击登录</t-button>
+		<t-button theme="danger" size="medium" block bind:tap="logout" wx:else>注销登录</t-button>
+	</view>
+		
 </scroll-view>
+
+<button data-key="showConfirm" bind:tap="showDialog" style="display: none;">1</button>
+
+<t-dialog
+  visible="{{showConfirm}}"
+  title="授权使用微信头像、昵称"
+  confirm-btn="{{ confirmBtn }}"
+  cancel-btn="取消"
+  bind:confirm="yesDialog"
+  bind:cancel="closeDialog"
+/>

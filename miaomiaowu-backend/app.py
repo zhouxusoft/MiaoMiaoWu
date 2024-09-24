@@ -95,19 +95,24 @@ def login():
 def save_profile():
     data = request.get_json()
     user_info = data.get('userInfo')
+    access_token = data.get('accessToken')
     if not user_info:
         return jsonify({'success': False, 'message': 'Missing userInfo'})
-
-    openid = user_info.get('openid')
+    user_about = checkCookie(access_token)
+    if not user_about['success']:
+        return jsonify({'success': False, 'message': 'Invalid accessToken'})
+    print(user_info)
+    print(access_token)
+    user_id = user_about['user_id']
     nickname = user_info.get('nickName')
     avatar_url = user_info.get('avatarUrl')
 
-    if not openid or not nickname or not avatar_url:
+    if not user_id or not nickname or not avatar_url:
         return jsonify({'success': False, 'message': 'Incomplete userInfo'})
     
     # 更新用户信息
-    sql = "UPDATE `users` SET nickname = %s, avatar = %s WHERE openid = %s"
-    val = (nickname, avatar_url, openid)
+    sql = "UPDATE `users` SET nickname = %s, avatar = %s WHERE id = %s"
+    val = (nickname, avatar_url, user_id)
     lock.acquire()
     try:
         dbcursor.execute(sql, val)
@@ -116,8 +121,8 @@ def save_profile():
         lock.release()
     
     # 获取更新后的用户信息
-    sql = "SELECT `id`, `nickname`, `avatar` FROM `users` WHERE openid = %s"
-    val = (openid,)
+    sql = "SELECT `id`, `nickname`, `avatar` FROM `users` WHERE id = %s"
+    val = (user_id,)
     lock.acquire()
     try:
         dbcursor.execute(sql, val)

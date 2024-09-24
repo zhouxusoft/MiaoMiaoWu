@@ -12,11 +12,6 @@ Page({
 		showWarnConfirm: false,
 		showTooLongBtnContent: false,
 		showMultiBtn: false,
-		multiBtnList: [
-			{ content: '次要按钮', theme: 'light' },
-			{ content: '次要按钮', theme: 'light' },
-			{ content: '主要按钮', theme: 'primary' },
-		],
 	},
 
 	/**
