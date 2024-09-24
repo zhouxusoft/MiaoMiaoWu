@@ -47,6 +47,6 @@
   bind:cancel="closeDialog"
 >
 	<view slot="content">
-		<input type="nickname" placeholder="请输入昵称" maxlength="10" class="usernameinput" value="{{userchangename}}" bind:input="nicknameinput" bind:nicknamereview="nicknamereview" bind:blur="nicknameinputblur"/>
+		<input type="nickname" placeholder="请输入昵称" maxlength="10" class="usernameinput" value="{{userchangename}}" bind:input="nicknameinput" bind:nicknamereview="nicknamereview" />
 	</view>
 </t-dialog>

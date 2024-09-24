@@ -119,6 +119,9 @@ Page({
 		})
 	},
 
+	/**
+	 * 通过官方接口获取用户信息，方法已弃用
+	 */
 	getUserProfile() {
 		wx.getUserProfile({
 			desc: '用于完善会员资料', // 必填项，说明获取用户信息的用途
@@ -149,12 +152,18 @@ Page({
 		})
 	},
 
+	/**
+	 * 退出登录
+	 */
 	logout() {
 		wx.clearStorageSync('accessToken')
 		console.log("logout")
 		this.updateUserInfo(false, '陌生人', '/images/cutedurk.png')
 	},
 
+	/**
+	 * 登录请求
+	 */
 	login() {
 		const self = this
 		wx.login({
@@ -231,6 +240,9 @@ Page({
 		console.log(484)
 	},
 
+	/**
+	 * 授权用户的头像、昵称（已废弃）
+	 */
 	handleGetUserProfile() {
 		const self = this
 		console.log(858)
@@ -265,6 +277,12 @@ Page({
 		});
 	},
 
+	/**
+	 * 修改用户信息
+	 * @param {boolean} isLogin 
+	 * @param {String} nickname 
+	 * @param {String} user_avatar 
+	 */
 	updateUserInfo(isLogin, nickname, user_avatar) {
 		this.setData({
 			isLogin: isLogin,
@@ -273,15 +291,26 @@ Page({
 		})
 	},
 
+	/**
+	 * 修改头像时触发
+	 * @param {*} e 
+	 */
 	chooseAvatar(e) {
 		this.setUserInfo(this.data.nickname, e.detail.avatarUrl)
 	},
 
+	/**
+	 * 显示修改昵称的弹框
+	 * @param {*} e 
+	 */
 	showConfirmName(e) {
 		const { key } = e.currentTarget.dataset
 		this.setData({ [key]: true, dialogKey: key })
 	},
 
+	/**
+	 * 确定修改昵称
+	 */
 	yesChangeName() {
 		const { dialogKey } = this.data
 		this.setData({ [dialogKey]: false })
@@ -295,6 +324,10 @@ Page({
 		})
 	},
 
+	/**
+	 * 检测用户名是否合法
+	 * @param {*} e 
+	 */
 	nicknamereview(e) {
 		console.log(e)
 		this.setData({
@@ -303,6 +336,10 @@ Page({
 		})
 	},
 
+	/**
+	 * 修改名称输入框值发生变化时，注意，开发者工具的模拟器，自动填充的 微信名称 不会触发 input 事件
+	 * @param {*} e 
+	 */
 	nicknameinput(e) {
 		console.log(e)
 		this.setData({
@@ -310,6 +347,11 @@ Page({
 		})
 	},
 
+	/**
+	 * 修改用户名和头像
+	 * @param {String} nickname 
+	 * @param {String} avatarurl 
+	 */
 	setUserInfo(nickname, avatarurl) {
 		const self = this
 		wx.request({
