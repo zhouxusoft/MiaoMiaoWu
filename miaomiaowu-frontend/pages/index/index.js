@@ -18,9 +18,6 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad(options) {
-		const accessToken = wx.getStorageSync('accessToken')
-		// console.log(accessToken)
-		this.checkLoginStatus(accessToken)
 	},
 
 	/**
@@ -34,7 +31,9 @@ Page({
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow() {
-
+		const accessToken = wx.getStorageSync('accessToken')
+		// console.log(accessToken)
+		this.checkLoginStatus(accessToken)
 	},
 
 	/**
@@ -79,7 +78,7 @@ Page({
 	checkLoginStatus(accessToken) {
 		const self = this
 		wx.request({
-			url: 'http://127.0.0.1:5000/check_session',
+			url: 'http://192.168.116.43:5000/check_session',
 			method: 'POST',
 			data: {
 				accessToken: accessToken

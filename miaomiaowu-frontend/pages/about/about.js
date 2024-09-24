@@ -9,10 +9,13 @@ Page({
 		user_avatar: '/images/cutedurk.png',
 		nickname: '陌生人',
 		userInfo: null,
-		nickname: '陌生人',
 		confirmBtn: { content: '确认', variant: 'base' },
+		confirmBtnName: { content: '确认', variant: 'base', disabled: true},
 		dialogKey: '',
 		showConfirm: false,
+		showConfirmName: false,
+		userchangename: '',
+		isChangeNameOK: false
 	},
 
 	/**
@@ -80,7 +83,7 @@ Page({
 	checkLoginStatus(accessToken) {
 		const self = this
 		wx.request({
-			url: 'http://127.0.0.1:5000/check_session',
+			url: 'http://192.168.116.43:5000/check_session',
 			method: 'POST',
 			data: {
 				accessToken: accessToken
@@ -117,7 +120,7 @@ Page({
 
 	sendCodeToServer(code) {
 		wx.request({
-			url: 'http://127.0.0.1:5000/login', // 登录接口
+			url: 'http://192.168.116.43:5000/login', // 登录接口
 			method: 'POST',
 			data: {
 				code: code
@@ -144,7 +147,7 @@ Page({
 			success(res) {
 				// 将用户信息发送到后端服务器
 				wx.request({
-					url: 'http://127.0.0.1:5000/save_profile', // 替换成你服务器的保存用户信息接口
+					url: 'http://192.168.116.43:5000/save_profile', // 替换成你服务器的保存用户信息接口
 					method: 'POST',
 					data: {
 						userInfo: res.userInfo
@@ -177,11 +180,11 @@ Page({
 		const self = this
 		wx.login({
 			success(res) {
-				console.log(666)
+				// console.log(666)
 				if (res.code) {
 					// 将 code 发送到后端服务器
 					wx.request({
-						url: 'http://127.0.0.1:5000/login', // 登录接口
+						url: 'http://192.168.225.240:80/api/login', // 登录接口
 						method: 'POST',
 						data: {
 							code: res.code
@@ -196,10 +199,10 @@ Page({
 								self.updateUserInfo(true, res.data.userInfo[1], res.data.userInfo[2])
 								// 获取用户信息
 								console.log(res.data)
-								if (!res.data['userInfo'][1]|| !res.data['userInfo'][2]){
-									console.log(66647)
-									self.setData({ 
-										showConfirm: true, 
+								if (!res.data['userInfo'][1] || !res.data['userInfo'][2]) {
+									// console.log(66647)
+									self.setData({
+										showConfirm: true,
 										dialogKey: 'showConfirm'
 									})
 								}
@@ -252,7 +255,7 @@ Page({
 			success(res) {
 				// 将用户信息发送到后端服务器
 				wx.request({
-					url: 'http://127.0.0.1:5000/save_profile',
+					url: 'http://192.168.116.43:5000/save_profile',
 					method: 'POST',
 					data: {
 						userInfo: res.userInfo,
@@ -277,11 +280,76 @@ Page({
 		});
 	},
 
-	updateUserInfo(isLogin = true, nickname = '陌生人', user_avatar = '/images/cutedurk.png') {
+	updateUserInfo(isLogin, nickname, user_avatar) {
 		this.setData({
 			isLogin: isLogin,
 			nickname: nickname,
 			user_avatar: user_avatar
+		})
+	},
+
+	chooseAvatar(e) {
+		this.setUserInfo(this.data.nickname, e.detail.avatarUrl)
+	},
+
+	showConfirmName(e) {
+		const { key } = e.currentTarget.dataset
+		this.setData({ [key]: true, dialogKey: key })
+	},
+
+	yesChangeName() {
+		const { dialogKey } = this.data
+		this.setData({ [dialogKey]: false })
+		if (this.data.isChangeNameOK && this.data.userchangename != '') {
+			this.setUserInfo(this.data.userchangename, this.data.user_avatar)
+		}
+		this.setData({
+			confirmBtnName: { content: '确认', variant: 'base', disabled: true }
+		})
+	},
+
+	nicknamereview(e){
+		console.log(e)
+		this.setData({
+			isChangeNameOK: e.detail.pass
+		})
+		if (this.data.userchangename) {
+			this.setData({
+				confirmBtnName: { content: '确认', variant: 'base', disabled: false }
+			})
+		}
+	},
+
+	nicknameinput(e) {
+		console.log(e)
+		this.setData({
+			userchangename: e.detail.value
+		})
+	},
+
+	setUserInfo(nickname, avatarurl) {
+		const self = this
+		wx.request({
+			url: 'http://192.168.116.43:5000/save_profile',
+			method: 'POST',
+			data: {
+				userInfo: {
+					nickName: nickname,
+					avatarUrl: avatarurl 
+				},
+				accessToken: wx.getStorageSync('accessToken')
+			},
+			success(res) {
+				if (res.data.success) {
+					self.updateUserInfo(true, res.data.userInfo[1], res.data.userInfo[2])
+					console.log(res.data)
+				} else {
+					console.error('保存用户信息失败！' + res.data.message)
+				}
+			},
+			fail(err) {
+				console.error('请求失败！' + err.errMsg)
+			}
 		})
 	}
 })

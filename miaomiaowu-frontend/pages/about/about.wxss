@@ -6,6 +6,7 @@ page {
 
 .scrollarea {
 	flex: 1;
+	height: 120vh;
 	overflow-y: hidden;
 }
 
@@ -45,11 +46,12 @@ page {
 
 .useravatarbox {
 	width: fit-content;
-	width: 70px;
-	height: 70px;
+	width: 74px;
+	height: 74px;
 	overflow: hidden;
 	border: solid 2px #F2F2F2;
 	border-radius: 6px;
+	padding: 0;
 }
 
 .useravatar {
@@ -78,4 +80,10 @@ page {
 .userscore {
 	color: #EEEEEE;
 	font-size: 14px;
+}
+
+.usernameinput {
+	border: 2px solid #F2F2F2;
+	padding: 8px;
+	margin: 8px 0 0;
 }

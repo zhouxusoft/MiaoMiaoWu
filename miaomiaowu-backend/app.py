@@ -69,7 +69,7 @@ def login():
     if 'openid' in userdata and 'session_key' in userdata:
         openid = userdata['openid']
         session_key = userdata['session_key']
-        
+        print(openid)
         # 向数据库请求用户信息，若不存在则新建用户信息
         user_info = find_or_create_user(openid, session_key)
 
@@ -147,6 +147,7 @@ def check_session():
             return jsonify({'success': False, 'message': '当前未登录'})
     else:
         return jsonify({'success': False, 'message': '当前未登录'})
+
 
 # 查询用户，没有查到就创建新的用户
 def find_or_create_user(openid, session_key):
