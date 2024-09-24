@@ -148,6 +148,27 @@ def check_session():
     else:
         return jsonify({'success': False, 'message': '当前未登录'})
 
+@app.route('/get_user_drama', methods=['POST'])
+def get_user_drama():
+    data = request.get_json()
+    accessToken = data.get('accessToken')
+    if not accessToken:
+        return jsonify({'success': False, 'message': 'Missing accessToken'})
+
+    check = checkCookie(accessToken)
+    user_id = check['user_id']
+
+    sql = "SELECT * FROM `drama` WHERE `user_id` = %s"
+    val = (user_id,)
+    lock.acquire()
+    try:
+        dbcursor.execute(sql, val)
+        result = dbcursor.fetchall()
+    finally:
+        lock.release()
+
+    return jsonify({'success': True, 'dramas': result})
+
 
 # 查询用户，没有查到就创建新的用户
 def find_or_create_user(openid, session_key):

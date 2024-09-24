@@ -10,7 +10,14 @@ Page({
 		// 顶部标签名称
 		tabname: '正在追',
 		// 判断滚动是否由 scrollToTop 触发
-		isScrollToTop: 0
+		isScrollToTop: 0,
+		isLogin: false,
+		dramaList: [],
+		updateModes: [
+			'连载中',
+			'已完结',
+			'未更新'
+		],
 	},
 
 	/**
@@ -20,6 +27,7 @@ Page({
 		wx.showLoading({
 			title: '加载中...',
 		})
+		this.getDramaList()
 	},
 
 	/**
@@ -33,7 +41,9 @@ Page({
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow() {
-
+		const accessToken = wx.getStorageSync('accessToken')
+		// console.log(accessToken)
+		this.checkLoginStatus(accessToken)
 	},
 
 	/**
@@ -69,6 +79,49 @@ Page({
 	 */
 	onShareAppMessage() {
 
+	},
+
+	/**
+	 * 检测用户是否登录
+	 * @param {String} accessToken - 用户的登录凭证
+	 */
+	checkLoginStatus(accessToken) {
+		const self = this
+		wx.request({
+			// url: 'http://192.168.116.43:5000/check_session',
+			url: 'http://192.168.1.6:5000/check_session',
+			method: 'POST',
+			data: {
+				accessToken: accessToken
+			},
+			success(res) {
+				if (res.data.success) {
+					self.setData({
+						isLogin: true
+					})
+					console.log(res.data)
+					// 更新用户信息
+					wx.setStorageSync('user_id', res.data.userInfo[0])
+					wx.setStorageSync('nickname', res.data.userInfo[1])
+					wx.setStorageSync('avatar', res.data.userInfo[2])
+					if (res.data.userInfo[1] != null) {
+						self.setData({
+							nickname: res.data.userInfo[1]
+						})
+					}
+					if (res.data.userInfo[2] != null) {
+						self.setData({
+							user_avatar: res.data.userInfo[2]
+						})
+					}
+				} else {
+					console.error('登录失败！' + res.data.message);
+				}
+			},
+			fail(err) {
+				console.error('请求失败！' + err.errMsg);
+			}
+		})
 	},
 
 	/**
@@ -143,6 +196,42 @@ Page({
 			url: '/pages/addwatch/addwatch',
 		})
 	},
+
+
+
+	getDramaList() {
+		const self = this
+		const accessToken = wx.getStorageSync('accessToken')
+		wx.request({
+			url: 'http://192.168.1.6:5000/get_user_drama',
+			method: 'POST',
+			data: {
+				accessToken: accessToken
+			},
+			success(res) {
+				if (res.data.success) {
+					self.setData({
+						dramaList: res.data.dramas
+					})
+					console.log(res.data)
+					
+					for (let i = 0; i < self.data.dramaList.length; i++) {
+						self.data.dramaList[i][7] = self.data.updateModes[self.data.dramaList[i][7]]
+					}
+					self.setData({
+						dramaList: self.data.dramaList
+					})
+					console.log(self.data.dramaList[0])
+				} else {
+					console.error('获取失败！' + res.data.message);
+				}
+			},
+			fail(err) {
+				console.error('请求失败！' + err.errMsg);
+			}
+		})
+	},
+
 
 	properties: {
 		navbarHeight: {

@@ -6,31 +6,35 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
-		updateMode: '连载中',
+		dramaName: '番剧名称',
+		darmaCover: '番剧封面',
+		dramaJianJie: '番剧简介',
+		updateMode: '播放状态',
+		updateModeTemp: '播放状态',
 		updateModes: [
 			{ label: '连载中', value: '连载中' },
 			{ label: '已完结', value: '已完结' },
 			{ label: '未更新', value: '未更新' }
 		],
-		madeInputValue: '幻维数码',
-		yesMadeInputValue: '幻维数码',
-		platformValueText: ['腾讯视频'],
-		platformValue: [true, false, false, false, false],
-		platformValueTemp: [true, false, false, false, false],
+		madeInputValue: '制作公司',
+		yesMadeInputValue: '制作公司',
+		platformValueText: ['播放平台'],
+		platformValue: [false, false, false, false, false],
+		platformValueTemp: [false, false, false, false, false],
 		platformList: ['腾讯视频', '哔哩哔哩', '爱奇艺', '优酷视频', '其它'],
-		updateToNum: 110,
-		updateToNumTemp: 110,
-		watchToNum: 102,
-		watchToNumTemp: 102,
+		updateToNum: 0,
+		updateToNumTemp: 0,
+		watchToNum: 0,
+		watchToNumTemp: 0,
 		updateHaveChanged: false,
 		watchHaveChanged: false,
-		weekSelectValue: [false, false, false, false, false, false, true],
-		weekSelectValueTemp: [false, false, false, false, false, false, true],
+		weekSelectValue: [false, false, false, false, false, false, false],
+		weekSelectValueTemp: [false, false, false, false, false, false, false],
 		isWeekSelectChange: false,
-		rateValue: 4.5,
-		ratevalueTemp: 4.5,
-		userText: '这是一部很优秀的动漫，我很喜欢',
-		userTextTemp: '这是一部很优秀的动漫，我很喜欢',
+		rateValue: 0,
+		ratevalueTemp: 0,
+		userText: '备注',
+		userTextTemp: '备注',
 		isRateChange: false,
 		isUserTextChange: false,
 		isRateandUserTextChange: false
@@ -40,11 +44,41 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad(options) {
-		let watchid = options.watchid
-		// console.log(watchid)
+		let dramaInfo = options.dramaInfo
+		console.log(dramaInfo)
+
+		// const dataArray = dramaInfo.split(",")
+		// console.log(dataArray)
+
+		const parsedArray = this.parseNestedArrays(dramaInfo)
+		console.log(parsedArray)
+
+		this.setData({
+			dramaName: parsedArray[2],
+			darmaCover: parsedArray[3],
+			dramaJianJie: parsedArray[4],
+			madeInputValue: parsedArray[5],
+			updateMode: parsedArray[7],
+			platformValue: this.convertToBooleanArray(parsedArray[6], 5),
+			updateToNum: parsedArray[9],
+			watchToNum: parsedArray[10],
+			weekSelectValue: this.convertToBooleanArray(parsedArray[12], 7),
+			rateValue: parsedArray[13],
+			userText: parsedArray[14]
+		})
+
+		this.data.updateModeTemp = parsedArray[7]
+		this.data.platformValue = this.convertToBooleanArray(parsedArray[6], 5)
+		this.data.updateToNumTemp = parsedArray[9]
+		this.data.watchToNumTemp = parsedArray[10]
+		this.data.weekSelectValueTemp = this.convertToBooleanArray(parsedArray[12], 7)
+		this.data.rateValueTemp = parsedArray[13]
+		this.data.userTextTemp = parsedArray[14]
+
+		this.updatePlatformValueText(this.data.platformValue)
 
 		wx.setNavigationBarTitle({
-			title: '斗破苍穹年番'
+			title: parsedArray[2]
 		})
 
 		const weekselect = this.selectComponent('#weekselect')
@@ -122,7 +156,7 @@ Page({
 		})
 		const weekselect = this.selectComponent('#weekselect')
 		if (weekselect) {
-		weekselect.valueChangeWeekSelect(this.data.weekSelectValue)
+			weekselect.valueChangeWeekSelect(this.data.weekSelectValue)
 		}
 	},
 
@@ -424,5 +458,64 @@ Page({
 				isRateandUserTextChange: false
 			})
 		}
+	},
+
+	/**
+	 * 将字符串转为数组
+	 * @param {String} data 
+	 */
+	parseNestedArrays(data) {
+		if (typeof data === 'string') {
+			data = data.split(/,(?=\S)/)  // 使用正则表达式来分割字符串
+		}
+
+		const result = []
+		const nestedArrayPattern = /^\[(.*?)\]$/
+
+		for (let i = 0; i < data.length; i++) {
+			let item = data[i].trim()
+			let match = nestedArrayPattern.exec(item)
+
+			if (match) {
+				// 处理嵌套数组
+				let nestedArray = match[1].split(',').map(num => num.trim()).map(num => isNaN(Number(num)) ? num : Number(num))
+				result.push(nestedArray)
+			} else if (item.startsWith('[')) {
+				let nestedArray = []
+				while (!item.endsWith(']')) {
+					nestedArray.push(...item.substring(1).split(',').map(num => num.trim()).map(num => isNaN(Number(num)) ? num : Number(num)))
+					i++
+					item = data[i].trim()
+				}
+				nestedArray.push(...item.substring(0, item.length - 1).split(',').map(num => num.trim()).map(num => isNaN(Number(num)) ? num : Number(num)))
+				result.push(nestedArray);
+			} else {
+				result.push(isNaN(Number(item)) ? item : Number(item))
+			}
+		}
+
+		return result
+	},
+
+
+
+
+	/**
+	 * 例：将数组 [2, 6] 转换为布尔值数组 [false, false, true, false, false, false, true]
+	 * @param {Array} indices 
+	 * @param {Number} length - 布尔值数组长度
+	 */
+	convertToBooleanArray(indices, length) {
+		// 初始化一个长度为 length 的全为 false 的数组
+		const resultArray = new Array(length).fill(false)
+
+		// 遍历索引数组，将对应位置设为 true
+		indices.forEach(index => {
+			if (index < length) {
+				resultArray[index] = true
+			}
+		})
+
+		return resultArray
 	}
 })

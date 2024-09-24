@@ -2,10 +2,10 @@
 <view class="watchbox" bind:tap="gowatchitem">
 	<view class="watchimgboxborder">
 		<view class="watchimgbox">
-			<image src="/images/dp.jpg" class="watchimg" mode="widthFix" />
+			<image src="{{watchcover}}" class="watchimg" mode="widthFix" />
 		</view>
 		<view class="watchratebox">
-			<t-rate default-value="{{4.5}}" allowHalf color="#0052d9d9" gap="{{4}}" size="{{16}}" disabled />
+			<t-rate default-value="{{userlove}}" allowHalf color="#0052d9d9" gap="{{4}}" size="{{16}}" disabled />
 		</view>
 	</view>
 	<view class="watchinfobox">

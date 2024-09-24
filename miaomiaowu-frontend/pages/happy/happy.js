@@ -1,3 +1,4 @@
+import { Toast } from 'tdesign-miniprogram'
 // pages/watch/watch.js
 Page({
 
@@ -5,7 +6,7 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
-
+		isLogin: false
 	},
 
 	/**
@@ -28,6 +29,9 @@ Page({
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow() {
+		const accessToken = wx.getStorageSync('accessToken')
+		// console.log(accessToken)
+		this.checkLoginStatus(accessToken)
 	},
 
 	/**
@@ -69,26 +73,105 @@ Page({
 	 * 用户点击跳转到 watch 页面
 	 */
 	goToWatch: function () {
-		wx.navigateTo({
-			url: '/pages/watch/watch'
-		});
+		if (this.data.isLogin) {
+			wx.navigateTo({
+				url: '/pages/watch/watch'
+			})
+		} else {
+			this.warnLogin()
+		}
 	},
 
 	/**
 	 * 用户点击跳转到 diary 页面
 	 */
 	goToDiary: function () {
-		wx.navigateTo({
-			url: '/pages/diary/diary',
-		})
+		if (false) {
+			wx.navigateTo({
+				url: '/pages/diary/diary',
+			})
+		} else {
+			this.notAble()
+		}
 	},
 
 	/**
 	 * 用户点击跳转到 chicken 页面
 	 */
 	goToChicken: function () {
-		wx.navigateTo({
-			url: '/pages/chicken/chicken',
+		if (true) {
+			wx.navigateTo({
+				url: '/pages/chicken/chicken',
+			})
+		} else {
+			this.warnLogin()
+		}
+	},
+
+	/**
+	 * 检测用户是否登录
+	 * @param {String} accessToken - 用户的登录凭证
+	 */
+	checkLoginStatus(accessToken) {
+		const self = this
+		wx.request({
+			// url: 'http://192.168.116.43:5000/check_session',
+			url: 'http://192.168.1.6:5000/check_session',
+			method: 'POST',
+			data: {
+				accessToken: accessToken
+			},
+			success(res) {
+				if (res.data.success) {
+					self.setData({
+						isLogin: true
+					})
+					console.log(res.data)
+					// 更新用户信息
+					wx.setStorageSync('user_id', res.data.userInfo[0])
+					wx.setStorageSync('nickname', res.data.userInfo[1])
+					wx.setStorageSync('avatar', res.data.userInfo[2])
+					if (res.data.userInfo[1] != null) {
+						self.setData({
+							nickname: res.data.userInfo[1]
+						})
+					}
+					if (res.data.userInfo[2] != null) {
+						self.setData({
+							user_avatar: res.data.userInfo[2]
+						})
+					}
+				} else {
+					console.error('登录失败！' + res.data.message);
+				}
+			},
+			fail(err) {
+				console.error('请求失败！' + err.errMsg);
+			}
 		})
-	}
+	},
+
+	/**
+	 * Toast
+	 * 未登录无法跳转
+	 */
+	warnLogin() {
+		Toast({
+			context: this,
+			selector: '#t-toast',
+			message: '登录后方可使用该功能',
+		})
+	},
+
+	/**
+	 * Toast
+	 * 敬请期待
+	 */
+	notAble() {
+		Toast({
+			context: this,
+			selector: '#t-toast',
+			message: '敬请期待',
+		})
+	},
 })

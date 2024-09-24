@@ -1,11 +1,11 @@
 <!--pages/watchitem/watchitem.wxml-->
 <view class="borderbox">
 	<view class="watchinfoborder">
-		<image src="/images/dp.jpg" mode="widthFix" class="watchimg" />
+		<image src="{{darmaCover}}" mode="widthFix" class="watchimg" />
 		<view class="watchinfobox">
-			<view class="watchname">斗破苍穹年番</view>
+			<view class="watchname">{{dramaName}}</view>
 			<view class="watchsub">
-				<view style="text-indent: 2em;">三年之约后，萧炎终于在迦南学院见到了薰儿，此后他广交挚友并成立磐门；为继续提升实力以三上云岚宗为父复仇，他以身犯险深入天焚炼气塔吞噬陨落心炎……</view>
+				<view style="text-indent: 2em;">{{dramaJianJie}}</view>
 			</view>
 		</view>
 	</view>
@@ -72,7 +72,7 @@
 					<t-loading wx:else theme="spinner" size="40rpx" />
 				</view>
 			</view>
-		<t-rate default-value="{{4.5}}" allowHalf class="rateitem" bind:change="onRateChange" style="margin: 24rpx 0;" />
+		<t-rate value="{{rateValue}}" allowHalf class="rateitem" bind:change="onRateChange" style="margin: 24rpx 0;" />
 		<t-textarea style="padding: 12rpx 16rpx !important;" value="{{userText}}" bind:change="onUserTextChange" placeholder="备注" bordered autosize="true" maxlength="100" disableDefaultPadding="{{true}}" indicator />
 	</view>
 

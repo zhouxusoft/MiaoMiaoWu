@@ -7,3 +7,5 @@
 		</t-cell-group>
 	</view>
 </scroll-view>
+
+<t-toast id="t-toast" />
