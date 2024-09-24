@@ -78,7 +78,8 @@ Page({
 	checkLoginStatus(accessToken) {
 		const self = this
 		wx.request({
-			url: 'http://192.168.116.43:5000/check_session',
+			// url: 'http://192.168.116.43:5000/check_session',
+			url: 'http://192.168.1.6:5000/check_session',
 			method: 'POST',
 			data: {
 				accessToken: accessToken

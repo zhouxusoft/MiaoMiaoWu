@@ -10,7 +10,7 @@ Page({
 		nickname: '陌生人',
 		userInfo: null,
 		confirmBtn: { content: '确认', variant: 'base' },
-		confirmBtnName: { content: '确认', variant: 'base', disabled: true},
+		confirmBtnName: { content: '确认', variant: 'base', disabled: true },
 		dialogKey: '',
 		showConfirm: false,
 		showConfirmName: false,
@@ -83,7 +83,8 @@ Page({
 	checkLoginStatus(accessToken) {
 		const self = this
 		wx.request({
-			url: 'http://192.168.116.43:5000/check_session',
+			// url: 'http://192.168.116.43:5000/check_session',
+			url: 'http://192.168.1.6:5000/check_session',
 			method: 'POST',
 			data: {
 				accessToken: accessToken
@@ -109,36 +110,13 @@ Page({
 						})
 					}
 				} else {
-					console.error('登录失败！' + res.data.message);
+					console.error('登录失败！' + res.data.message)
 				}
 			},
 			fail(err) {
-				console.error('请求失败！' + err.errMsg);
+				console.error('请求失败！' + err.errMsg)
 			}
 		})
-	},
-
-	sendCodeToServer(code) {
-		wx.request({
-			url: 'http://192.168.116.43:5000/login', // 登录接口
-			method: 'POST',
-			data: {
-				code: code
-			},
-			success(res) {
-				if (res.data.success) {
-					// 保存 sessionToken
-					wx.setStorageSync('sessionToken', res.data.sessionToken);
-					// 获取用户信息
-					this.getUserProfile();
-				} else {
-					console.error('登录失败！' + res.data.message);
-				}
-			},
-			fail(err) {
-				console.error('请求失败！' + err.errMsg);
-			}
-		});
 	},
 
 	getUserProfile() {
@@ -147,7 +125,8 @@ Page({
 			success(res) {
 				// 将用户信息发送到后端服务器
 				wx.request({
-					url: 'http://192.168.116.43:5000/save_profile', // 替换成你服务器的保存用户信息接口
+					// url: 'http://192.168.116.43:5000/save_profile',
+					url: 'http://192.168.1.6:5000/save_profile',
 					method: 'POST',
 					data: {
 						userInfo: res.userInfo
@@ -156,18 +135,18 @@ Page({
 						if (res.data.success) {
 							console.log(res.data)
 						} else {
-							console.error('保存用户信息失败！' + res.data.message);
+							console.error('保存用户信息失败！' + res.data.message)
 						}
 					},
 					fail(err) {
-						console.error('请求失败！' + err.errMsg);
+						console.error('请求失败！' + err.errMsg)
 					}
 				});
 			},
 			fail(err) {
-				console.error('获取用户信息失败！' + err.errMsg);
+				console.error('获取用户信息失败！' + err.errMsg)
 			}
-		});
+		})
 	},
 
 	logout() {
@@ -184,7 +163,8 @@ Page({
 				if (res.code) {
 					// 将 code 发送到后端服务器
 					wx.request({
-						url: 'http://192.168.225.240:80/api/login', // 登录接口
+						// url: 'http://192.168.225.240:80/api/login', // 登录接口
+						url: 'http://192.168.1.6:5000/login',
 						method: 'POST',
 						data: {
 							code: res.code
@@ -234,7 +214,11 @@ Page({
 	 */
 	closeDialog() {
 		const { dialogKey } = this.data
-		this.setData({ [dialogKey]: false })
+		this.setData({
+			[dialogKey]: false,
+			userchangename: '',
+			isChangeNameOK: false
+		})
 	},
 
 	/**
@@ -255,7 +239,8 @@ Page({
 			success(res) {
 				// 将用户信息发送到后端服务器
 				wx.request({
-					url: 'http://192.168.116.43:5000/save_profile',
+					// url: 'http://192.168.116.43:5000/save_profile',
+					url: 'http://192.168.1.6:5000/save_profile',
 					method: 'POST',
 					data: {
 						userInfo: res.userInfo,
@@ -304,20 +289,18 @@ Page({
 			this.setUserInfo(this.data.userchangename, this.data.user_avatar)
 		}
 		this.setData({
-			confirmBtnName: { content: '确认', variant: 'base', disabled: true }
+			confirmBtnName: { content: '确认', variant: 'base', disabled: true },
+			userchangename: '',
+			isChangeNameOK: false
 		})
 	},
 
-	nicknamereview(e){
+	nicknamereview(e) {
 		console.log(e)
 		this.setData({
-			isChangeNameOK: e.detail.pass
+			isChangeNameOK: e.detail.pass,
+			confirmBtnName: { content: '确认', variant: 'base', disabled: false }
 		})
-		if (this.data.userchangename) {
-			this.setData({
-				confirmBtnName: { content: '确认', variant: 'base', disabled: false }
-			})
-		}
 	},
 
 	nicknameinput(e) {
@@ -330,12 +313,13 @@ Page({
 	setUserInfo(nickname, avatarurl) {
 		const self = this
 		wx.request({
-			url: 'http://192.168.116.43:5000/save_profile',
+			// url: 'http://192.168.116.43:5000/save_profile',
+			url: 'http://192.168.1.6:5000/save_profile',
 			method: 'POST',
 			data: {
 				userInfo: {
 					nickName: nickname,
-					avatarUrl: avatarurl 
+					avatarUrl: avatarurl
 				},
 				accessToken: wx.getStorageSync('accessToken')
 			},
@@ -351,5 +335,5 @@ Page({
 				console.error('请求失败！' + err.errMsg)
 			}
 		})
-	}
+	},
 })
