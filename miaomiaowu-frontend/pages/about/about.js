@@ -329,22 +329,31 @@ Page({
 	 * @param {*} e 
 	 */
 	nicknamereview(e) {
-		console.log(e)
+		// console.log(e)
 		this.setData({
-			isChangeNameOK: e.detail.pass,
-			confirmBtnName: { content: '确认', variant: 'base', disabled: false }
+			isChangeNameOK: e.detail.pass
 		})
+		if (this.data.userchangename != '') {
+			this.setData({
+				confirmBtnName: { content: '确认', variant: 'base', disabled: false }
+			})
+		}
 	},
 
 	/**
-	 * 修改名称输入框值发生变化时，注意，开发者工具的模拟器，自动填充的 微信名称 不会触发 input 事件
+	 * 修改名称输入框值发生变化时，注意，开发者工具的模拟器，自动填充的 微信名称 不会触发 input 事件， 但会触发 change 事件，而 change 事件， 官方文档并没有记录
 	 * @param {*} e 
 	 */
 	nicknameinput(e) {
-		console.log(e)
+		// console.log(e)
 		this.setData({
 			userchangename: e.detail.value
 		})
+		if (this.data.userchangename == '') {
+			this.setData({
+				confirmBtnName: { content: '确认', variant: 'base', disabled: true }
+			})
+		}
 	},
 
 	/**
