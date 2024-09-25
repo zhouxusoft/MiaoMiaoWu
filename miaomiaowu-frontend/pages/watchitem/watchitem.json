@@ -16,6 +16,8 @@
 		"t-loading": "tdesign-miniprogram/loading/loading",
 		"weekselect": "/components/weekselect/weekselect",
 		"t-rate": "tdesign-miniprogram/rate/rate",
-		"t-textarea": "tdesign-miniprogram/textarea/textarea"
+		"t-textarea": "tdesign-miniprogram/textarea/textarea",
+		"t-message": "tdesign-miniprogram/message/message",
+		"t-dialog": "tdesign-miniprogram/dialog/dialog"
 	}
 }

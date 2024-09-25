@@ -23,8 +23,8 @@
 </view>
 
 <view style="margin: 8px;">
-		<t-button theme="primary" size="medium" block bind:tap="login" wx:if="{{!isLogin}}">点击登录</t-button>
-		<t-button theme="danger" size="medium" block bind:tap="logout" wx:else>注销登录</t-button>
+		<t-button theme="primary" size="medium" block bind:tap="login" wx:if="{{!isLogin}}" loading="{{logining}}">点击登录</t-button>
+		<t-button theme="danger" size="medium" block bind:tap="logout" wx:else loading="{{logining}}">注销登录</t-button>
 </view>
 
 <button data-key="showConfirm" bind:tap="showDialog" style="display: none;">1</button>

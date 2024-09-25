@@ -30,7 +30,7 @@
 				<text>集</text>
 			</view>
 			<view slot="right-icon" wx:if="{{updateHaveChanged}}" style="display: flex; align-items: center;">
-				<t-button wx:if="{{true}}" theme="light" content="确认修改" size="extra-small"></t-button>
+				<t-button wx:if="{{!isUpdateHappen}}" theme="light" content="确认修改" size="extra-small" bind:tap="updateDramaInfo"></t-button>
 				<t-loading wx:else theme="spinner" size="40rpx" />
 			</view>
 		</t-cell>
@@ -41,19 +41,19 @@
 				<text>集</text>
 			</view>
 			<view slot="right-icon" wx:if="{{watchHaveChanged}}" style="display: flex; align-items: center;">
-				<t-button wx:if="{{false}}" theme="light" content="确认修改" size="extra-small"></t-button>
+				<t-button wx:if="{{!isUpdateHappen}}" theme="light" content="确认修改" size="extra-small" bind:tap="updateDramaInfo"></t-button>
 				<t-loading wx:else theme="spinner" size="40rpx" />
 			</view>
 		</t-cell>
 	</t-cell-group>
-	
+
 	<view wx:if="{{updateMode == '连载中'}}">
 		<view class="whitebox" style="height: 24rpx;"></view>
 		<view class="updateweekbox">
 			<view style="display: flex; align-items: center; justify-content: space-between; height: 42rpx;">
 				<view class="updateweektitle">更新时间(每周)</view>
 				<view wx:if="{{isWeekSelectChange}}">
-					<t-button wx:if="{{true}}" theme="light" content="确认修改" size="extra-small"></t-button>
+					<t-button wx:if="{{!isUpdateHappen}}" theme="light" content="确认修改" size="extra-small" bind:tap="updateDramaInfo"></t-button>
 					<t-loading wx:else theme="spinner" size="40rpx" />
 				</view>
 			</view>
@@ -66,19 +66,19 @@
 	<view class="whitebox" style="height: 24rpx;"></view>
 	<view class="updateweekbox">
 		<view style="display: flex; align-items: center; justify-content: space-between; height: 42rpx;">
-				<view class="updateweektitle">我的评分</view>
-				<view wx:if="{{isRateandUserTextChange}}">
-					<t-button wx:if="{{true}}" theme="light" content="确认修改" size="extra-small"></t-button>
-					<t-loading wx:else theme="spinner" size="40rpx" />
-				</view>
+			<view class="updateweektitle">我的评分</view>
+			<view wx:if="{{isRateandUserTextChange}}">
+				<t-button wx:if="{{!isUpdateHappen}}" theme="light" content="确认修改" size="extra-small" bind:tap="updateDramaInfo"></t-button>
+				<t-loading wx:else theme="spinner" size="40rpx" />
 			</view>
+		</view>
 		<t-rate value="{{rateValue}}" allowHalf class="rateitem" bind:change="onRateChange" style="margin: 24rpx 0;" />
 		<t-textarea style="padding: 12rpx 16rpx !important;" value="{{userText}}" bind:change="onUserTextChange" placeholder="备注" bordered autosize="true" maxlength="100" disableDefaultPadding="{{true}}" indicator />
 	</view>
 
 	<view class="whitebox" style="height: 24rpx;"></view>
 	<view class="deletebtnbox">
-		<t-button theme="danger" size="medium" block>删除此番</t-button>
+		<t-button theme="danger" size="medium" data-key="showWarnConfirm" bind:tap="showDialog" block>删除此番</t-button>
 	</view>
 </view>
 
@@ -114,4 +114,15 @@
 	</view>
 </t-popup>
 
+<t-dialog
+  visible="{{showWarnConfirm}}"
+  title="删除该番剧记录"
+  content="此操作不可逆"
+  confirm-btn="{{ { content: '确认删除', variant: 'base', theme: 'danger' } }}"
+  cancel-btn="取消"
+  bind:confirm="yesDialog"
+  bind:cancel="closeDialog"
+/>
+
 <t-toast id="t-toast" />
+<t-message id="t-message" />

@@ -104,11 +104,19 @@ Page({
 						})
 					}
 				} else {
-					console.error('登录失败！' + res.data.message);
+					self.setData({
+						nickname: '陌生人',
+						user_avatar: '/images/cutedurk.png'
+					})
+					console.error('登录失败！' + res.data.message)
 				}
 			},
 			fail(err) {
-				console.error('请求失败！' + err.errMsg);
+				self.setData({
+					nickname: '陌生人',
+					user_avatar: '/images/cutedurk.png'
+				})
+				console.error('请求失败！' + err.errMsg)
 			}
 		})
 	},

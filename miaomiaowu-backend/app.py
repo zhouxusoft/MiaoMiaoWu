@@ -208,6 +208,84 @@ def add_drama():
     
     return jsonify({'success': True, 'message': 'Add drama success'})
 
+@app.route('/update_drama', methods=['POST'])
+def update_drama():
+    data = request.get_json()
+    accessToken = data.get('accessToken')
+    if not accessToken:
+        return jsonify({'success': False, 'message': 'Missing accessToken'})
+    check = checkCookie(accessToken)
+    if not check['success']:
+        return jsonify({'success': False, 'message': 'Invalid accessToken'})
+    user_id = check['user_id']
+    dramaInfo = data.get('dramaInfo')
+    print(user_id, dramaInfo)
+    
+    sql = """
+        UPDATE `drama` 
+        SET 
+            introduction = %s, 
+            made_company = %s, 
+            playing_platform = %s, 
+            is_update = %s, 
+            total_number = %s, 
+            update_number = %s, 
+            watch_number = %s, 
+            update_time = %s, 
+            love = %s, 
+            remark = %s 
+        WHERE id = %s
+    """
+
+    playing_platform = json.dumps(dramaInfo['playing_platform'])
+    update_time = json.dumps(dramaInfo['update_time'])
+    
+    # 执行插入操作
+    lock.acquire()
+    try:
+        dbcursor.execute(sql, (
+            dramaInfo['introduction'], 
+            dramaInfo['made_company'], 
+            playing_platform, 
+            dramaInfo['is_update'], 
+            dramaInfo['total_number'], 
+            dramaInfo['update_number'], 
+            dramaInfo['watch_number'], 
+            update_time, dramaInfo['love'], 
+            dramaInfo['remark'],
+            dramaInfo['id']
+        ))
+        db.commit()
+    finally:
+        lock.release()
+    
+    return jsonify({'success': True, 'message': 'Update drama success'})
+
+@app.route('/delete_drama', methods=['POST'])
+def delete_drama():
+    data = request.get_json()
+    accessToken = data.get('accessToken')
+    dramaId = data.get('dramaId')
+    if not accessToken:
+        return jsonify({'success': False, 'message': 'Missing accessToken'})
+    check = checkCookie(accessToken)
+    if not check['success']:
+        return jsonify({'success': False, 'message': 'Invalid accessToken'})
+
+    print(dramaId)
+    
+    # 后端删除操作不实际删除，将 user_id 设置为 0， 0 为空用户
+    sql = "UPDATE `drama` SET `user_id` = 0 WHERE id = %s"
+    val = (dramaId,)
+    lock.acquire()
+    try:
+        dbcursor.execute(sql, val)
+        db.commit()
+    finally:
+        lock.release()
+    
+    return jsonify({'success': True, 'message': 'Delete drama success'})
+
 # 查询用户，没有查到就创建新的用户
 def find_or_create_user(openid, session_key):
     # 查询用户的id、昵称、头像链接

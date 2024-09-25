@@ -1,11 +1,14 @@
 // pages/watchitem/watchitem.js
 import { Toast } from 'tdesign-miniprogram'
+import Message from 'tdesign-miniprogram/message/index'
+const app = getApp()
 
 Page({
 	/**
 	 * 页面的初始数据
 	 */
 	data: {
+		dramaId: 0,
 		dramaName: '番剧名称',
 		darmaCover: '/images/noise.png',
 		dramaJianJie: '番剧简介',
@@ -37,7 +40,10 @@ Page({
 		userTextTemp: '备注',
 		isRateChange: false,
 		isUserTextChange: false,
-		isRateandUserTextChange: false
+		isRateandUserTextChange: false,
+		isUpdateHappen: false,
+		dialogKey: '',
+		showConfirm: false,
 	},
 
 	/**
@@ -52,39 +58,7 @@ Page({
 
 		const parsedArray = this.parseNestedArrays(dramaInfo)
 		console.log(parsedArray)
-
-		this.setData({
-			dramaName: parsedArray[2],
-			darmaCover: parsedArray[3],
-			dramaJianJie: parsedArray[4],
-			madeInputValue: parsedArray[5],
-			updateMode: parsedArray[7],
-			platformValue: this.convertToBooleanArray(parsedArray[6], 5),
-			updateToNum: parsedArray[9],
-			watchToNum: parsedArray[10],
-			weekSelectValue: this.convertToBooleanArray(parsedArray[12], 7),
-			rateValue: parsedArray[13],
-			userText: parsedArray[14]
-		})
-
-		this.data.updateModeTemp = parsedArray[7]
-		this.data.platformValue = this.convertToBooleanArray(parsedArray[6], 5)
-		this.data.updateToNumTemp = parsedArray[9]
-		this.data.watchToNumTemp = parsedArray[10]
-		this.data.weekSelectValueTemp = this.convertToBooleanArray(parsedArray[12], 7)
-		this.data.rateValueTemp = parsedArray[13]
-		this.data.userTextTemp = parsedArray[14]
-
-		this.updatePlatformValueText(this.data.platformValue)
-
-		wx.setNavigationBarTitle({
-			title: parsedArray[2]
-		})
-
-		const weekselect = this.selectComponent('#weekselect')
-		if (weekselect) {
-			weekselect.valueChangeWeekSelect(this.data.weekSelectValue)
-		}
+		this.setDramaInfo(parsedArray)
 	},
 
 	/**
@@ -150,9 +124,15 @@ Page({
 	onPickerChange(e) {
 		const { value } = e.detail
 		console.log('picker change:', value[0])
+		if (value[0] != this.data.updateMode) {
+			console.log('changed')
+			this.setData({
+				updateMode: value[0]
+			})
+			this.updateDramaInfo()
+		}
 		this.setData({
-			updateModeVisible: false,
-			updateMode: value[0],
+			updateModeVisible: false
 		})
 		const weekselect = this.selectComponent('#weekselect')
 		if (weekselect) {
@@ -205,10 +185,18 @@ Page({
 	 * 点击确认修改制作公司
 	 */
 	yesMadeInput() {
-		this.setData({
-			madeInputValue: this.data.yesMadeInputValue,
-			madeInputVisible: false
-		})
+		console.log(this.data.madeInputValue, this.data.yesMadeInputValue)
+		if (this.data.madeInputValue != this.data.yesMadeInputValue) {
+			this.setData({
+				madeInputValue: this.data.yesMadeInputValue,
+				madeInputVisible: false
+			})
+			this.updateDramaInfo()
+		} else {
+			this.setData({
+				madeInputVisible: false
+			})
+		}
 	},
 
 	/**
@@ -298,6 +286,9 @@ Page({
 	yesPlatform() {
 		// 更新播放平台显示
 		this.updatePlatformValueText(this.data.platformValue)
+		if (!this.arraysEqual(this.data.platformValue, this.data.platformValueTemp)) {
+			this.updateDramaInfo()
+		}
 		this.setData({
 			platformVisible: false
 		})
@@ -497,9 +488,6 @@ Page({
 		return result
 	},
 
-
-
-
 	/**
 	 * 例：将数组 [2, 6] 转换为布尔值数组 [false, false, true, false, false, false, true]
 	 * @param {Array} indices 
@@ -517,5 +505,204 @@ Page({
 		})
 
 		return resultArray
-	}
+	},
+
+	/**
+	 * 提交番剧信息修改
+	 */
+	updateDramaInfo() {
+		this.setData({
+			isUpdateHappen: true
+		})
+		const self = this
+		const accessToken = wx.getStorageSync('accessToken')
+		let dramaInfo = {
+			id: this.data.dramaId,
+			drama_name: this.data.dramaName,
+			cover_url: this.data.darmaCover,
+			introduction: this.data.dramaJianJie,
+			made_company: this.data.madeInputValue,
+			playing_platform: this.findTrueIndices(this.data.platformValue),
+			is_update: this.changeUpdateModesToNum(this.data.updateMode),
+			total_number: this.data.updateToNum,
+			update_number: this.data.updateToNum,
+			watch_number: this.data.watchToNum,
+			update_time: this.findTrueIndices(this.data.weekSelectValue),
+			love: this.data.rateValue,
+			remark: this.data.userText
+		}
+		let dramaInfoTemp = [
+			dramaInfo.id,
+			0,
+			dramaInfo.drama_name,
+			dramaInfo.cover_url,
+			dramaInfo.introduction,
+			dramaInfo.made_company,
+			dramaInfo.playing_platform,
+			this.data.updateMode,
+			dramaInfo.total_number,
+			dramaInfo.update_number,
+			dramaInfo.watch_number,
+			0,
+			dramaInfo.update_time,
+			dramaInfo.love,
+			dramaInfo.remark,
+		]
+		console.log(dramaInfoTemp)
+		console.log(dramaInfo)
+		wx.request({
+			url: `${app.globalData.baseUrl}/update_drama`,
+			method: 'POST',
+			data: {
+				accessToken: accessToken,
+				dramaInfo: dramaInfo
+			},
+			success(res) {
+				console.log(res.data)
+				self.setDramaInfo(dramaInfoTemp)
+				Message.success({
+					context: this,
+					offset: [12, 32],
+					duration: 3000,
+					single: false,
+					content: '数据更新成功！',
+				})
+				self.setData({
+					isUpdateHappen: false
+				})
+			},
+			fail(error) {
+				console.log(error.errMsg)
+				self.setData({
+					isUpdateHappen: false
+				})
+			}
+		})
+	},
+
+	setDramaInfo(dramaInfo) {
+		this.setData({
+			dramaName: dramaInfo[2],
+			darmaCover: dramaInfo[3],
+			dramaJianJie: dramaInfo[4],
+			madeInputValue: dramaInfo[5],
+			updateMode: dramaInfo[7],
+			platformValue: this.convertToBooleanArray(dramaInfo[6], 5),
+			updateToNum: dramaInfo[9],
+			watchToNum: dramaInfo[10],
+			weekSelectValue: this.convertToBooleanArray(dramaInfo[12], 7),
+			rateValue: dramaInfo[13],
+			userText: dramaInfo[14],
+			updateHaveChanged: false,
+			watchHaveChanged: false,
+			isWeekSelectChange: false,
+			isRateChange: false,
+			isUserTextChange: false,
+			isRateandUserTextChange: false
+		})
+
+		this.data.dramaId = dramaInfo[0]
+		this.data.updateModeTemp = dramaInfo[7]
+		this.data.platformValue = this.convertToBooleanArray(dramaInfo[6], 5)
+		this.data.platformValueTemp = this.convertToBooleanArray(dramaInfo[6], 5)
+		this.data.updateToNumTemp = dramaInfo[9]
+		this.data.watchToNumTemp = dramaInfo[10]
+		this.data.weekSelectValueTemp = this.convertToBooleanArray(dramaInfo[12], 7)
+		this.data.rateValueTemp = dramaInfo[13]
+		this.data.userTextTemp = dramaInfo[14]
+		this.data.yesMadeInputValue = dramaInfo[5]
+
+		this.updatePlatformValueText(this.data.platformValue)
+
+		wx.setNavigationBarTitle({
+			title: dramaInfo[2]
+		})
+		const weekselect = this.selectComponent('#weekselect')
+		if (weekselect) {
+			weekselect.valueChangeWeekSelect(this.data.weekSelectValue)
+		}
+	},
+
+	/**
+	 * 将 [true, false, false, false, true] 转为 [0,4]
+	 * @param {Array} arr 
+	 */
+	findTrueIndices(arr) {
+		const indices = []
+		arr.forEach((item, index) => {
+			if (item === true) {
+				indices.push(index)
+			}
+		});
+		return indices
+	},
+
+	/**
+	 * 判断数组值是否相等
+	 * @param {Array} arr1 
+	 * @param {Array} arr2 
+	 */
+	arraysEqual(arr1, arr2) {
+		if (arr1.length !== arr2.length) {
+			return false
+		}
+		for (let i = 0; i < arr1.length; i++) {
+			if (arr1[i] !== arr2[i]) {
+				return false
+			}
+		}
+		return true
+	},
+
+	/**
+	 * 将番剧的更新情况从文字转为数据库存的0、1、2
+	 * @param {String} updateMode 
+	 */
+	changeUpdateModesToNum(updateMode) {
+		let isUpdate = 2
+		if (updateMode == '连载中') {
+			isUpdate = 0
+		} else if (updateMode == '已完结') {
+			isUpdate = 1
+		} else {
+			isUpdate = 2
+		}
+		return isUpdate
+	},
+
+	showDialog(e) {
+		const { key } = e.currentTarget.dataset;
+		this.setData({ [key]: true, dialogKey: key });
+	},
+
+	closeDialog() {
+		const { dialogKey } = this.data
+		this.setData({ [dialogKey]: false })
+	},
+
+	yesDialog() {
+		const { dialogKey } = this.data
+		this.setData({ [dialogKey]: false })
+		const self = this
+		const accessToken = wx.getStorageSync('accessToken')
+		wx.request({
+			url: `${app.globalData.baseUrl}/delete_drama`,
+			method: 'POST',
+			data: {
+				accessToken: accessToken,
+				dramaId: self.data.dramaId
+			},
+			success(res) {
+				// console.log(res.data)
+				if (res.data.success) {
+					wx.redirectTo({
+					  url: '/pages/watch/watch',
+					})
+				}
+			},
+			fail(error) {
+				console.log(error.errMsg)
+			}
+		})
+	},
 })

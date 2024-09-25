@@ -29,7 +29,6 @@ Page({
 		wx.showLoading({
 			title: '加载中...',
 		})
-		this.getDramaList()
 	},
 
 	/**
@@ -46,6 +45,7 @@ Page({
 		const accessToken = wx.getStorageSync('accessToken')
 		// console.log(accessToken)
 		this.checkLoginStatus(accessToken)
+		this.getDramaList()
 	},
 
 	/**

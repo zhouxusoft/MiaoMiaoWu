@@ -17,7 +17,8 @@ Page({
 		showConfirm: false,
 		showConfirmName: false,
 		userchangename: '',
-		isChangeNameOK: false
+		isChangeNameOK: false,
+		logining: false
 	},
 
 	/**
@@ -165,6 +166,9 @@ Page({
 	 * 登录请求
 	 */
 	login() {
+		this.setData({
+			logining: true
+		})
 		const self = this
 		wx.login({
 			success(res) {
@@ -191,14 +195,23 @@ Page({
 									// console.log(66647)
 									self.setData({
 										showConfirm: true,
-										dialogKey: 'showConfirm'
+										dialogKey: 'showConfirm',
 									})
 								}
+								self.setData({
+									logining: false
+								})
 							} else {
-								console.error('登录失败！' + res.data.message);
+								console.error('登录失败！' + res.data.message)
+								self.setData({
+									logining: false
+								})
 							}
 						},
 						fail(err) {
+							self.setData({
+								logining: false
+							})
 							console.error('请求失败！' + err.errMsg);
 						}
 					});

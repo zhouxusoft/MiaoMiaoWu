@@ -15,16 +15,12 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad(options) {
-		wx.showLoading({
-			title: '加载中...',
-		})
 	},
 
 	/**
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
 	onReady() {
-		wx.hideLoading()
 	},
 
 	/**
@@ -143,10 +139,16 @@ Page({
 						})
 					}
 				} else {
+					self.setData({
+						isLogin: false
+					})
 					console.error('登录失败！' + res.data.message);
 				}
 			},
 			fail(err) {
+				self.setData({
+					isLogin: false
+				})
 				console.error('请求失败！' + err.errMsg);
 			}
 		})
