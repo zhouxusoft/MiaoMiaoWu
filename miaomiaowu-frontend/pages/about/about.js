@@ -1,4 +1,5 @@
 // pages/about/about.js
+import Message from 'tdesign-miniprogram/message/index'
 const app = getApp()
 
 Page({
@@ -25,9 +26,7 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad(options) {
-		const accessToken = wx.getStorageSync('accessToken')
-		// console.log(accessToken)
-		this.checkLoginStatus(accessToken)
+		
 	},
 
 	/**
@@ -41,7 +40,9 @@ Page({
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow() {
-
+		const accessToken = wx.getStorageSync('accessToken')
+		// console.log(accessToken)
+		this.checkLoginStatus(accessToken)
 	},
 
 	/**
@@ -57,7 +58,7 @@ Page({
 	onUnload() {
 
 	},
-	
+
 	/**
 	 * 页面相关事件处理函数--监听用户下拉动作
 	 */
@@ -160,6 +161,13 @@ Page({
 		wx.clearStorageSync('accessToken')
 		console.log("logout")
 		this.updateUserInfo(false, '陌生人', '/images/cutedurk.png')
+		Message.success({
+			context: this,
+			offset: [12, 32],
+			duration: 3000,
+			single: false,
+			content: '期待下次相遇！',
+		})
 	},
 
 	/**
@@ -201,10 +209,24 @@ Page({
 								self.setData({
 									logining: false
 								})
+								Message.success({
+									context: this,
+									offset: [12, 32],
+									duration: 3000,
+									single: false,
+									content: '登录成功！',
+								})
 							} else {
 								console.error('登录失败！' + res.data.message)
 								self.setData({
 									logining: false
+								})
+								Message.error({
+									context: this,
+									offset: [12, 32],
+									duration: 3000,
+									single: false,
+									content: '登录失败！请稍后再试',
 								})
 							}
 						},
@@ -212,11 +234,25 @@ Page({
 							self.setData({
 								logining: false
 							})
-							console.error('请求失败！' + err.errMsg);
+							console.error('请求失败！' + err.errMsg)
+							Message.error({
+								context: this,
+								offset: [12, 32],
+								duration: 3000,
+								single: false,
+								content: '登录失败！请稍后再试',
+							})
 						}
 					});
 				} else {
-					console.error('登录失败！' + res.errMsg);
+					console.error('登录失败！' + res.errMsg)
+					Message.error({
+						context: this,
+						offset: [12, 32],
+						duration: 3000,
+						single: false,
+						content: '登录失败！请稍后再试',
+					})
 				}
 			}
 		})

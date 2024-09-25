@@ -1,5 +1,6 @@
 // pages/addwatch/addwatch.js
 import { Toast } from 'tdesign-miniprogram'
+import Message from 'tdesign-miniprogram/message/index'
 const app = getApp()
 
 Page({
@@ -22,6 +23,9 @@ Page({
 		ratevalue: 0,
 		remark: '',
 		skylineRender: true,
+		uploadImgPreview: '',
+		isSelectImg: true,
+		canClickImageBtn: true
 	},
 
 	/**
@@ -187,7 +191,7 @@ Page({
 							message: '添加成功',
 						})
 						wx.navigateTo({
-						  url: '/pages/watch/watch',
+							url: '/pages/watch/watch',
 						})
 					} else {
 						Toast({
@@ -324,4 +328,146 @@ Page({
 		})
 		console.log(this.data.ratevalue)
 	},
+
+	useDefaultImage() {
+		let dramaName = this.data.nameinput
+		if (dramaName == '') {
+			Toast({
+				context: this,
+				selector: '#t-toast',
+				message: '请先输入番剧名称',
+			})
+		} else {
+			this.setData({
+				canClickImageBtn: false
+			})
+			Message.info({
+				context: this,
+				offset: [12, 32],
+				duration: 0,
+				content: '默认图片生成中，请耐心等待',
+			})
+			const accessToken = wx.getStorageSync('accessToken')
+			const self = this
+			wx.request({
+				url: `${app.globalData.baseUrl}/get_default_cover`,
+				method: 'POST',
+				data: {
+					accessToken: accessToken,
+					dramaName: dramaName
+				},
+				success(res) {
+					console.log(res.data)
+					if (res.data.coverUrl) {
+						self.setData({
+							isSelectImg: false,
+							uploadImgPreview: res.data.coverUrl,
+						})
+					} else {
+						self.setData({
+							uploadImgPreview: '/images/cutedurk.png',
+						})
+					}
+					Message.success({
+						context: this,
+						offset: [12, 32],
+						duration: 3000,
+						content: '图片生成成功',
+					})
+					self.setData({
+						canClickImageBtn: true
+					})
+				},
+				fail(error) {
+					console.log(error.errMsg)
+					self.setData({
+						canClickImageBtn: true
+					})
+					Message.error({
+						context: this,
+						offset: [12, 32],
+						duration: 3000,
+						content: '图片生成失败',
+					})
+				}
+			})
+		}
+	},
+
+	getCoverFromOnline() {
+		let dramaName = this.data.nameinput
+		if (dramaName == '') {
+			Toast({
+				context: this,
+				selector: '#t-toast',
+				message: '请先输入番剧名称',
+			})
+		} else {
+			Toast({
+				context: this,
+				selector: '#t-toast',
+				message: '敬请期待',
+			})
+		}
+	},
+
+	getCoverFromAI() {
+		let dramaName = this.data.nameinput
+		if (dramaName == '') {
+			Toast({
+				context: this,
+				selector: '#t-toast',
+				message: '请先输入番剧名称',
+			})
+		} else {
+			Toast({
+				context: this,
+				selector: '#t-toast',
+				message: '此为VIP功能',
+			})
+		}
+	},
+
+	getJianJieFromOnline() {
+		let dramaName = this.data.nameinput
+		if (dramaName == '') {
+			Toast({
+				context: this,
+				selector: '#t-toast',
+				message: '请先输入番剧名称',
+			})
+		} else {
+			Toast({
+				context: this,
+				selector: '#t-toast',
+				message: '敬请期待',
+			})
+		}
+	},
+
+	getJianJieFromAI() {
+		let dramaName = this.data.nameinput
+		if (dramaName == '') {
+			Toast({
+				context: this,
+				selector: '#t-toast',
+				message: '请先输入番剧名称',
+			})
+		} else {
+			Toast({
+				context: this,
+				selector: '#t-toast',
+				message: '此为VIP功能',
+			})
+		}
+	},
+
+
+
+	delAddImage() {
+		this.setData({
+			isSelectImg: true,
+			avatarUrl: ''
+		})
+	}	
 })

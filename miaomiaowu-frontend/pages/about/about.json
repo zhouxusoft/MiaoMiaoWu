@@ -1,7 +1,8 @@
 {
 	"usingComponents": {
 		"t-button": "tdesign-miniprogram/button/button",
-		"t-dialog": "tdesign-miniprogram/dialog/dialog"
+		"t-dialog": "tdesign-miniprogram/dialog/dialog",
+		"t-message": "tdesign-miniprogram/message/message"
 	},
 	"navigationBarBackgroundColor": "#FFFFFF",
 	"navigationBarTextStyle": "black",

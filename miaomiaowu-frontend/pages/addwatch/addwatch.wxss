@@ -59,3 +59,22 @@
 .platformselectbox {
 	padding: 16rpx 0;
 }
+
+.otherwrapper {
+	min-height: 160rpx;
+	max-height: 220rpx;
+	width: 160rpx;
+	background-color: #F3F3F3;
+	border-radius: 8rpx;
+	position: relative;
+}
+
+.otherwrapperimg {
+	width: 160rpx;
+}
+
+.xbtn {
+	position: absolute !important;
+	top: 165rpx;
+	left: 172rpx;
+}

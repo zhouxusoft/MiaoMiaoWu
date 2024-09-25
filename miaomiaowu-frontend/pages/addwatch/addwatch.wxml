@@ -8,14 +8,18 @@
 		</t-step-item>
 		<t-step-item title="选择番剧封面" status="process" id="inputimg">
 			<view slot="content">
-				<view class="wrapper">
+				<view class="wrapper" wx:if="{{isSelectImg}}">
 					<t-upload mediaType="{{['image']}}" max="{{1}}" files="{{fileList}}" bind:add="handleAdd" bind:remove="handleRemove">
 					</t-upload>
 				</view>
+				<view class="otherwrapper" wx:else>
+					<view style="max-height: 220rpx; overflow: hidden;"><image src="{{uploadImgPreview}}" mode="widthFix" class="otherwrapperimg"/></view>
+					<t-button theme="danger" size="extra-small" variant="outline" icon="close" bind:tap="delAddImage" class="xbtn"></t-button>
+				</view>
 				<view class="btngroup">
-					<t-button theme="light" size="small">使用默认</t-button>
-					<t-button theme="light" size="small">网络获取</t-button>
-					<t-button theme="light" size="small">AI 生成</t-button>
+					<t-button theme="light" size="small" bind:tap="useDefaultImage" disabled="{{!canClickImageBtn}}">使用默认</t-button>
+					<t-button theme="light" size="small" bind:tap="getCoverFromOnline" disabled="{{!canClickImageBtn}}">网络获取</t-button>
+					<t-button theme="light" size="small" bind:tap="getCoverFromAI" disabled="{{!canClickImageBtn}}">AI 生成</t-button>
 				</view>
 			</view>
 		</t-step-item>
@@ -26,8 +30,8 @@
 					<t-textarea t-class="external-class" placeholder="请输入简介" bordered autosize="true" maxlength="100" disableDefaultPadding="{{true}}" indicator style="min-height: 248rpx" value="{{darmaJianJie}}" bind:blur="finishJianJieInput" />
 				</view>
 				<view class="btngroup">
-					<t-button theme="light" size="small">网络获取</t-button>
-					<t-button theme="light" size="small">AI 生成</t-button>
+					<t-button theme="light" size="small" bind:tap="getJianJieFromOnline" disabled="{{!canClickImageBtn}}">网络获取</t-button>
+					<t-button theme="light" size="small" bind:tap="getJianJieFromAI" disabled="{{!canClickImageBtn}}">AI 生成</t-button>
 				</view>
 				<view class="textarea-example">
 					<text class="textarea-example__label">制作公司</text>
@@ -102,4 +106,6 @@
 		</t-step-item>
 	</t-steps>
 </view>
+
 <t-toast id="t-toast" />
+<t-message id="t-message" />

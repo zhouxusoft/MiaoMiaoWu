@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from create_db import create_database
 from datetime import datetime
 from modules import *
+from coverOutput.makeCover import *
 import pymysql
 import requests
 import os
@@ -285,6 +286,21 @@ def delete_drama():
         lock.release()
     
     return jsonify({'success': True, 'message': 'Delete drama success'})
+
+@app.route('/get_default_cover', methods=['POST'])
+def get_default_cover():
+    data = request.get_json()
+    accessToken = data.get('accessToken')
+    if not accessToken:
+        return jsonify({'success': False, 'message': 'Missing accessToken'})
+    check = checkCookie(accessToken)
+    if not check['success']:
+        return jsonify({'success': False, 'message': 'Invalid accessToken'})
+    
+    imgname = data.get('dramaName')
+    coverUrl = out_img(imgname)
+    
+    return jsonify({'success': True, 'coverUrl': coverUrl})
 
 # 查询用户，没有查到就创建新的用户
 def find_or_create_user(openid, session_key):

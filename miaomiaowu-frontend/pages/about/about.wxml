@@ -50,3 +50,5 @@
 		<input type="nickname" placeholder="请输入昵称" maxlength="10" class="usernameinput" value="{{userchangename}}" bind:input="nicknameinput" bind:change="nicknameinput" bind:nicknamereview="nicknamereview" />
 	</view>
 </t-dialog>
+
+<t-message id="t-message" />
