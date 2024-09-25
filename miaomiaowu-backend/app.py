@@ -6,6 +6,7 @@ from modules import *
 import pymysql
 import requests
 import os
+import json
 import time
 import uuid
 import threading
@@ -169,6 +170,43 @@ def get_user_drama():
 
     return jsonify({'success': True, 'dramas': result})
 
+
+@app.route('/add_drama', methods=['POST'])
+def add_drama():
+    data = request.get_json()
+    accessToken = data.get('accessToken')
+    if not accessToken:
+        return jsonify({'success': False, 'message': 'Missing accessToken'})
+
+    check = checkCookie(accessToken)
+    user_id = check['user_id']
+    dramaInfo = data.get('dramaInfo')
+    print(user_id, dramaInfo)
+    
+    sql = """
+        INSERT INTO `drama` (
+            user_id, drama_name, cover_url, introduction, made_company, playing_platform, 
+            is_update, total_number, update_number, watch_number, update_time, 
+            love, remark
+        ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        """
+    playing_platform = json.dumps(dramaInfo['playing_platform'])
+    update_time = json.dumps(dramaInfo['update_time'])
+    
+    # 执行插入操作
+    lock.acquire()
+    try:
+        dbcursor.execute(sql, (
+            user_id, dramaInfo['drama_name'], dramaInfo['cover_url'], dramaInfo['introduction'], 
+            dramaInfo['made_company'], playing_platform, dramaInfo['is_update'], 
+            dramaInfo['total_number'], dramaInfo['update_number'], dramaInfo['watch_number'], 
+            update_time, dramaInfo['love'], dramaInfo['remark']
+        ))
+        db.commit()
+    finally:
+        lock.release()
+    
+    return jsonify({'success': True, 'message': 'Add drama success'})
 
 # 查询用户，没有查到就创建新的用户
 def find_or_create_user(openid, session_key):

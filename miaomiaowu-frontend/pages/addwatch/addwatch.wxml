@@ -23,7 +23,7 @@
 			<view slot="content">
 				<view class="textarea-example">
 					<text class="textarea-example__label">番剧简介</text>
-					<t-textarea t-class="external-class" placeholder="请输入简介" bordered autosize="true" maxlength="100" disableDefaultPadding="{{true}}" indicator style="min-height: 248rpx" />
+					<t-textarea t-class="external-class" placeholder="请输入简介" bordered autosize="true" maxlength="100" disableDefaultPadding="{{true}}" indicator style="min-height: 248rpx" value="{{darmaJianJie}}" bind:blur="finishJianJieInput" />
 				</view>
 				<view class="btngroup">
 					<t-button theme="light" size="small">网络获取</t-button>
@@ -31,12 +31,12 @@
 				</view>
 				<view class="textarea-example">
 					<text class="textarea-example__label">制作公司</text>
-					<t-textarea t-class="external-class" placeholder="请输入公司名称" bordered disableDefaultPadding="{{true}}" indicator autosize="true" />
+					<t-textarea t-class="external-class" placeholder="请输入公司名称" bordered disableDefaultPadding="{{true}}" indicator autosize="true" value="{{madeCompany}}" bind:blur="finishMadeInput" />
 				</view>
 				<view class="watchplatformbox">
 					<text>播放平台</text>
 					<view class="platformselectbox">
-						<platformselect></platformselect>
+						<platformselect id="platformselect" bind:checkChange="platformChange"></platformselect>
 					</view>
 				</view>
 			</view>
@@ -48,11 +48,11 @@
 						<view class="updatebox">
 							<view style="display: flex; align-items: center;">
 								<text style="margin: 16rpx;">总集数</text>
-								<t-stepper defaultValue="0" max="9999" size="medium" theme="outline" />
+								<t-stepper value="{{totalNumber}}" max="9999" size="medium" theme="outline" bind:change="handleStepperChange" data-key="totalNumber" />
 							</view>
 							<view style="display: flex; align-items: center;">
 								<text style="margin: 16rpx;">观看至</text>
-								<t-stepper defaultValue="0" max="9999" size="medium" theme="outline" />
+								<t-stepper value="{{watchNumber}}" max="9999" size="medium" theme="outline" bind:change="handleStepperChange" data-key="watchNumber" />
 							</view>
 						</view>
 					</t-tab-panel>
@@ -60,17 +60,17 @@
 						<view class="updatebox">
 							<view style="display: flex; align-items: center;">
 								<text style="margin: 16rpx;">更新至</text>
-								<t-stepper defaultValue="0" max="9999" size="medium" theme="outline" />
+								<t-stepper value="{{updateNumber}}" max="9999" size="medium" theme="outline" bind:change="handleStepperChange" data-key="updateNumber" />
 							</view>
 							<view style="display: flex; align-items: center;">
 								<text style="margin: 16rpx;">观看至</text>
-								<t-stepper defaultValue="0" max="9999" size="medium" theme="outline" />
+								<t-stepper value="{{watchNumber}}" max="9999" size="medium" theme="outline" bind:change="handleStepperChange" data-key="watchNumber" />
 							</view>
 						</view>
 						<view class="updateweekbox">
 							<text style="margin: 16rpx;">更新时间(每周)</text>
 							<view style="margin: 16rpx;">
-								<weekselect></weekselect>
+								<weekselect id="weekselect" bind:checkChange="checkChange"></weekselect>
 							</view>
 						</view>
 					</t-tab-panel>
@@ -78,11 +78,11 @@
 						<view class="updatebox">
 							<view style="display: flex; align-items: center;">
 								<text style="margin: 16rpx;">更新至</text>
-								<t-stepper defaultValue="0" max="9999" size="medium" theme="outline" />
+								<t-stepper value="{{updateNumber}}" max="9999" size="medium" theme="outline" bind:change="handleStepperChange" data-key="updateNumber" />
 							</view>
 							<view style="display: flex; align-items: center;">
 								<text style="margin: 16rpx;">观看至</text>
-								<t-stepper defaultValue="0" max="9999" size="medium" theme="outline" />
+								<t-stepper value="{{watchNumber}}" max="9999" size="medium" theme="outline" bind:change="handleStepperChange" data-key="watchNumber" />
 							</view>
 						</view>
 					</t-tab-panel>
@@ -91,14 +91,15 @@
 		</t-step-item>
 		<t-step-item title="喜爱度" status="process">
 			<view slot="content">
-				<t-rate default-value="{{0}}" allowHalf class="rateitem" bind:change="onRateChange" />
-				<t-textarea t-class="external-class" placeholder="备注" bordered autosize="true" maxlength="100" disableDefaultPadding="{{true}}" indicator style="margin-bottom: 16rpx;" />
+				<t-rate value="{{ ratevalue }}" allowHalf class="rateitem" bind:change="onRateChange" />
+				<t-textarea t-class="external-class" placeholder="备注" bordered autosize="true" maxlength="100" disableDefaultPadding="{{true}}" indicator style="margin-bottom: 16rpx;" bind:blur="finishRemarkInput" value="{{remark}}"/>
 			</view>
 		</t-step-item>
 		<t-step-item title="" status="finish">
 			<view slot="content">
-				<t-button theme="primary" size="large" block>确认添加</t-button>
+				<t-button theme="primary" size="large" bind:tap="yesAdd" block>确认添加</t-button>
 			</view>
 		</t-step-item>
 	</t-steps>
 </view>
+<t-toast id="t-toast" />

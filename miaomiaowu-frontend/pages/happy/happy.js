@@ -1,4 +1,6 @@
 import { Toast } from 'tdesign-miniprogram'
+const app = getApp()
+
 // pages/watch/watch.js
 Page({
 
@@ -6,7 +8,7 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
-		isLogin: false
+		isLogin: false,
 	},
 
 	/**
@@ -115,8 +117,7 @@ Page({
 	checkLoginStatus(accessToken) {
 		const self = this
 		wx.request({
-			// url: 'http://192.168.116.43:5000/check_session',
-			url: 'http://192.168.1.6:5000/check_session',
+			url: `${app.globalData.baseUrl}/check_session`,
 			method: 'POST',
 			data: {
 				accessToken: accessToken

@@ -1,4 +1,6 @@
 // pages/about/about.js
+const app = getApp()
+
 Page({
 
 	/**
@@ -83,8 +85,7 @@ Page({
 	checkLoginStatus(accessToken) {
 		const self = this
 		wx.request({
-			// url: 'http://192.168.116.43:5000/check_session',
-			url: 'http://192.168.1.6:5000/check_session',
+			url: `${app.globalData.baseUrl}/check_session`,
 			method: 'POST',
 			data: {
 				accessToken: accessToken
@@ -128,8 +129,7 @@ Page({
 			success(res) {
 				// 将用户信息发送到后端服务器
 				wx.request({
-					// url: 'http://192.168.116.43:5000/save_profile',
-					url: 'http://192.168.1.6:5000/save_profile',
+					url: `${app.globalData.baseUrl}/save_profile`,
 					method: 'POST',
 					data: {
 						userInfo: res.userInfo
@@ -172,8 +172,7 @@ Page({
 				if (res.code) {
 					// 将 code 发送到后端服务器
 					wx.request({
-						// url: 'http://192.168.225.240:80/api/login', // 登录接口
-						url: 'http://192.168.1.6:5000/login',
+						url: `${app.globalData.baseUrl}/login`,
 						method: 'POST',
 						data: {
 							code: res.code
@@ -251,8 +250,7 @@ Page({
 			success(res) {
 				// 将用户信息发送到后端服务器
 				wx.request({
-					// url: 'http://192.168.116.43:5000/save_profile',
-					url: 'http://192.168.1.6:5000/save_profile',
+					url: `${app.globalData.baseUrl}/save_profile`,
 					method: 'POST',
 					data: {
 						userInfo: res.userInfo,
@@ -364,8 +362,7 @@ Page({
 	setUserInfo(nickname, avatarurl) {
 		const self = this
 		wx.request({
-			// url: 'http://192.168.116.43:5000/save_profile',
-			url: 'http://192.168.1.6:5000/save_profile',
+			url: `${app.globalData.baseUrl}/save_profile`,
 			method: 'POST',
 			data: {
 				userInfo: {

@@ -1,5 +1,5 @@
 // index.js
-const defaultAvatarUrl = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
+const app = getApp()
 
 Page({
 	data: {
@@ -78,8 +78,7 @@ Page({
 	checkLoginStatus(accessToken) {
 		const self = this
 		wx.request({
-			// url: 'http://192.168.116.43:5000/check_session',
-			url: 'http://192.168.1.6:5000/check_session',
+			url: `${app.globalData.baseUrl}/check_session`,
 			method: 'POST',
 			data: {
 				accessToken: accessToken

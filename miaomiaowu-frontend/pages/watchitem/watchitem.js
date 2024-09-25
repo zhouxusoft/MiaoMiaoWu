@@ -7,7 +7,7 @@ Page({
 	 */
 	data: {
 		dramaName: '番剧名称',
-		darmaCover: '番剧封面',
+		darmaCover: '/images/noise.png',
 		dramaJianJie: '番剧简介',
 		updateMode: '播放状态',
 		updateModeTemp: '播放状态',

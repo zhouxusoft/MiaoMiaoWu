@@ -1,4 +1,6 @@
 // pages/watch/watch.js
+const app = getApp()
+
 Page({
 
 	/**
@@ -88,8 +90,7 @@ Page({
 	checkLoginStatus(accessToken) {
 		const self = this
 		wx.request({
-			// url: 'http://192.168.116.43:5000/check_session',
-			url: 'http://192.168.1.6:5000/check_session',
+			url: `${app.globalData.baseUrl}/check_session`,
 			method: 'POST',
 			data: {
 				accessToken: accessToken
@@ -203,7 +204,7 @@ Page({
 		const self = this
 		const accessToken = wx.getStorageSync('accessToken')
 		wx.request({
-			url: 'http://192.168.1.6:5000/get_user_drama',
+			url: `${app.globalData.baseUrl}/get_user_drama`,
 			method: 'POST',
 			data: {
 				accessToken: accessToken
