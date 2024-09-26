@@ -8,56 +8,58 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
-		dramaId: 0,
-		dramaName: '番剧名称',
-		darmaCover: '/images/noise.png',
-		dramaJianJie: '番剧简介',
-		updateMode: '播放状态',
-		updateModeTemp: '播放状态',
-		updateModes: [
+		dramaId: 0, // 番剧的 id
+		dramaName: '番剧名称', // 番剧名称
+		darmaCover: '/images/noise.png', // 番剧封面
+		dramaJianJie: '番剧简介', // 番剧简介
+		updateMode: '播放状态', // 播放状态，用于显示，可用于修改
+		updateModeTemp: '播放状态', // 播放状态，用于比较是否修改过
+		updateModes: [  // 播放状态列表 这个格式是 TDesign 组件库定义
 			{ label: '连载中', value: '连载中' },
 			{ label: '已完结', value: '已完结' },
 			{ label: '未更新', value: '未更新' }
 		],
-		madeInputValue: '制作公司',
-		yesMadeInputValue: '制作公司',
-		platformValueText: ['播放平台'],
-		platformValue: [false, false, false, false, false],
-		platformValueTemp: [false, false, false, false, false],
-		platformList: ['腾讯视频', '哔哩哔哩', '爱奇艺', '优酷视频', '其它'],
-		updateToNum: 0,
-		updateToNumTemp: 0,
-		watchToNum: 0,
-		watchToNumTemp: 0,
-		updateHaveChanged: false,
-		watchHaveChanged: false,
-		weekSelectValue: [false, false, false, false, false, false, false],
-		weekSelectValueTemp: [false, false, false, false, false, false, false],
-		isWeekSelectChange: false,
-		rateValue: 0,
-		ratevalueTemp: 0,
-		userText: '备注',
-		userTextTemp: '备注',
-		isRateChange: false,
-		isUserTextChange: false,
-		isRateandUserTextChange: false,
-		isUpdateHappen: false,
-		dialogKey: '',
-		showConfirm: false,
+		madeInputValue: '制作公司', // 制作公司，用于显示，可用于修改
+		yesMadeInputValue: '制作公司', // 制作公司，用于比较是否修改过
+		platformValueText: ['播放平台'], // 播放平台的列表，由platformValue转换为中文，用于显示
+		platformValue: [false, false, false, false, false], // 播放平台的选择状态，用于显示，可用于修改
+		platformValueTemp: [false, false, false, false, false], // 播放平台的选择状态，用于比较是否修改过
+		platformList: ['腾讯视频', '哔哩哔哩', '爱奇艺', '优酷视频', '其它'], // 播放平台列表，配合算法可以把 [true, false, true, false, false] 转换为 ['腾讯视频', '爱奇艺']
+		updateToNum: 0,	// 更新到的集数，用于显示，可用于修改
+		updateToNumTemp: 0,	//更新到的集数，用于比较是否修改过
+		watchToNum: 0,	// 观看到的集数，用于显示，可用于修改
+		watchToNumTemp: 0, // 观看到的集数，用于比较是否修改过
+		updateHaveChanged: false, // 是否修改过更新到的集数
+		watchHaveChanged: false, // 是否修改过观看到的集数
+		weekSelectValue: [false, false, false, false, false, false, false], // 每周更新的信息，用于显示，可用于修改
+		weekSelectValueTemp: [false, false, false, false, false, false, false],// 每周更新的信息，用于比较是否修改过
+		isWeekSelectChange: false, // 是否修改过每周更新
+		rateValue: 0, // 评分，用于显示，可用于修改
+		ratevalueTemp: 0, // 评分，用于比较是否修改过
+		userText: '备注', // 备注，用于显示，可用于修改
+		userTextTemp: '备注', // 备注，用于比较是否修改过
+		isRateChange: false, // 评分是否修改过
+		isUserTextChange: false, // 备注是否修改过
+		isRateandUserTextChange: false, // 评分和备注中任意一个是否修改过
+		isUpdateHappen: false, // 数据是否正在更新中，用于防抖
+		dialogKey: '', // TDesign 组件控制用
+		showConfirm: false, // TDesign 组件控制用
 	},
 
 	/**
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad(options) {
-		let dramaInfo = options.dramaInfo
+		let dramaInfo = options.dramaInfo // 番剧列表页面传过来的番剧信息
 		console.log(dramaInfo)
 
 		// const dataArray = dramaInfo.split(",")
 		// console.log(dataArray)
 
+		// 字符串转换为数组
 		const parsedArray = this.parseNestedArrays(dramaInfo)
 		console.log(parsedArray)
+		// 刷新页面显示
 		this.setDramaInfo(parsedArray)
 	},
 

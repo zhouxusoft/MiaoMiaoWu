@@ -9,24 +9,24 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
-		fileList: [],
-		nameinput: '',
-		avatarUrl: '',
-		darmaJianJie: '',
-		madeCompany: '',
-		platform: [],
-		isUpdate: 0,
-		totalNumber: 0,
-		updateNumber: 0,
-		watchNumber: 0,
-		updateWeek: [],
-		ratevalue: 0,
-		remark: '',
-		skylineRender: true,
-		uploadImgPreview: '',
-		isSelectImg: true,
-		canClickImageBtn: true,
-		dramaInfoOnline: {}
+		fileList: [], // 文件列表，用于封面上传
+		nameinput: '', // 番剧名称
+		avatarUrl: '', // 封面的url
+		darmaJianJie: '',	// 番剧简介
+		madeCompany: '',	// 制作公司
+		platform: [], // 播放平台
+		isUpdate: 0, // 更新状态 0 连载中 1 已完结  2 未更新
+		totalNumber: 0, // 总集数
+		updateNumber: 0, // 更新到
+		watchNumber: 0, // 观看到
+		updateWeek: [], // 更新时间 ，[2,6]每周三周日更新
+		ratevalue: 0, // 评分
+		remark: '',	// 备注
+		skylineRender: true, // TDesign 组件数据
+		uploadImgPreview: '', // 默认封面，网络获取封面、ai生成封面显示的url
+		isSelectImg: true, // 手动上传图像
+		canClickImageBtn: true, // 按钮是否允许被点击，用于防抖
+		dramaInfoOnline: {} // 网络获取到的番剧信息
 	},
 
 	/**
