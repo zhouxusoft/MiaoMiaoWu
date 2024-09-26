@@ -49,41 +49,6 @@ Page({
 	},
 
 	/**
-	 * 生命周期函数--监听页面隐藏
-	 */
-	onHide() {
-
-	},
-
-	/**
-	 * 生命周期函数--监听页面卸载
-	 */
-	onUnload() {
-
-	},
-
-	/**
-	 * 页面相关事件处理函数--监听用户下拉动作
-	 */
-	onPullDownRefresh() {
-
-	},
-
-	/**
-	 * 页面上拉触底事件的处理函数
-	 */
-	onReachBottom() {
-
-	},
-
-	/**
-	 * 用户点击右上角分享
-	 */
-	onShareAppMessage() {
-
-	},
-
-	/**
 	 * 检测用户是否登录
 	 * @param {String} accessToken - 用户的登录凭证
 	 */
@@ -198,29 +163,32 @@ Page({
 		})
 	},
 
-
-
+	/**
+	 * 获取番剧列表
+	 */
 	getDramaList() {
-		const self = this
-		const accessToken = wx.getStorageSync('accessToken')
+		const self = this // 保存上下文
+		const accessToken = wx.getStorageSync('accessToken') // 本地获取 accessToken
 		wx.request({
-			url: `${app.globalData.baseUrl}/get_user_drama`,
+			url: `${app.globalData.baseUrl}/get_user_drama`, // 获取番剧列表接口
 			method: 'POST',
 			data: {
-				accessToken: accessToken
+				accessToken: accessToken // 通过登陆凭证获取番剧列表
 			},
 			success(res) {
+				// 获取列表成功
 				if (res.data.success) {
 					self.setData({
-						dramaList: res.data.dramas
+						dramaList: res.data.dramas // 更新页面显示
 					})
 					console.log(res.data)
 					
 					for (let i = 0; i < self.data.dramaList.length; i++) {
+						// updateModes 用于数据转换. 将数据库里存储的数据变成可显示的数据
 						self.data.dramaList[i][7] = self.data.updateModes[self.data.dramaList[i][7]]
 					}
 					self.setData({
-						dramaList: self.data.dramaList
+						dramaList: self.data.dramaList 
 					})
 					console.log(self.data.dramaList[0])
 				} else {

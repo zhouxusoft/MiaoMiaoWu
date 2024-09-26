@@ -8,19 +8,7 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
-		isLogin: false,
-	},
-
-	/**
-	 * 生命周期函数--监听页面加载
-	 */
-	onLoad(options) {
-	},
-
-	/**
-	 * 生命周期函数--监听页面初次渲染完成
-	 */
-	onReady() {
+		isLogin: false, // 用户登录状态
 	},
 
 	/**
@@ -30,41 +18,6 @@ Page({
 		const accessToken = wx.getStorageSync('accessToken')
 		// console.log(accessToken)
 		this.checkLoginStatus(accessToken)
-	},
-
-	/**
-	 * 生命周期函数--监听页面隐藏
-	 */
-	onHide() {
-
-	},
-
-	/**
-	 * 生命周期函数--监听页面卸载
-	 */
-	onUnload() {
-
-	},
-
-	/**
-	 * 页面相关事件处理函数--监听用户下拉动作
-	 */
-	onPullDownRefresh() {
-
-	},
-
-	/**
-	 * 页面上拉触底事件的处理函数
-	 */
-	onReachBottom() {
-
-	},
-
-	/**
-	 * 用户点击右上角分享
-	 */
-	onShareAppMessage() {
-
 	},
 
 	/**
@@ -111,23 +64,25 @@ Page({
 	 * @param {String} accessToken - 用户的登录凭证
 	 */
 	checkLoginStatus(accessToken) {
-		const self = this
+		const self = this // 保存当前上下文，在回调函数或嵌套函数中，上下文会更改
 		wx.request({
-			url: `${app.globalData.baseUrl}/check_session`,
+			url: `${app.globalData.baseUrl}/check_session`,	// 后端判断用户登录的接口
 			method: 'POST',
 			data: {
-				accessToken: accessToken
+				accessToken: accessToken // 传递用户登录凭证 accessToken
 			},
 			success(res) {
+				// 用户已登录
 				if (res.data.success) {
 					self.setData({
-						isLogin: true
+						isLogin: true // 设置用户登录状态
 					})
 					console.log(res.data)
-					// 更新用户信息
+					// 本地存储，更新用户信息
 					wx.setStorageSync('user_id', res.data.userInfo[0])
 					wx.setStorageSync('nickname', res.data.userInfo[1])
 					wx.setStorageSync('avatar', res.data.userInfo[2])
+					// 判断处理，防止信息为空
 					if (res.data.userInfo[1] != null) {
 						self.setData({
 							nickname: res.data.userInfo[1]
@@ -139,6 +94,7 @@ Page({
 						})
 					}
 				} else {
+					// 用户未登录
 					self.setData({
 						isLogin: false
 					})
@@ -146,6 +102,7 @@ Page({
 				}
 			},
 			fail(err) {
+				// 请求失败
 				self.setData({
 					isLogin: false
 				})

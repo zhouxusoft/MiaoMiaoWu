@@ -3,28 +3,12 @@ const app = getApp()
 
 Page({
 	data: {
-		isLogin: false,
-		user_avatar: '/images/cutedurk.png',
-		nickname: '陌生人',
-		confirmBtn: { content: '去登录', variant: 'base' },
-		dialogKey: '',
-		showConfirm: false,
-		showWarnConfirm: false,
-		showTooLongBtnContent: false,
-		showMultiBtn: false,
-	},
-
-	/**
-	 * 生命周期函数--监听页面加载
-	 */
-	onLoad(options) {
-	},
-
-	/**
-	 * 生命周期函数--监听页面初次渲染完成
-	 */
-	onReady() {
-
+		isLogin: false, // 用户的登录状态
+		user_avatar: '/images/cutedurk.png', // 用户的默认头像
+		nickname: '陌生人', // 用户的默认昵称
+		confirmBtn: { content: '去登录', variant: 'base' }, // TDesign 组件库定义，设置弹窗的按钮显示
+		dialogKey: '', // TDesign 组件库定义，用于设置弹窗状态
+		showConfirm: false, // 弹窗显示状态
 	},
 
 	/**
@@ -37,84 +21,54 @@ Page({
 	},
 
 	/**
-	 * 生命周期函数--监听页面隐藏
-	 */
-	onHide() {
-
-	},
-
-	/**
-	 * 生命周期函数--监听页面卸载
-	 */
-	onUnload() {
-
-	},
-
-	/**
-	 * 页面相关事件处理函数--监听用户下拉动作
-	 */
-	onPullDownRefresh() {
-
-	},
-
-	/**
-	 * 页面上拉触底事件的处理函数
-	 */
-	onReachBottom() {
-
-	},
-
-	/**
-	 * 用户点击右上角分享
-	 */
-	onShareAppMessage() {
-
-	},
-
-	/**
 	 * 检测用户是否登录
 	 * @param {String} accessToken - 用户的登录凭证
 	 */
 	checkLoginStatus(accessToken) {
-		const self = this
+		const self = this // 保存当前上下文，在回调函数或嵌套函数中，上下文会更改
 		wx.request({
-			url: `${app.globalData.baseUrl}/check_session`,
+			url: `${app.globalData.baseUrl}/check_session`, // 后端判断用户登录的接口
 			method: 'POST',
 			data: {
-				accessToken: accessToken
+				accessToken: accessToken // 传递用户登录凭证 accessToken
 			},
 			success(res) {
-				if (res.data.success) {
+				if (res.data.success) { // 用户已登录
 					self.setData({
-						isLogin: true
+						isLogin: true // 设置用户登录状态为 true
 					})
 					console.log(res.data)
-					// 更新用户信息
+					// 本地存储，更新用户信息
 					wx.setStorageSync('user_id', res.data.userInfo[0])
 					wx.setStorageSync('nickname', res.data.userInfo[1])
 					wx.setStorageSync('avatar', res.data.userInfo[2])
+					// 判断处理，防止信息为空
 					if (res.data.userInfo[1] != null) {
 						self.setData({
-							nickname: res.data.userInfo[1]
+							nickname: res.data.userInfo[1] // 设置用户名
 						})
 					}
 					if (res.data.userInfo[2] != null) {
 						self.setData({
-							user_avatar: res.data.userInfo[2]
+							user_avatar: res.data.userInfo[2] // 设置用户头像
 						})
 					}
 				} else {
+					// 若用户未登录， 设置相关数据
 					self.setData({
 						nickname: '陌生人',
-						user_avatar: '/images/cutedurk.png'
+						user_avatar: '/images/cutedurk.png',
+						isLogin: false
 					})
 					console.error('登录失败！' + res.data.message)
 				}
 			},
 			fail(err) {
+				// 请求接口失败
 				self.setData({
 					nickname: '陌生人',
-					user_avatar: '/images/cutedurk.png'
+					user_avatar: '/images/cutedurk.png',
+					isLogin: false
 				})
 				console.error('请求失败！' + err.errMsg)
 			}
