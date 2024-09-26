@@ -409,6 +409,9 @@ Page({
 	 * @param {String} data 
 	 */
 	parseNestedArrays(data) {
+		if (data.endsWith(',')) {
+			data += '备注'
+		}
 		if (typeof data === 'string') {
 			data = data.split(/,(?=\S)/)  // 使用正则表达式来分割字符串
 		}
@@ -436,6 +439,9 @@ Page({
 			} else {
 				result.push(isNaN(Number(item)) ? item : Number(item))
 			}
+		}
+		if (result[14] == '备注') {
+			result[14] = ''
 		}
 
 		return result

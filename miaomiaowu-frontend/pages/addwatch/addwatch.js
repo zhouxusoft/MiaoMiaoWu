@@ -468,6 +468,7 @@ Page({
 	 * 点击从网络获取简介
 	 */
 	getJianJieFromOnline() {
+		console.log('网络获取')
 		let dramaName = this.data.nameinput
 		if (dramaName == '') {
 			Toast({

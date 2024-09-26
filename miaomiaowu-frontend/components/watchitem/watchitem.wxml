@@ -15,7 +15,7 @@
 				<t-tag class="margin-16" variant="light-outline" theme="primary" wx:if="{{watchupdateto - watchwatchto > 0}}">{{watchupdateto - watchwatchto}}集未看</t-tag>
 			</view>
 		</view>
-
+			
 		<view class="watchinfobox1">
 			<view class="watchmade">{{watchitemmade}}</view>
 			<view class="watchwatchmode">{{watchwatchmode}}</view>

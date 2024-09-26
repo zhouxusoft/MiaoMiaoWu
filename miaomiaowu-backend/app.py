@@ -473,7 +473,7 @@ def auto_jian_jie():
     
     dramaName = data.get('dramaName')
     jianjie = ''
-    for text in ai_jian_jie("斗破苍穹"):
+    for text in ai_jian_jie(dramaName):
         jianjie += text
         if len(jianjie) > 100:
             break

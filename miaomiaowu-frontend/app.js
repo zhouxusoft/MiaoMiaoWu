@@ -14,14 +14,7 @@ App({
 		})
 	},
 	globalData: {
-		baseUrl: 'http://192.168.116.43:5000',
-		// baseUrl: 'http://192.168.1.3:5000',
+		// baseUrl: 'http://192.168.116.43:5000',
+		baseUrl: 'http://192.168.1.2:5000',
 	}
 })
-
-// wx.request({
-//   url: 'https://www.baidu.com',
-//   enableChunked: true
-// }).onChunkReceived(chunk => {
-// 	console.log(new TextDecoder().decode(chunk.data))
-// })
