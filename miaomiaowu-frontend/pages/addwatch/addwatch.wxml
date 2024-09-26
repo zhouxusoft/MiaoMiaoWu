@@ -9,11 +9,13 @@
 		<t-step-item title="选择番剧封面" status="process" id="inputimg">
 			<view slot="content">
 				<view class="wrapper" wx:if="{{isSelectImg}}">
-					<t-upload mediaType="{{['image']}}" max="{{1}}" files="{{fileList}}" bind:add="handleAdd" bind:remove="handleRemove">
+					<t-upload mediaType="{{['image']}}" max="{{1}}" files="{{fileList}}" bind:add="handleAdd" bind:remove="handleRemove" disabled="{{!canClickImageBtn}}">
 					</t-upload>
 				</view>
 				<view class="otherwrapper" wx:else>
-					<view style="max-height: 220rpx; overflow: hidden;"><image src="{{uploadImgPreview}}" mode="widthFix" class="otherwrapperimg"/></view>
+					<view style="max-height: 220rpx; overflow: hidden;">
+						<image src="{{uploadImgPreview}}" mode="widthFix" class="otherwrapperimg" bindtap="previewImage"  />
+					</view>
 					<t-button theme="danger" size="extra-small" variant="outline" icon="close" bind:tap="delAddImage" class="xbtn"></t-button>
 				</view>
 				<view class="btngroup">
@@ -96,7 +98,7 @@
 		<t-step-item title="喜爱度" status="process">
 			<view slot="content">
 				<t-rate value="{{ ratevalue }}" allowHalf class="rateitem" bind:change="onRateChange" />
-				<t-textarea t-class="external-class" placeholder="备注" bordered autosize="true" maxlength="100" disableDefaultPadding="{{true}}" indicator style="margin-bottom: 16rpx;" bind:blur="finishRemarkInput" value="{{remark}}"/>
+				<t-textarea t-class="external-class" placeholder="备注" bordered autosize="true" maxlength="100" disableDefaultPadding="{{true}}" indicator style="margin-bottom: 16rpx;" bind:blur="finishRemarkInput" value="{{remark}}" />
 			</view>
 		</t-step-item>
 		<t-step-item title="" status="finish">

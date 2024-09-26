@@ -302,6 +302,43 @@ def get_default_cover():
     
     return jsonify({'success': True, 'coverUrl': coverUrl})
 
+@app.route('/auto_jian_jie', methods=['POST'])
+def auto_jian_jie():
+    data = request.get_json()
+    accessToken = data.get('accessToken')
+    if not accessToken:
+        return jsonify({'success': False, 'message': 'Missing accessToken'})
+    check = checkCookie(accessToken)
+    if not check['success']:
+        return jsonify({'success': False, 'message': 'Invalid accessToken'})
+    
+    dramaName = data.get('dramaName')
+    jianjie = ''
+    for text in ai_jian_jie("斗破苍穹"):
+        jianjie += text
+        if len(jianjie) > 100:
+            break
+        print(text, end='')
+    
+    return jsonify({'success': True, 'jianjie': jianjie})
+
+@app.route('/get_drama_info_online', methods=['POST'])
+def get_drama_info_online():
+    data = request.get_json()
+    accessToken = data.get('accessToken')
+    if not accessToken:
+        return jsonify({'success': False, 'message': 'Missing accessToken'})
+    check = checkCookie(accessToken)
+    if not check['success']:
+        return jsonify({'success': False, 'message': 'Invalid accessToken'})
+    
+    dramaName = data.get('dramaName')
+    result = get_drama_info_from_agedm(dramaName)
+    if result['success']:
+        return jsonify({'success': True, 'dramaInfo': result['drama_info']})
+    
+    return jsonify({'success': False, 'message': '未找到相关结果'})
+
 # 查询用户，没有查到就创建新的用户
 def find_or_create_user(openid, session_key):
     # 查询用户的id、昵称、头像链接
@@ -369,7 +406,7 @@ def checkCookie(token):
         return  ({'success': True, 'message': '已登录', 'user_id': result[0][0]})
     else:
         return ({'success': False, 'message': '未登录'})
-
+       
 # 判断 cookie 是否过期
 def isTimeOut(time1, time2):
     # 计算时间差值
@@ -391,30 +428,6 @@ def get_user_info(user_id):
     finally:
         lock.release()
     return result[0]
-
-# 上传图片到超星云盘，并返回下载链接、
-def upload_image_to_chaoxing(file):
-    file_path = './可爱小鸭子.png'
-    files=[
-        ('file',('bilibili.png',open('D:\\系统默认\\下载\\bilibili.png','rb'),'image/png'))
-    ]
-    headers = {
-        'Host': 'pan-yz.chaoxing.com'
-    }
-    url = 'http://pan-yz.chaoxing.com/upload/uploadfile?fldid=1045061839022714880&_token=99ad00c891d3e9e9bc9a613314ef9890&puid=198665227'
-    response = requests.request("POST", url, headers=headers, files=files)
-    
-    print(response.text)
-    
-    if response.status_code == 200:
-        print('Upload successful:', response.json())
-    else:
-        print('Upload failed:', response.status_code, response.text)
-    previewurl = ''
-    return previewurl
-
-
-# upload_image_to_chaoxing(1)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)

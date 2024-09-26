@@ -25,63 +25,8 @@ Page({
 		skylineRender: true,
 		uploadImgPreview: '',
 		isSelectImg: true,
-		canClickImageBtn: true
-	},
-
-	/**
-	 * 生命周期函数--监听页面加载
-	 */
-	onLoad(options) {
-
-	},
-
-	/**
-	 * 生命周期函数--监听页面初次渲染完成
-	 */
-	onReady() {
-
-	},
-
-	/**
-	 * 生命周期函数--监听页面显示
-	 */
-	onShow() {
-
-	},
-
-	/**
-	 * 生命周期函数--监听页面隐藏
-	 */
-	onHide() {
-
-	},
-
-	/**
-	 * 生命周期函数--监听页面卸载
-	 */
-	onUnload() {
-
-	},
-
-	/**
-	 * 页面相关事件处理函数--监听用户下拉动作
-	 */
-	onPullDownRefresh() {
-
-	},
-
-	/**
-	 * 页面上拉触底事件的处理函数
-	 */
-	onReachBottom() {
-
-	},
-
-	/**
-	 * 用户点击右上角分享
-	 */
-	onShareAppMessage() {
-
+		canClickImageBtn: true,
+		dramaInfoOnline: {}
 	},
 
 	/**
@@ -93,16 +38,28 @@ Page({
 		this.data.nameinput = e.detail.value
 	},
 
+	/**
+	 * 完成简介的输入
+	 * @param {*}} e 
+	 */
 	finishJianJieInput(e) {
 		console.log(e.detail.value)
 		this.data.darmaJianJie = e.detail.value
 	},
 
+	/**
+	 * 完成制作公司输入
+	 * @param {*} e 
+	 */
 	finishMadeInput(e) {
 		console.log(e.detail.value)
 		this.data.madeCompany = e.detail.value
 	},
 
+	/**
+	 * 点击更改集数
+	 * @param {*}} e 
+	 */
 	handleStepperChange(e) {
 		const { key } = e.currentTarget.dataset
 		const { value } = e.detail
@@ -131,6 +88,10 @@ Page({
 		console.log(this.data.updateWeek)
 	},
 
+	/**
+	 * 完成备注输入时触发
+	 * @param {*} e 
+	 */
 	finishRemarkInput(e) {
 		console.log(e.detail.value)
 		this.data.remark = e.detail.value
@@ -150,6 +111,9 @@ Page({
 		return indices
 	},
 
+	/**
+	 * 点击确认添加番剧
+	 */
 	yesAdd() {
 		const self = this
 		if (this.data.nameinput != '' && this.data.avatarUrl != '' && this.data.darmaJianJie != '') {
@@ -329,6 +293,9 @@ Page({
 		console.log(this.data.ratevalue)
 	},
 
+	/**
+	 * 点击使用默认封面，将番剧名称传给后端
+	 */
 	useDefaultImage() {
 		let dramaName = this.data.nameinput
 		if (dramaName == '') {
@@ -368,6 +335,9 @@ Page({
 							uploadImgPreview: '/images/cutedurk.png',
 						})
 					}
+					self.setData({
+						avatarUrl: self.data.uploadImgPreview,
+					})
 					Message.success({
 						context: this,
 						offset: [12, 32],
@@ -394,6 +364,9 @@ Page({
 		}
 	},
 
+	/**
+	 * 点击从网络获取封面
+	 */
 	getCoverFromOnline() {
 		let dramaName = this.data.nameinput
 		if (dramaName == '') {
@@ -403,14 +376,77 @@ Page({
 				message: '请先输入番剧名称',
 			})
 		} else {
-			Toast({
-				context: this,
-				selector: '#t-toast',
-				message: '敬请期待',
-			})
+			if (this.data.dramaInfoOnline.title == dramaName) {
+				this.setData({
+					avatarUrl: this.data.dramaInfoOnline.cover
+				})
+			} else {
+				this.setData({
+					canClickImageBtn: false
+				})
+				Message.info({
+					context: this,
+					offset: [12, 32],
+					duration: 0,
+					content: '正在从网络获取内容...',
+				})
+				const accessToken = wx.getStorageSync('accessToken')
+				const self = this
+				wx.request({
+					url: `${app.globalData.baseUrl}/get_drama_info_online`,
+					method: 'POST',
+					data: {
+						accessToken: accessToken,
+						dramaName: dramaName
+					},
+					success(res) {
+						self.setData({
+							canClickImageBtn: true
+						})
+						console.log(res.data)
+						if (res.data.success) {
+							Message.success({
+								context: this,
+								offset: [12, 32],
+								duration: 3000,
+								content: '从网络获取内容成功',
+							})
+							let infoTemp = res.data.dramaInfo
+							self.data.dramaInfoOnline = infoTemp
+							self.setData({
+								uploadImgPreview: infoTemp.cover,
+								avatarUrl: infoTemp.cover,
+								isSelectImg: false
+							})
+						} else {
+							Message.error({
+								context: this,
+								offset: [12, 32],
+								duration: 3000,
+								content: '未找到结果，请确认番剧名称',
+							})
+						}
+					},
+					fail(error) {
+						Message.error({
+							context: this,
+							offset: [12, 32],
+							duration: 3000,
+							content: '请求失败，请稍后再试',
+						})
+						self.setData({
+							canClickImageBtn: true
+						})
+						console.log(error.errMsg)
+					}
+				})
+			}
 		}
 	},
 
+	/**
+	 * 点击 AI 生成封面
+	 */
 	getCoverFromAI() {
 		let dramaName = this.data.nameinput
 		if (dramaName == '') {
@@ -423,11 +459,14 @@ Page({
 			Toast({
 				context: this,
 				selector: '#t-toast',
-				message: '此为VIP功能',
+				message: '此为 VIP 功能\n请充值后使用',
 			})
 		}
 	},
 
+	/**
+	 * 点击从网络获取简介
+	 */
 	getJianJieFromOnline() {
 		let dramaName = this.data.nameinput
 		if (dramaName == '') {
@@ -437,14 +476,81 @@ Page({
 				message: '请先输入番剧名称',
 			})
 		} else {
-			Toast({
-				context: this,
-				selector: '#t-toast',
-				message: '敬请期待',
-			})
+			if (this.data.dramaInfoOnline.title == dramaName) {
+				this.setData({
+					darmaJianJie: this.data.dramaInfoOnline.jian_jie,
+					madeCompany: this.data.dramaInfoOnline.made_company,
+					totalNumber: this.data.dramaInfoOnline.update,
+					updateNumber: this.data.dramaInfoOnline.update,
+				})
+			} else {
+				this.setData({
+					canClickImageBtn: false
+				})
+				Message.info({
+					context: this,
+					offset: [12, 32],
+					duration: 0,
+					content: '正在从网络获取内容...',
+				})
+				const accessToken = wx.getStorageSync('accessToken')
+				const self = this
+				wx.request({
+					url: `${app.globalData.baseUrl}/get_drama_info_online`,
+					method: 'POST',
+					data: {
+						accessToken: accessToken,
+						dramaName: dramaName
+					},
+					success(res) {
+						self.setData({
+							canClickImageBtn: true
+						})
+						console.log(res.data)
+						if (res.data.success) {
+							Message.success({
+								context: this,
+								offset: [12, 32],
+								duration: 3000,
+								content: '从网络获取内容成功',
+							})
+							let infoTemp = res.data.dramaInfo
+							self.data.dramaInfoOnline = infoTemp
+							self.setData({
+								darmaJianJie: infoTemp.jian_jie,
+								madeCompany: infoTemp.made_company,
+								totalNumber: infoTemp.update,
+								updateNumber: infoTemp.update,
+							})
+						} else {
+							Message.error({
+								context: this,
+								offset: [12, 32],
+								duration: 3000,
+								content: '未找到结果，请确认番剧名称',
+							})
+						}
+					},
+					fail(error) {
+						Message.error({
+							context: this,
+							offset: [12, 32],
+							duration: 3000,
+							content: '请求失败，请稍后再试',
+						})
+						self.setData({
+							canClickImageBtn: true
+						})
+						console.log(error.errMsg)
+					}
+				})
+			}
 		}
 	},
 
+	/**
+	 * 向 AI 获取简介
+	 */
 	getJianJieFromAI() {
 		let dramaName = this.data.nameinput
 		if (dramaName == '') {
@@ -454,20 +560,105 @@ Page({
 				message: '请先输入番剧名称',
 			})
 		} else {
-			Toast({
+			this.setData({
+				canClickImageBtn: false
+			})
+			Message.info({
 				context: this,
-				selector: '#t-toast',
-				message: '此为VIP功能',
+				offset: [12, 32],
+				duration: 0,
+				content: '简介内容生成中，请耐心等待',
+			})
+			const accessToken = wx.getStorageSync('accessToken')
+			const self = this
+			wx.request({
+				url: `${app.globalData.baseUrl}/auto_jian_jie`,
+				method: 'POST',
+				data: {
+					accessToken: accessToken,
+					dramaName: dramaName
+				},
+				success(res) {
+					self.setData({
+						canClickImageBtn: true
+					})
+					console.log(res.data)
+					if (res.data.success) {
+						Message.info({
+							context: this,
+							offset: [12, 32],
+							duration: 0,
+							content: '正在输出简介内容',
+						})
+						self.outputJianJie(res.data.jianjie)
+					}
+				},
+				fail(error) {
+					self.setData({
+						canClickImageBtn: true
+					})
+					console.log(error.errMsg)
+				}
 			})
 		}
 	},
 
+	/**
+	 * 逐字输出简介
+	 * @param {String}} jianjie - 简介内容
+	 */
+	outputJianJie(jianjie) {
+		this.setData({
+			darmaJianJie: ''
+		})
+		while (jianjie.length > 100) {
+			let lastPeriodIndex = jianjie.lastIndexOf('。', 100)
+			if (lastPeriodIndex !== -1) {
+				jianjie = jianjie.substring(0, lastPeriodIndex + 1)
+			} else {
+				jianjie = jianjie.substring(0, 100)
+				break
+			}
+		}
+		let jianjieTemp = ''
+		for (let i = 0; i < jianjie.length; i++) {
+			((index) => {
+				setTimeout(() => {
+					jianjieTemp += jianjie[index]
+					this.setData({
+						darmaJianJie: jianjieTemp
+					})
 
+					if (index === jianjie.length - 1) {
+						Message.success({
+							context: this,
+							offset: [12, 32],
+							duration: 3000,
+							content: '内容生成完成',
+						})
+					}
+				}, index * 50)
+			})(i)
+		}
+	},
 
+	/**
+	 * 删除按钮触发，用于删除生成的图片
+	 */
 	delAddImage() {
 		this.setData({
 			isSelectImg: true,
 			avatarUrl: ''
 		})
-	}	
+	},
+
+	/**
+	 * 图片预览
+	 */
+	previewImage() {
+		wx.previewImage({
+			current: this.data.avatarUrl, // 当前显示图片的http链接
+			urls: [this.data.avatarUrl] // 需要预览的图片http链接列表
+		})
+	}
 })

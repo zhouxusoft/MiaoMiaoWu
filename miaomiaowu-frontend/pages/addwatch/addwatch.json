@@ -15,7 +15,8 @@
 		"weekselect": "/components/weekselect/weekselect",
 		"platformselect": "/components/platformselect/platformselect",
 		"t-toast": "tdesign-miniprogram/toast/toast",
-		"t-message": "tdesign-miniprogram/message/message"
+		"t-message": "tdesign-miniprogram/message/message",
+		"t-loading": "tdesign-miniprogram/loading/loading"
 	},
 	"navigationBarTitleText": "添加追番"
 }

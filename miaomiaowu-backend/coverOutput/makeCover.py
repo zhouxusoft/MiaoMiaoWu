@@ -67,4 +67,4 @@ def out_img(name):
     print(preview_url)
     return preview_url
 
-out_img("斗破苍穹")
+# out_img("斗破苍穹")
