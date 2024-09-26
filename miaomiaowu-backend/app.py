@@ -50,6 +50,24 @@ def before_request():
     if not db.open:
         db.connect()
 
+"""
+    登录接口 /login
+
+    请求方法:
+        POST
+
+    请求参数:
+        - code (str): 用于请求用户信息的小程序端 code
+
+    返回值:
+        - 成功:
+            - success (bool): 请求是否成功
+            - userInfo (dict): 用户信息
+            - accessToken (str): 用户的访问令牌
+        - 失败:
+            - success (bool): 请求是否成功
+            - message (str): 错误信息
+"""
 @app.route('/login', methods=['POST'])
 def login():
     # 获取小程序端，用于请求用户信息的 code
@@ -93,6 +111,25 @@ def login():
     else:
         return jsonify({'success': False, 'message': '登录失败, Error userInfo'})
 
+"""
+    保存用户资料接口 /save_profile
+
+    请求方法:
+        POST
+
+    请求参数:
+        - userInfo (dict): 用户信息，包括 nickName 和 avatarUrl
+        - accessToken (str): 用户的访问令牌
+
+    返回值:
+        - 成功:
+            - success (bool): 请求是否成功
+            - userInfo (dict): 更新后的用户信息
+            - message (str): 操作成功信息
+        - 失败:
+            - success (bool): 请求是否成功
+            - message (str): 错误信息
+"""
 @app.route('/save_profile', methods=['POST'])
 def save_profile():
     data = request.get_json()
@@ -134,6 +171,24 @@ def save_profile():
     
     return jsonify({'success': True, 'userInfo': result, 'message': 'Get UserInfo Success'})
 
+"""
+    验证用户的登录状态 /check_session
+
+    请求方法:
+        POST
+
+    请求参数:
+        - accessToken (str): 用户的访问令牌。
+
+    返回值:
+        - 成功:
+            - success (bool): 请求是否成功。
+            - message (str): 提示信息，当前已登录。
+            - userInfo (dict): 用户信息。
+        - 失败:
+            - success (bool): 请求是否成功。
+            - message (str): 提示信息，当前未登录。
+"""
 @app.route('/check_session', methods=['POST'])
 def check_session():
     data = request.get_json()
@@ -150,6 +205,23 @@ def check_session():
     else:
         return jsonify({'success': False, 'message': '当前未登录'})
 
+"""
+    获取用户的追番列表 /get_user_drama
+
+    请求方法:
+        POST
+
+    请求参数:
+        - accessToken (str): 用户的访问令牌
+
+    返回值:
+        - 成功:
+            - success (bool): 请求是否成功
+            - dramas (List): 用户的追番列表
+        - 失败:
+            - success (bool): 请求是否成功
+            - message (str): 提示信息
+"""
 @app.route('/get_user_drama', methods=['POST'])
 def get_user_drama():
     data = request.get_json()
@@ -171,7 +243,24 @@ def get_user_drama():
 
     return jsonify({'success': True, 'dramas': result})
 
+"""
+    添加用户的追番 /add_drama
 
+    请求方法:
+        POST
+
+    请求参数:
+        - accessToken (str): 用户的访问令牌
+        - dramaInfo (dict): 用户的追番信息
+
+    返回值:
+        - 成功:
+            - success (bool): 请求是否成功
+            - message (str): 操作成功信息
+        - 失败:
+            - success (bool): 请求是否成功
+            - message (str): 错误信息
+"""
 @app.route('/add_drama', methods=['POST'])
 def add_drama():
     data = request.get_json()
@@ -209,6 +298,24 @@ def add_drama():
     
     return jsonify({'success': True, 'message': 'Add drama success'})
 
+"""
+    更新用户的追番 /update_drama
+
+    请求方法:
+        POST
+
+    请求参数:
+        - accessToken (str): 用户的访问令牌
+        - dramaInfo (dict): 用户的追番信息
+
+    返回值:
+        - 成功:
+            - success (bool): 请求是否成功
+            - message (str): 操作成功信息
+        - 失败:
+            - success (bool): 请求是否成功
+            - message (str): 错误信息
+"""
 @app.route('/update_drama', methods=['POST'])
 def update_drama():
     data = request.get_json()
@@ -262,6 +369,24 @@ def update_drama():
     
     return jsonify({'success': True, 'message': 'Update drama success'})
 
+"""
+    删除用户的追番 /delete_drama
+
+    请求方法:
+        POST
+
+    请求参数:
+        - accessToken (str): 用户的访问令牌
+        - dramaId (int): 用户的追番信息
+
+    返回值:
+        - 成功:
+            - success (bool): 请求是否成功
+            - message (str): 操作成功信息
+        - 失败:
+            - success (bool): 请求是否成功 
+            - message (str): 错误信息
+"""
 @app.route('/delete_drama', methods=['POST'])
 def delete_drama():
     data = request.get_json()
@@ -287,6 +412,23 @@ def delete_drama():
     
     return jsonify({'success': True, 'message': 'Delete drama success'})
 
+"""
+    获取默认封面 /get_default_cover
+
+    请求方法:
+        POST
+
+    请求参数:
+        - accessToken (str): 用户的访问令牌
+        - dramaName (str): 需要制作封面的番名
+    返回值:
+        - 成功:
+            - success (bool): 请求是否成功
+            - coverUrl (str): 封面地址
+        - 失败:
+            - success (bool): 请求是否成功
+            - message (str): 错误信息
+"""
 @app.route('/get_default_cover', methods=['POST'])
 def get_default_cover():
     data = request.get_json()
@@ -302,6 +444,23 @@ def get_default_cover():
     
     return jsonify({'success': True, 'coverUrl': coverUrl})
 
+"""
+    AI 生成简介 /auto_jian_jie
+
+    请求方法:
+        POST
+
+    请求参数:
+        - accessToken (str): 用户的访问令牌
+        - dramaName (str): 需要生成简介的番名
+    返回值:
+        - 成功:
+            - success (bool): 请求是否成功
+            - jianjie (str): 简介
+        - 失败:
+            - success (bool): 请求是否成功
+            - message (str): 错误信息
+"""
 @app.route('/auto_jian_jie', methods=['POST'])
 def auto_jian_jie():
     data = request.get_json()
@@ -322,6 +481,23 @@ def auto_jian_jie():
     
     return jsonify({'success': True, 'jianjie': jianjie})
 
+"""
+    从 Agedm 获取番剧信息 /get_drama_info_online
+
+    请求方法:
+        POST
+
+    请求参数:
+        - accessToken (str): 用户的访问令牌
+        - dramaName (str): 需要获取信息的番名
+    返回值:
+        - 成功:
+            - success (bool): 请求是否成功
+            - dramaInfo (dict): 番剧信息
+        - 失败:
+            - success (bool): 请求是否成功
+            - message (str): 错误信息
+"""
 @app.route('/get_drama_info_online', methods=['POST'])
 def get_drama_info_online():
     data = request.get_json()
