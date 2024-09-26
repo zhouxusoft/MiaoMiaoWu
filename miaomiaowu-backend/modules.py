@@ -6,6 +6,12 @@ import requests
 os.environ['http_proxy'] = ''
 os.environ['https_proxy'] = ''
 
+"""
+    计算更新集数
+    比如 2024-09-08 更新到 110 集
+    每周一、周四和周日更新1集
+    返回 现在 更新到的集数
+"""
 def calculate_updated_episodes(set_time, update_number, update_days, current_time):
     # 解析 set_time 和 current_time
     set_time = datetime.strptime(set_time, "%Y-%m-%d %H:%M:%S")
@@ -40,6 +46,12 @@ def calculate_updated_episodes(set_time, update_number, update_days, current_tim
 # # 计算当前的更新集数
 # current_update_number = calculate_updated_episodes(set_time, update_number, update_days, current_time)
 # print("当前更新到了第几集:", current_update_number)
+
+"""
+    AI 生成简介
+    输入影视作品名称，ai 生成简介后返回
+    使用模型：讯飞星火 Spark Max generalv3.5
+"""
 def ai_jian_jie(drama_name):
     url = "https://spark-api-open.xf-yun.com/v1/chat/completions"
     data = {
@@ -81,6 +93,9 @@ def ai_jian_jie(drama_name):
 # for text in ai_jian_jie("斗破苍穹"):
 #     print(text, end='')
 
+"""
+    爬虫，通过网络获取番剧信息
+"""
 def get_drama_info_from_agedm(dramaName):
     url = "https://www.agedm.org/search?query=" + dramaName
     response = requests.request("GET", url)

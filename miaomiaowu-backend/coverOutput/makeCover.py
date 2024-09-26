@@ -4,6 +4,15 @@ import time
 import requests
 from PIL import Image, ImageDraw, ImageFont
 
+"""
+    PIL，全称为 Python Imaging Library，
+    是一个强大的图像处理库。PIL 提供了广泛的文件格式支持、高效的内部表示以及强大的图像处理能力。
+"""
+
+"""
+    在背景图的指定位置添加文字，添加两遍为了让文字具有阴影效果
+    将图片上传到超星，并获取图片的preview_url
+"""
 def add_vertical_text_to_image(image_path, output_path, text, start_position, font_path=None, font_size=20, text_color=(255, 255, 255), line_spacing=5):
     # 打开原始图片
     image = Image.open(image_path)
