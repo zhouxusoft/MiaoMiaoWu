@@ -15,6 +15,8 @@ App({
 	},
 	globalData: {
 		// baseUrl: 'http://192.168.116.43:5000',
-		baseUrl: 'http://192.168.1.6:5000',
+		// baseUrl: 'http://192.168.1.6:5000',
+		// baseUrl: 'http://10.119.170.48:5000',
+		baseUrl: 'http://127.0.0.1:5000',
 	}
 })
